@@ -425,7 +425,7 @@
     <w:link w:val="Heading1Char" />
     <w:uiPriority w:val="9" />
     <w:qFormat />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:pPr>
       <w:keepNext />
       <w:keepLines />
@@ -449,7 +449,7 @@
     <w:semiHidden />
     <w:unhideWhenUsed />
     <w:qFormat />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:pPr>
       <w:keepNext />
       <w:keepLines />
@@ -473,7 +473,7 @@
     <w:semiHidden />
     <w:unhideWhenUsed />
     <w:qFormat />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:pPr>
       <w:keepNext />
       <w:keepLines />
@@ -496,7 +496,7 @@
     <w:semiHidden />
     <w:unhideWhenUsed />
     <w:qFormat />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:pPr>
       <w:keepNext />
       <w:keepLines />
@@ -519,7 +519,7 @@
     <w:semiHidden />
     <w:unhideWhenUsed />
     <w:qFormat />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:pPr>
       <w:keepNext />
       <w:keepLines />
@@ -540,7 +540,7 @@
     <w:semiHidden />
     <w:unhideWhenUsed />
     <w:qFormat />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:pPr>
       <w:keepNext />
       <w:keepLines />
@@ -563,7 +563,7 @@
     <w:semiHidden />
     <w:unhideWhenUsed />
     <w:qFormat />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:pPr>
       <w:keepNext />
       <w:keepLines />
@@ -584,7 +584,7 @@
     <w:semiHidden />
     <w:unhideWhenUsed />
     <w:qFormat />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:pPr>
       <w:keepNext />
       <w:keepLines />
@@ -606,7 +606,7 @@
     <w:semiHidden />
     <w:unhideWhenUsed />
     <w:qFormat />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:pPr>
       <w:keepNext />
       <w:keepLines />
@@ -649,7 +649,7 @@
     <w:basedOn w:val="DefaultParagraphFont" />
     <w:link w:val="Heading1" />
     <w:uiPriority w:val="9" />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:rPr>
       <w:rFonts w:asciiTheme="majorHAnsi" w:eastAsiaTheme="majorEastAsia" w:hAnsiTheme="majorHAnsi"
         w:cstheme="majorBidi" />
@@ -664,7 +664,7 @@
     <w:link w:val="Heading2" />
     <w:uiPriority w:val="9" />
     <w:semiHidden />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:rPr>
       <w:rFonts w:asciiTheme="majorHAnsi" w:eastAsiaTheme="majorEastAsia" w:hAnsiTheme="majorHAnsi"
         w:cstheme="majorBidi" />
@@ -679,7 +679,7 @@
     <w:link w:val="Heading3" />
     <w:uiPriority w:val="9" />
     <w:semiHidden />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:rPr>
       <w:rFonts w:eastAsiaTheme="majorEastAsia" w:cstheme="majorBidi" />
       <w:color w:val="2F5496" w:themeColor="accent1" w:themeShade="BF" />
@@ -693,7 +693,7 @@
     <w:link w:val="Heading4" />
     <w:uiPriority w:val="9" />
     <w:semiHidden />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:rPr>
       <w:rFonts w:eastAsiaTheme="majorEastAsia" w:cstheme="majorBidi" />
       <w:i />
@@ -707,7 +707,7 @@
     <w:link w:val="Heading5" />
     <w:uiPriority w:val="9" />
     <w:semiHidden />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:rPr>
       <w:rFonts w:eastAsiaTheme="majorEastAsia" w:cstheme="majorBidi" />
       <w:color w:val="2F5496" w:themeColor="accent1" w:themeShade="BF" />
@@ -719,7 +719,7 @@
     <w:link w:val="Heading6" />
     <w:uiPriority w:val="9" />
     <w:semiHidden />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:rPr>
       <w:rFonts w:eastAsiaTheme="majorEastAsia" w:cstheme="majorBidi" />
       <w:i />
@@ -733,7 +733,7 @@
     <w:link w:val="Heading7" />
     <w:uiPriority w:val="9" />
     <w:semiHidden />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:rPr>
       <w:rFonts w:eastAsiaTheme="majorEastAsia" w:cstheme="majorBidi" />
       <w:color w:val="595959" w:themeColor="text1" w:themeTint="A6" />
@@ -745,7 +745,7 @@
     <w:link w:val="Heading8" />
     <w:uiPriority w:val="9" />
     <w:semiHidden />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:rPr>
       <w:rFonts w:eastAsiaTheme="majorEastAsia" w:cstheme="majorBidi" />
       <w:i />
@@ -759,7 +759,7 @@
     <w:link w:val="Heading9" />
     <w:uiPriority w:val="9" />
     <w:semiHidden />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:rPr>
       <w:rFonts w:eastAsiaTheme="majorEastAsia" w:cstheme="majorBidi" />
       <w:color w:val="272727" w:themeColor="text1" w:themeTint="D8" />
@@ -772,7 +772,7 @@
     <w:link w:val="TitleChar" />
     <w:uiPriority w:val="10" />
     <w:qFormat />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:pPr>
       <w:spacing w:after="80" />
       <w:contextualSpacing />
@@ -791,7 +791,7 @@
     <w:basedOn w:val="DefaultParagraphFont" />
     <w:link w:val="Title" />
     <w:uiPriority w:val="10" />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:rPr>
       <w:rFonts w:asciiTheme="majorHAnsi" w:eastAsiaTheme="majorEastAsia" w:hAnsiTheme="majorHAnsi"
         w:cstheme="majorBidi" />
@@ -808,7 +808,7 @@
     <w:link w:val="SubtitleChar" />
     <w:uiPriority w:val="11" />
     <w:qFormat />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:pPr>
       <w:numPr>
         <w:ilvl w:val="1" />
@@ -828,7 +828,7 @@
     <w:basedOn w:val="DefaultParagraphFont" />
     <w:link w:val="Subtitle" />
     <w:uiPriority w:val="11" />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:rPr>
       <w:rFonts w:eastAsiaTheme="majorEastAsia" w:cstheme="majorBidi" />
       <w:color w:val="595959" w:themeColor="text1" w:themeTint="A6" />
@@ -844,7 +844,7 @@
     <w:link w:val="QuoteChar" />
     <w:uiPriority w:val="29" />
     <w:qFormat />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:pPr>
       <w:spacing w:before="160" w:after="160" />
       <w:jc w:val="center" />
@@ -860,7 +860,7 @@
     <w:basedOn w:val="DefaultParagraphFont" />
     <w:link w:val="Quote" />
     <w:uiPriority w:val="29" />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:rPr>
       <w:i />
       <w:iCs />
@@ -872,7 +872,7 @@
     <w:basedOn w:val="Normal" />
     <w:uiPriority w:val="34" />
     <w:qFormat />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:pPr>
       <w:ind w:left="720" />
       <w:contextualSpacing />
@@ -883,7 +883,7 @@
     <w:basedOn w:val="DefaultParagraphFont" />
     <w:uiPriority w:val="21" />
     <w:qFormat />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:rPr>
       <w:i />
       <w:iCs />
@@ -897,7 +897,7 @@
     <w:link w:val="IntenseQuoteChar" />
     <w:uiPriority w:val="30" />
     <w:qFormat />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:pPr>
       <w:pBdr>
         <w:top w:val="single" w:sz="4" w:space="10" w:color="2F5496" w:themeColor="accent1"
@@ -920,7 +920,7 @@
     <w:basedOn w:val="DefaultParagraphFont" />
     <w:link w:val="IntenseQuote" />
     <w:uiPriority w:val="30" />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:rPr>
       <w:i />
       <w:iCs />
@@ -932,7 +932,7 @@
     <w:basedOn w:val="DefaultParagraphFont" />
     <w:uiPriority w:val="32" />
     <w:qFormat />
-    <w:rsid w:val="003349C1" />
+    <w:rsid w:val="005823F9" />
     <w:rPr>
       <w:b />
       <w:bCs />

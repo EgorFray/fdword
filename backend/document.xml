@@ -36,7 +36,7 @@
   xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape"
   mc:Ignorable="w14 w15 w16se w16cid w16 w16cex w16sdtdh w16sdtfl w16du wp14">
   <w:body>
-    <w:p w:rsidR="000F68D9" w:rsidRPr="003349C1" w:rsidRDefault="003349C1" w:rsidP="003349C1">
+    <w:p w:rsidR="000F68D9" w:rsidRPr="005823F9" w:rsidRDefault="005823F9" w:rsidP="005823F9">
       <w:pPr>
         <w:ind w:right="-613" />
         <w:jc w:val="center" />
@@ -49,18 +49,18 @@
           <w:lang w:val="en-US" />
         </w:rPr>
       </w:pPr>
-      <w:r w:rsidRPr="003349C1">
+      <w:r w:rsidRPr="005823F9">
         <w:rPr>
           <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman" />
           <w:b />
           <w:bCs />
           <w:sz w:val="28" />
           <w:szCs w:val="28" />
-          <w:lang w:val="uk-UA" />
+          <w:lang w:val="ru-RU" />
         </w:rPr>
-        <w:t xml:space="preserve">ТЕСТУЄМО </w:t>
+        <w:t xml:space="preserve">ЦЕ ТЕСТОВИЙ ПРИМІРНИК ДОКУМЕНТУ ЯКИЙ МИ БУДЕМО ПРОБУВАТИ РЕДАГУВАТИ В </w:t>
       </w:r>
-      <w:r w:rsidRPr="003349C1">
+      <w:r w:rsidRPr="005823F9">
         <w:rPr>
           <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman" />
           <w:b />
@@ -69,10 +69,10 @@
           <w:szCs w:val="28" />
           <w:lang w:val="en-US" />
         </w:rPr>
-        <w:t>XML PARSING</w:t>
+        <w:t>XML</w:t>
       </w:r>
     </w:p>
-    <w:p w:rsidR="003349C1" w:rsidRPr="003349C1" w:rsidRDefault="003349C1" w:rsidP="003349C1">
+    <w:p w:rsidR="005823F9" w:rsidRDefault="005823F9" w:rsidP="005823F9">
       <w:pPr>
         <w:ind w:right="-613" />
         <w:jc w:val="center" />
@@ -84,7 +84,7 @@
         </w:rPr>
       </w:pPr>
     </w:p>
-    <w:p w:rsidR="003349C1" w:rsidRPr="003349C1" w:rsidRDefault="003349C1" w:rsidP="003349C1">
+    <w:p w:rsidR="005823F9" w:rsidRDefault="005823F9" w:rsidP="005823F9">
       <w:pPr>
         <w:ind w:right="-613" />
         <w:jc w:val="center" />
@@ -96,7 +96,7 @@
         </w:rPr>
       </w:pPr>
     </w:p>
-    <w:p w:rsidR="003349C1" w:rsidRPr="003349C1" w:rsidRDefault="003349C1" w:rsidP="003349C1">
+    <w:p w:rsidR="005823F9" w:rsidRPr="005823F9" w:rsidRDefault="005823F9" w:rsidP="005823F9">
       <w:pPr>
         <w:pStyle w:val="ListParagraph" />
         <w:numPr>
@@ -114,7 +114,7 @@
           <w:lang w:val="uk-UA" />
         </w:rPr>
       </w:pPr>
-      <w:r>
+      <w:r w:rsidRPr="005823F9">
         <w:rPr>
           <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman" />
           <w:b />
@@ -123,21 +123,10 @@
           <w:szCs w:val="28" />
           <w:lang w:val="uk-UA" />
         </w:rPr>
-        <w:t xml:space="preserve"> </w:t>
-      </w:r>
-      <w:r w:rsidRPr="003349C1">
-        <w:rPr>
-          <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman" />
-          <w:b />
-          <w:bCs />
-          <w:sz w:val="28" />
-          <w:szCs w:val="28" />
-          <w:lang w:val="uk-UA" />
-        </w:rPr>
-        <w:t>Тест підпункту 1</w:t>
+        <w:t>Це тестовий абзац</w:t>
       </w:r>
     </w:p>
-    <w:p w:rsidR="003349C1" w:rsidRPr="003349C1" w:rsidRDefault="003349C1" w:rsidP="003349C1">
+    <w:p w:rsidR="005823F9" w:rsidRPr="005823F9" w:rsidRDefault="005823F9" w:rsidP="005823F9">
       <w:pPr>
         <w:ind w:right="-613" />
         <w:jc w:val="both" />
@@ -149,7 +138,7 @@
         </w:rPr>
       </w:pPr>
     </w:p>
-    <w:p w:rsidR="003349C1" w:rsidRPr="003349C1" w:rsidRDefault="003349C1" w:rsidP="003349C1">
+    <w:p w:rsidR="005823F9" w:rsidRPr="005823F9" w:rsidRDefault="005823F9" w:rsidP="005823F9">
       <w:pPr>
         <w:ind w:right="-613" w:firstLine="709" />
         <w:jc w:val="both" />
@@ -157,20 +146,21 @@
           <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman" />
           <w:sz w:val="28" />
           <w:szCs w:val="28" />
-          <w:lang w:val="en-US" />
+          <w:lang w:val="uk-UA" />
         </w:rPr>
       </w:pPr>
-      <w:r w:rsidRPr="003349C1">
+      <w:r w:rsidRPr="005823F9">
         <w:rPr>
           <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman" />
           <w:sz w:val="28" />
           <w:szCs w:val="28" />
           <w:lang w:val="uk-UA" />
         </w:rPr>
-        <w:t>Якийсь текст чисто для тесту</w:t>
+        <w:t>Це в нас починається тестовий текст в якому я буду намагатися змінити інтервал тексту з
+          1.5 до 1 і побачимо що з цього вийде.</w:t>
       </w:r>
     </w:p>
-    <w:sectPr w:rsidR="003349C1" w:rsidRPr="003349C1">
+    <w:sectPr w:rsidR="005823F9" w:rsidRPr="005823F9">
       <w:pgSz w:w="11906" w:h="16838" />
       <w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="708"
         w:footer="708" w:gutter="0" />

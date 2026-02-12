@@ -1,44 +1,39 @@
 package main
 
 import (
+	"archive/zip"
 	"fmt"
-
-	"github.com/beevik/etree"
+	"io"
+	"os"
+	"strings"
 )
 
+//Unzip word file and get document.xml and styles.xml
+func unZip(filename string) {
+	archive, err := zip.OpenReader(filename)
+	if err != nil {
+		fmt.Println("There is an error:", err)
+	}
+	defer archive.Close()
+
+	for _, f := range archive.File{
+		if f.Name == "word/document.xml" || f.Name == "word/styles.xml" {
+			r, err := f.Open()
+			if err != nil {
+				fmt.Println("There is an error:", err)
+			}
+			d, err := io.ReadAll(r)
+			if err != nil {
+				fmt.Println("There is an error:", err)
+			}
+			err = os.WriteFile(strings.Split(f.Name, "/")[1], d, 0644)
+			if err != nil {
+				fmt.Println("ERROR:", err)
+			}
+		}
+	}
+}
 
 func main() {
-	doc := etree.NewDocument();
-	if err := doc.ReadFromFile("test/styles.xml"); err != nil {
-		panic(err);
-	}
-
-	root := doc.SelectElement("w:styles")
-	fmt.Println("ROOT element: ", root.Tag)
-
-	// testdata := "test/test.docx"
-	// doc, err := zip.OpenReader(testdata)
-	// if err != nil {
-	// 	log.Fatalf("Failed to open doc: %v", err)
-	// }
-	// defer doc.Close()
-
-	// for _, file := range doc.File {
-	// 	fmt.Println(file.Name)
-	// 	if file.Name == "word/styles.xml" {
-	// 		data, err := file.Open()
-	// 		if err != nil {
-	// 			log.Fatal(err)
-	// 		}
-
-	// 		d, err := io.ReadAll(data)
-	// 		if err != nil {
-	// 			log.Fatal(err)
-	// 		}
-
-	// 		fmt.Println(string(d))
-	// 		os.WriteFile("styles.xml", d, 0644)
-	// 	}
-	// }
-
+	unZip("test/test.docx")
 }
