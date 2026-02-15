@@ -22,13 +22,13 @@ func (d *DocModifier) SetLineSpacing(val float64) error {
 	// Convert a linespace (In word line space of 1 = 240; 1.5 = 360; 2 = 480)
 	line := int(val * 240)
 
-	// Delete all local overrides of linespacing in Styles.xml
-	for _, el := range d.doc.Styles.FindElements("//w:pPr/w:spacing") {
+	// Delete all local overrides of linespacing in Document.xml
+	for _, el := range d.doc.Document.FindElements("//w:pPr/w:spacing") {
 		el.Parent().RemoveChild(el)
 		}
 	
-	// Create global style of linespacing in Document.xml
-	pPr := d.doc.Document.FindElement("//w:docDefaults/w:pPrDefault/w:pPr")
+	// Create global style of linespacing in Styles.Xml
+	pPr := d.doc.Styles.FindElement("//w:docDefaults/w:pPrDefault/w:pPr")
 	if pPr == nil {
 		return errors.New("default paragraph properties are not found")
 	}

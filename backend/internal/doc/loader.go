@@ -2,19 +2,19 @@ package doc
 
 import (
 	"archive/zip"
-	"fmt"
+	"bytes"
+	"errors"
 	"io"
 
 	"github.com/beevik/etree"
 )
 
 //This function unzip Word file and read document.xml and styles.xml. Then map it on the WDoc struct
-func unZip(filename string) (*WDoc, error) {
-	archive, err := zip.OpenReader(filename)
+func Load(fileBytes []byte) (*WDoc, error) {
+	archive, err := zip.NewReader(bytes.NewReader(fileBytes), int64(len(fileBytes)))
 	if err != nil {
-		fmt.Println("There is an error:", err)
+		return nil, err
 	}
-	defer archive.Close()
 
 	var sDoc, dDoc *etree.Document
 
@@ -22,16 +22,16 @@ func unZip(filename string) (*WDoc, error) {
 		if f.Name == "word/document.xml" || f.Name == "word/styles.xml" {
 			r, err := f.Open()
 			if err != nil {
-				fmt.Println("There is an error:", err)
+				return nil, err
 			}
 			d, err := io.ReadAll(r)
 			if err != nil {
-				fmt.Println("There is an error:", err)
+				return nil, err
 			}
 
 			doc := etree.NewDocument()
 			if err = doc.ReadFromBytes(d); err != nil {
-				fmt.Println("There is an error:", err)
+				return nil, err
 			}
 
 			if f.Name == "word/styles.xml" {
@@ -40,7 +40,11 @@ func unZip(filename string) (*WDoc, error) {
 
 			if f.Name == "word/document.xml" {
 				dDoc = doc
-			}			
+			}	
+			
+			if sDoc == nil || dDoc == nil {
+				return nil, errors.New("invalid document signature")
+			}
 		}
 	}
 		return &WDoc{
