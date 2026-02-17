@@ -26,7 +26,7 @@ func (f *FormatService) FormatDoc(fileBytes []byte, req dto.UpdateRequest) ([]by
 	}
 
 	// Save results
-	result, err := doc.Save()
+	result, err := file.Save()
 	if err != nil {
 		return nil, err
 	}
