@@ -9,7 +9,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Handler struct {}
+type FormatServiceInterface interface {
+	FormatDoc(fileBytes []byte, req dto.UpdateRequest) ([]byte, error)
+}
+
+type Handler struct {
+	Service FormatServiceInterface
+}
+
+func NewHandler(s FormatServiceInterface) *Handler {
+	return &Handler{Service: s}
+}
 
 func (h *Handler) FormatDoc(c *gin.Context) {
 	// Getting file from the form-data
@@ -44,5 +54,17 @@ func (h *Handler) FormatDoc(c *gin.Context) {
 	}
 
 	// Call the service
+	result, err := h.Service.FormatDoc(fileBytes, req)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 
+	c.Header("Content-Type", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+  c.Header("Content-Disposition", "attachment; filename=formatted.docx")
+
+	c.Data(http.StatusOK, 
+			"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+			result,
+	)
 }

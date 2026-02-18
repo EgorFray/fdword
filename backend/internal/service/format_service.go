@@ -7,6 +7,10 @@ import (
 
 type FormatService struct {}
 
+func NewFormatService() *FormatService {
+	return &FormatService{}
+}
+
 
 func (f *FormatService) FormatDoc(fileBytes []byte, req dto.UpdateRequest) ([]byte, error) {
 	// Loading the document
