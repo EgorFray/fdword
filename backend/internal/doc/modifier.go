@@ -1,7 +1,6 @@
 package doc
 
 import (
-	"errors"
 	"strconv"
 )
 
@@ -28,15 +27,30 @@ func (d *DocModifier) SetLineSpacing(val float64) error {
 		}
 	
 	// Create global style of linespacing in Styles.Xml
-	pPr := d.doc.Styles.FindElement("//w:docDefaults/w:pPrDefault/w:pPr")
-	if pPr == nil {
-		return errors.New("default paragraph properties are not found")
+	root := d.doc.Styles.Root()
+	// docDefaults
+	docDefaults := root.FindElement("w:docDefaults")
+	if docDefaults == nil {
+		docDefaults = root.CreateElement("w:docDefaults")
 	}
-
+	// pPrDefault
+	pPrDefault := docDefaults.FindElement("w:pPrDefault")
+	if pPrDefault == nil {
+		pPrDefault = docDefaults.CreateElement("w:pPrDefault")
+	}
+	// pPr
+	pPr := pPrDefault.FindElement("w:pPr")
+	if pPr == nil {
+    pPr = pPrDefault.CreateElement("w:pPr")
+	}
+	// spacing
 	spacing := pPr.FindElement("w:spacing")
 	if spacing == nil {
 		spacing = pPr.CreateElement("w:spacing")
 	}
+
+	spacing.RemoveAttr("w:line")
+	spacing.RemoveAttr("w:lineRule")
 
 	spacing.CreateAttr("w:line", strconv.Itoa(line))
 	spacing.CreateAttr("w:lineRule", "auto")

@@ -13,5 +13,5 @@ func main() {
 
 	r := gin.Default()
 	r.POST("/format", handler.FormatDoc)
-	r.Run()
+	r.Run(":8000")
 }
