@@ -1,14 +1,17 @@
 package main
 
 import (
-	"archive/zip"
-	"fmt"
-	"io"
-
-	"github.com/beevik/etree"
+	"github.com/EgorFray/fdword/internal/handlers"
+	"github.com/EgorFray/fdword/internal/service"
+	"github.com/gin-gonic/gin"
 )
 
 
 func main() {
-	unZip("test/test.docx")
+	formatService := service.NewFormatService()
+	handler := handlers.NewHandler(formatService)
+
+	r := gin.Default()
+	r.POST("/format", handler.FormatDoc)
+	r.Run()
 }
