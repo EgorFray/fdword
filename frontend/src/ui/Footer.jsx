@@ -1,5 +1,7 @@
 function Footer() {
-  return <div>This is footer</div>;
+  return (
+    <div className="my-4 flex items-center justify-center">This is footer</div>
+  );
 }
 
 export default Footer;

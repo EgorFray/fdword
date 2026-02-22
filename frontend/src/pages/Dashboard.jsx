@@ -1,7 +1,9 @@
+import Heading from "../ui/Heading";
+
 function Dashboard() {
   return (
-    <div className="flex items-center bg-red-500 p-4 text-center">
-      Testing Tailwind
+    <div className="flex flex-col p-4 text-center">
+      <Heading />
     </div>
   );
 }
