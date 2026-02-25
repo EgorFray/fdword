@@ -1,10 +1,20 @@
 import Button from "./Button";
 import ButtonEmpty from "./ButtonEmpty";
 
+import { useForm } from "react-hook-form";
+
 function ModifyForm() {
+  const { register, handleSubmit, reset } = useForm();
+
+  function onSubmit(data) {
+    console.log(data);
+  }
   return (
     <div className="flex justify-center">
-      <form className="max-w-160 items-start justify-items-start rounded-xl border border-blue-950/40 p-6">
+      <form
+        className="max-w-160 items-start justify-items-start rounded-xl border border-blue-950/40 p-6"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <h2 className="mb-6 ml-4 text-2xl font-bold">Select what to change</h2>
 
         <div className="mb-6 grid grid-cols-[200px_1fr_1fr] items-center justify-items-start">
@@ -19,6 +29,7 @@ function ModifyForm() {
             type="text"
             placeholder="For example 1 or 1.15"
             className="rounded-lg bg-white p-1 pl-2"
+            {...register("lineSpace")}
           />
         </div>
 
@@ -37,7 +48,9 @@ function ModifyForm() {
         </div>
 
         <div className="mr-4 flex w-full justify-end gap-2">
-          <ButtonEmpty>Cancel</ButtonEmpty>
+          <ButtonEmpty type="reset" onClick={() => reset()}>
+            Cancel
+          </ButtonEmpty>
           <Button>Submit</Button>
         </div>
       </form>
