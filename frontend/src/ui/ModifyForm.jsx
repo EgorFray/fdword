@@ -2,8 +2,19 @@ import Button from "./Button";
 import ButtonEmpty from "./ButtonEmpty";
 
 import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { modifyDoc } from "../services/apiModify";
+import toast from "react-hot-toast";
 
 function ModifyForm() {
+  const { mutate, isLoading } = useMutation({
+    mutationFn: modifyDoc,
+    onSuccess: () => {
+      toast.success("Formatted document successfully created");
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
   const { register, handleSubmit, reset } = useForm();
 
   function onSubmit(data) {

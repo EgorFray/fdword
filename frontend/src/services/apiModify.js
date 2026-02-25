@@ -4,4 +4,6 @@ export async function modifyDoc(formData) {
     body: formData,
   });
   if (!res.ok) throw new Error("Cannot modify your document");
+
+  return res.blob();
 }
