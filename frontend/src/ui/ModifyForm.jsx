@@ -7,19 +7,25 @@ import { modifyDoc } from "../services/apiModify";
 import toast from "react-hot-toast";
 
 function ModifyForm() {
-  const { mutate, isLoading } = useMutation({
+  const { register, handleSubmit, reset } = useForm();
+
+  const { mutate, isLoading: isModifying } = useMutation({
     mutationFn: modifyDoc,
     onSuccess: () => {
       toast.success("Formatted document successfully created");
+      reset();
     },
     onError: (err) => toast.error(err.message),
   });
 
-  const { register, handleSubmit, reset } = useForm();
-
   function onSubmit(data) {
-    console.log(data);
+    const formData = new FormData();
+    formData.append("lineSpace", data.lineSpace);
+    formData.append("file", data.file[0]);
+
+    mutate(formData);
   }
+
   return (
     <div className="flex justify-center">
       <form
@@ -55,6 +61,7 @@ function ModifyForm() {
             type="file"
             id="file"
             className="file:cursor-pointer file:self-center file:rounded-full file:bg-blue-600 file:px-4 file:py-2 file:tracking-wide file:text-blue-50 file:shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] file:transition-colors file:duration-300"
+            {...register("file")}
           />
         </div>
 
@@ -62,7 +69,7 @@ function ModifyForm() {
           <ButtonEmpty type="reset" onClick={() => reset()}>
             Cancel
           </ButtonEmpty>
-          <Button>Submit</Button>
+          <Button disabled={isModifying}>Submit</Button>
         </div>
       </form>
     </div>
