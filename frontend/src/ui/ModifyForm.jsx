@@ -9,7 +9,11 @@ import toast from "react-hot-toast";
 function ModifyForm() {
   const { register, handleSubmit, reset } = useForm();
 
-  const { mutate, isLoading: isModifying } = useMutation({
+  const {
+    mutate,
+    data: fileBlob,
+    isLoading: isModifying,
+  } = useMutation({
     mutationFn: modifyDoc,
     onSuccess: () => {
       toast.success("Formatted document successfully created");
@@ -24,6 +28,20 @@ function ModifyForm() {
     formData.append("file", data.file[0]);
 
     mutate(formData);
+  }
+
+  function handleCreateLink() {
+    const url = URL.createObjectURL(fileBlob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "formatted.docx";
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    URL.revokeObjectURL(url);
   }
 
   return (
@@ -72,6 +90,7 @@ function ModifyForm() {
           <Button disabled={isModifying}>Submit</Button>
         </div>
       </form>
+      {fileBlob && <Button onClick={handleCreateLink}>Download</Button>}
     </div>
   );
 }
