@@ -1,5 +1,5 @@
 export async function modifyDoc(formData) {
-  const res = await fetch("https://localhost:8000/format", {
+  const res = await fetch("http://localhost:8000/format", {
     method: "POST",
     body: formData,
   });
