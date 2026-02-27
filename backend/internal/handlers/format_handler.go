@@ -49,7 +49,7 @@ func (h *Handler) FormatDoc(c *gin.Context) {
 	var req dto.UpdateRequest
 
 	if err := json.Unmarshal([]byte(data), &req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid json"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 

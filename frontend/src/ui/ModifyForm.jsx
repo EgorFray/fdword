@@ -23,9 +23,16 @@ function ModifyForm() {
   });
 
   function onSubmit(data) {
+    const obj = {};
+    obj.lineSpacing = data.lineSpacing;
+
+    console.log(obj);
+
     const formData = new FormData();
-    formData.append("lineSpace", data.lineSpace);
+    formData.append("data", JSON.stringify(obj));
     formData.append("file", data.file[0]);
+
+    console.log(Object.fromEntries(formData.entries()));
 
     mutate(formData);
   }
@@ -54,17 +61,17 @@ function ModifyForm() {
 
         <div className="mb-6 grid grid-cols-[200px_1fr_1fr] items-center justify-items-start">
           <label
-            htmlFor="lineSpace"
+            htmlFor="lineSpacing"
             className="ml-4 text-lg font-semibold text-blue-950/80"
           >
             Line spacing
           </label>
           <input
-            id="lineSpace"
+            id="lineSpacing"
             type="text"
             placeholder="For example 1 or 1.15"
             className="rounded-lg bg-white p-1 pl-2"
-            {...register("lineSpace")}
+            {...register("lineSpacing")}
           />
         </div>
 
