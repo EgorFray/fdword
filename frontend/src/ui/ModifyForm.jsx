@@ -24,7 +24,7 @@ function ModifyForm() {
 
   function onSubmit(data) {
     const obj = {};
-    obj.lineSpacing = data.lineSpacing;
+    obj.lineSpacing = parseFloat(data.lineSpacing);
 
     console.log(obj);
 
@@ -68,7 +68,8 @@ function ModifyForm() {
           </label>
           <input
             id="lineSpacing"
-            type="text"
+            type="number"
+            step={0.01}
             placeholder="For example 1 or 1.15"
             className="rounded-lg bg-white p-1 pl-2"
             {...register("lineSpacing")}
