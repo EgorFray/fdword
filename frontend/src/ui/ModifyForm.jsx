@@ -15,8 +15,9 @@ function ModifyForm() {
     isLoading: isModifying,
   } = useMutation({
     mutationFn: modifyDoc,
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast.success("Formatted document successfully created");
+      console.log("BLOB:", data);
       reset();
     },
     onError: (err) => toast.error(err.message),
@@ -26,18 +27,15 @@ function ModifyForm() {
     const obj = {};
     obj.lineSpacing = parseFloat(data.lineSpacing);
 
-    console.log(obj);
-
     const formData = new FormData();
     formData.append("data", JSON.stringify(obj));
     formData.append("file", data.file[0]);
-
-    console.log(Object.fromEntries(formData.entries()));
 
     mutate(formData);
   }
 
   function handleCreateLink() {
+    console.log(fileBlob);
     const url = URL.createObjectURL(fileBlob);
     const link = document.createElement("a");
 
@@ -98,6 +96,7 @@ function ModifyForm() {
           <Button disabled={isModifying}>Submit</Button>
         </div>
       </form>
+
       {fileBlob && <Button onClick={handleCreateLink}>Download</Button>}
     </div>
   );
