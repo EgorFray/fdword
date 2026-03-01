@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { modifyDoc } from "../services/apiModify";
 import toast from "react-hot-toast";
+import Download from "./Download";
 
 function ModifyForm() {
   const { register, handleSubmit, reset } = useForm();
@@ -35,7 +36,6 @@ function ModifyForm() {
   }
 
   function handleCreateLink() {
-    console.log(fileBlob);
     const url = URL.createObjectURL(fileBlob);
     const link = document.createElement("a");
 
@@ -50,7 +50,7 @@ function ModifyForm() {
   }
 
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-col items-center justify-center gap-6">
       <form
         className="max-w-160 items-start justify-items-start rounded-xl border border-blue-950/40 p-6"
         onSubmit={handleSubmit(onSubmit)}
@@ -97,7 +97,7 @@ function ModifyForm() {
         </div>
       </form>
 
-      {fileBlob && <Button onClick={handleCreateLink}>Download</Button>}
+      {fileBlob && <Download onClick={handleCreateLink} />}
     </div>
   );
 }
