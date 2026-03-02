@@ -6,6 +6,10 @@ import { useMutation } from "@tanstack/react-query";
 import { modifyDoc } from "../services/apiModify";
 import toast from "react-hot-toast";
 import Download from "./Download";
+import FormContainer from "../features/modifyForm/FormContainer";
+import Form from "../features/modifyForm/Form";
+import FormHeading from "../features/modifyForm/FormHeading";
+import FormRow from "../features/modifyForm/FormRow";
 
 function ModifyForm() {
   const { register, handleSubmit, reset, formState } = useForm();
@@ -54,26 +58,17 @@ function ModifyForm() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center gap-6">
-      <form
-        className="max-w-160 items-start justify-items-start rounded-xl border border-blue-950/40 p-6"
-        onSubmit={handleSubmit(onSubmit, onError)}
-      >
-        <h2 className="mb-6 ml-4 text-2xl font-bold">Select what to change</h2>
+    <FormContainer>
+      <Form onSubmit={handleSubmit(onSubmit, onError)}>
+        <FormHeading>Select what to change</FormHeading>
 
-        <div className="mb-6 grid grid-cols-[160px_1fr_1fr] items-center justify-items-start gap-6">
-          <label
-            htmlFor="lineSpacing"
-            className="ml-4 text-lg font-semibold text-blue-950/80"
-          >
-            Line spacing
-          </label>
+        <FormRow label="Line spacing" error={errors?.lineSpacing?.message}>
           <input
             id="lineSpacing"
             type="number"
             step={0.01}
-            placeholder="For example 1 or 1.15"
             className="rounded-lg bg-white p-1 pl-2"
+            placeholder="For example 1 or 1.15"
             {...register("lineSpacing", {
               min: {
                 value: 0.5,
@@ -85,20 +80,9 @@ function ModifyForm() {
               },
             })}
           />
-          {errors?.lineSpacing?.message && (
-            <span className="text-start text-sm text-red-700">
-              {errors.lineSpacing.message}
-            </span>
-          )}
-        </div>
+        </FormRow>
 
-        <div className="mb-6 grid grid-cols-[160px_1fr_1fr] items-center justify-items-start gap-6">
-          <label
-            htmlFor="file"
-            className="ml-4 text-lg font-semibold text-blue-950/80"
-          >
-            File
-          </label>
+        <FormRow label="File" error={errors?.file?.message}>
           <input
             type="file"
             id="file"
@@ -117,12 +101,7 @@ function ModifyForm() {
               },
             })}
           />
-          {errors?.file?.message && (
-            <span className="text-start text-sm text-red-700">
-              {errors.file.message}
-            </span>
-          )}
-        </div>
+        </FormRow>
 
         <div className="mr-4 flex w-full justify-end gap-2">
           <ButtonEmpty type="reset" onClick={() => reset()}>
@@ -130,10 +109,10 @@ function ModifyForm() {
           </ButtonEmpty>
           <Button disabled={isModifying}>Submit</Button>
         </div>
-      </form>
+      </Form>
 
       {fileBlob && <Download onClick={handleCreateLink} />}
-    </div>
+    </FormContainer>
   );
 }
 
