@@ -8,7 +8,8 @@ import toast from "react-hot-toast";
 import Download from "./Download";
 
 function ModifyForm() {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, formState } = useForm();
+  const { errors } = formState;
 
   const {
     mutate,
@@ -60,7 +61,7 @@ function ModifyForm() {
       >
         <h2 className="mb-6 ml-4 text-2xl font-bold">Select what to change</h2>
 
-        <div className="mb-6 grid grid-cols-[200px_1fr_1fr] items-center justify-items-start">
+        <div className="mb-6 grid grid-cols-[160px_1fr_1fr] items-center justify-items-start gap-6">
           <label
             htmlFor="lineSpacing"
             className="ml-4 text-lg font-semibold text-blue-950/80"
@@ -80,13 +81,18 @@ function ModifyForm() {
               },
               max: {
                 value: 5,
-                message: "Line space should bee less than 5",
+                message: "Line space should be less than 5",
               },
             })}
           />
+          {errors?.lineSpacing?.message && (
+            <span className="text-start text-sm text-red-700">
+              {errors.lineSpacing.message}
+            </span>
+          )}
         </div>
 
-        <div className="mb-6 grid grid-cols-[200px_1fr_1fr] items-center justify-items-start">
+        <div className="mb-6 grid grid-cols-[160px_1fr_1fr] items-center justify-items-start gap-6">
           <label
             htmlFor="file"
             className="ml-4 text-lg font-semibold text-blue-950/80"
@@ -111,6 +117,11 @@ function ModifyForm() {
               },
             })}
           />
+          {errors?.file?.message && (
+            <span className="text-start text-sm text-red-700">
+              {errors.file.message}
+            </span>
+          )}
         </div>
 
         <div className="mr-4 flex w-full justify-end gap-2">
