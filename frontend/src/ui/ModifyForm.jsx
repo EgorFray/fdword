@@ -16,9 +16,8 @@ function ModifyForm() {
     isLoading: isModifying,
   } = useMutation({
     mutationFn: modifyDoc,
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success("Formatted document successfully created");
-      console.log("BLOB:", data);
       reset();
     },
     onError: (err) => toast.error(err.message),
@@ -33,6 +32,10 @@ function ModifyForm() {
     formData.append("file", data.file[0]);
 
     mutate(formData);
+  }
+
+  function onError(errors) {
+    console.log(errors);
   }
 
   function handleCreateLink() {
@@ -53,7 +56,7 @@ function ModifyForm() {
     <div className="flex flex-col items-center justify-center gap-6">
       <form
         className="max-w-160 items-start justify-items-start rounded-xl border border-blue-950/40 p-6"
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit, onError)}
       >
         <h2 className="mb-6 ml-4 text-2xl font-bold">Select what to change</h2>
 
@@ -70,7 +73,16 @@ function ModifyForm() {
             step={0.01}
             placeholder="For example 1 or 1.15"
             className="rounded-lg bg-white p-1 pl-2"
-            {...register("lineSpacing")}
+            {...register("lineSpacing", {
+              min: {
+                value: 0.5,
+                message: "Line space should be at least 0.5 or higher",
+              },
+              max: {
+                value: 5,
+                message: "Line space should bee less than 5",
+              },
+            })}
           />
         </div>
 
@@ -85,7 +97,19 @@ function ModifyForm() {
             type="file"
             id="file"
             className="file:cursor-pointer file:self-center file:rounded-full file:bg-blue-600 file:px-4 file:py-2 file:tracking-wide file:text-blue-50 file:shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] file:transition-colors file:duration-300"
-            {...register("file")}
+            {...register("file", {
+              validate: (value) => {
+                const file = value[0];
+                return (
+                  (file &&
+                    [
+                      "application/msword",
+                      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                    ].includes(file.type)) ||
+                  "Please provide only doc or docx document"
+                );
+              },
+            })}
           />
         </div>
 
