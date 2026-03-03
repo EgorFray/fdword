@@ -31,6 +31,7 @@ function ModifyForm({ openForm, formRef }) {
   function onSubmit(data) {
     const obj = {};
     obj.lineSpacing = parseFloat(data.lineSpacing);
+    obj.fontSize = parseFloat(data.fontSize);
 
     const formData = new FormData();
     formData.append("data", JSON.stringify(obj));
@@ -63,7 +64,9 @@ function ModifyForm({ openForm, formRef }) {
         <Form onSubmit={handleSubmit(onSubmit, onError)} formRef={formRef}>
           <FormHeading>Select what to change</FormHeading>
 
+          {/* Here I add another rows if needed. They will grow with time */}
           <FormRow label="Line spacing" error={errors?.lineSpacing?.message}>
+            {/* NEED TO MAKE CUSTOM INPUT COMPONENT. Now I got the problem - empty placeholder in separate component */}
             <input
               id="lineSpacing"
               type="number"
@@ -78,6 +81,26 @@ function ModifyForm({ openForm, formRef }) {
                 max: {
                   value: 5,
                   message: "Line space should be less than 5",
+                },
+              })}
+            />
+          </FormRow>
+
+          <FormRow label="Font size" error={errors.fontSize?.message}>
+            <input
+              id="fontSize"
+              type="number"
+              step={0.1}
+              className="rounded-lg bg-white p-1 pl-2"
+              placeholder="For example 14"
+              {...register("fontSize", {
+                min: {
+                  value: 5,
+                  message: "Font size should be more than 5",
+                },
+                max: {
+                  value: 72,
+                  message: "Font size should be less than 72",
                 },
               })}
             />
