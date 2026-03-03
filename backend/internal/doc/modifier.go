@@ -6,6 +6,7 @@ import (
 
 type DocModifierInterface interface {
 	SetLineSpacing(val float64) error
+	SetFontSize(val float64) error
 }
 
 type DocModifier struct {
@@ -57,3 +58,56 @@ func (d *DocModifier) SetLineSpacing(val float64) error {
 
 	return nil
 }
+
+func (d *DocModifier) SetFontSize(val float64) error {
+	// Setting fontSize. In word font size is 2 times then actual value. For example 14pt = 28.
+	fontSize := int(val * 2)
+
+	// Delete all local overrides of font size in Document.xml
+	// Path to font size: docDefaults -> rPrDefault -> rPr -> sz 
+	for _, el := range d.doc.Document.FindElements("//w:rPr/w:sz") {
+		el.Parent().RemoveChild(el)
+	}
+
+	// Also remove all local overrides of w:szCs
+	for _, el := range d.doc.Document.FindElements("//w:rPr/w:szCs") {
+	 el.Parent().RemoveChild(el)}
+
+	// Path to sizes in Styles.xml: <w:docDefaults> -> <w:rPrDefault> -> <w:rPr> -> <w:sz w:val="24" /> and <w:szCs w:val="24" />
+	// Create global style of linespacing in Styles.Xml
+	root := d.doc.Styles.Root()
+	// docDefaults
+	docDefaults := root.FindElement("w:docDefaults")
+	if docDefaults == nil {
+		docDefaults = root.CreateElement("w:docDefaults")
+	}
+	// rPrDefault
+	rPrDefault := docDefaults.FindElement("w:rPrDefault")
+	if rPrDefault == nil {
+		rPrDefault = docDefaults.CreateElement("w:rPrDefault")
+	}
+	// rPr
+	rPr := rPrDefault.FindElement("w:rPr")
+	if rPr == nil {
+		rPr = rPrDefault.CreateElement("w:rPr")
+	}
+	// sz
+	sz := rPr.FindElement("w:sz")
+	if sz == nil {
+		sz = rPr.CreateElement("w:sz")
+	}
+	// szCs 
+	szCs := rPr.FindElement("w:szCs")
+	if szCs == nil {
+		szCs = rPr.CreateElement("w:szCs")
+	}
+
+	sz.RemoveAttr("w:val")
+	szCs.RemoveAttr("w:val")
+
+	sz.CreateAttr("w:val", strconv.Itoa(fontSize))
+	szCs.CreateAttr("w:val", strconv.Itoa(fontSize))
+
+	return nil
+}
+
