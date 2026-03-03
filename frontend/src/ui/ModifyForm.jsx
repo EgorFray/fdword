@@ -11,7 +11,7 @@ import Form from "../features/modifyForm/Form";
 import FormHeading from "../features/modifyForm/FormHeading";
 import FormRow from "../features/modifyForm/FormRow";
 
-function ModifyForm({ openForm }) {
+function ModifyForm({ openForm, formRef }) {
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
 
@@ -60,7 +60,7 @@ function ModifyForm({ openForm }) {
   return (
     openForm && (
       <FormContainer>
-        <Form onSubmit={handleSubmit(onSubmit, onError)}>
+        <Form onSubmit={handleSubmit(onSubmit, onError)} formRef={formRef}>
           <FormHeading>Select what to change</FormHeading>
 
           <FormRow label="Line spacing" error={errors?.lineSpacing?.message}>
