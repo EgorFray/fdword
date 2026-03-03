@@ -11,7 +11,7 @@ import Form from "../features/modifyForm/Form";
 import FormHeading from "../features/modifyForm/FormHeading";
 import FormRow from "../features/modifyForm/FormRow";
 
-function ModifyForm() {
+function ModifyForm({ openForm }) {
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
 
@@ -58,61 +58,63 @@ function ModifyForm() {
   }
 
   return (
-    <FormContainer>
-      <Form onSubmit={handleSubmit(onSubmit, onError)}>
-        <FormHeading>Select what to change</FormHeading>
+    openForm && (
+      <FormContainer>
+        <Form onSubmit={handleSubmit(onSubmit, onError)}>
+          <FormHeading>Select what to change</FormHeading>
 
-        <FormRow label="Line spacing" error={errors?.lineSpacing?.message}>
-          <input
-            id="lineSpacing"
-            type="number"
-            step={0.01}
-            className="rounded-lg bg-white p-1 pl-2"
-            placeholder="For example 1 or 1.15"
-            {...register("lineSpacing", {
-              min: {
-                value: 0.5,
-                message: "Line space should be at least 0.5 or higher",
-              },
-              max: {
-                value: 5,
-                message: "Line space should be less than 5",
-              },
-            })}
-          />
-        </FormRow>
+          <FormRow label="Line spacing" error={errors?.lineSpacing?.message}>
+            <input
+              id="lineSpacing"
+              type="number"
+              step={0.01}
+              className="rounded-lg bg-white p-1 pl-2"
+              placeholder="For example 1 or 1.15"
+              {...register("lineSpacing", {
+                min: {
+                  value: 0.5,
+                  message: "Line space should be at least 0.5 or higher",
+                },
+                max: {
+                  value: 5,
+                  message: "Line space should be less than 5",
+                },
+              })}
+            />
+          </FormRow>
 
-        <FormRow label="File" error={errors?.file?.message}>
-          <input
-            type="file"
-            id="file"
-            className="file:cursor-pointer file:self-center file:rounded-full file:bg-blue-600 file:px-4 file:py-2 file:tracking-wide file:text-blue-50 file:shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] file:transition-colors file:duration-300"
-            {...register("file", {
-              validate: (value) => {
-                const file = value[0];
-                return (
-                  (file &&
-                    [
-                      "application/msword",
-                      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                    ].includes(file.type)) ||
-                  "Please provide only doc or docx document"
-                );
-              },
-            })}
-          />
-        </FormRow>
+          <FormRow label="File" error={errors?.file?.message}>
+            <input
+              type="file"
+              id="file"
+              className="file:cursor-pointer file:self-center file:rounded-full file:bg-blue-600 file:px-4 file:py-2 file:tracking-wide file:text-blue-50 file:shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] file:transition-colors file:duration-300"
+              {...register("file", {
+                validate: (value) => {
+                  const file = value[0];
+                  return (
+                    (file &&
+                      [
+                        "application/msword",
+                        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                      ].includes(file.type)) ||
+                    "Please provide only doc or docx document"
+                  );
+                },
+              })}
+            />
+          </FormRow>
 
-        <div className="mr-4 flex w-full justify-end gap-2">
-          <ButtonEmpty type="reset" onClick={() => reset()}>
-            Cancel
-          </ButtonEmpty>
-          <Button disabled={isModifying}>Submit</Button>
-        </div>
-      </Form>
+          <div className="mr-4 flex w-full justify-end gap-2">
+            <ButtonEmpty type="reset" onClick={() => reset()}>
+              Cancel
+            </ButtonEmpty>
+            <Button disabled={isModifying}>Submit</Button>
+          </div>
+        </Form>
 
-      {fileBlob && <Download onClick={handleCreateLink} />}
-    </FormContainer>
+        {fileBlob && <Download onClick={handleCreateLink} />}
+      </FormContainer>
+    )
   );
 }
 

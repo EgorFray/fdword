@@ -1,6 +1,10 @@
 import Button from "./Button";
 
-function Heading() {
+function Heading({ setOpenForm }) {
+  function handleClick() {
+    setOpenForm((open) => !open);
+  }
+
   return (
     <div className="flex flex-col gap-5">
       <p className="text-3xl font-bold">
@@ -10,7 +14,7 @@ function Heading() {
         Just add your document, choose what <br />
         to format and get the result
       </p>
-      <Button>Format document</Button>
+      <Button onClick={handleClick}>Format document</Button>
     </div>
   );
 }
