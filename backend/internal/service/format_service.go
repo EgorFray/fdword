@@ -36,6 +36,13 @@ func (f *FormatService) FormatDoc(fileBytes []byte, req dto.UpdateRequest) ([]by
 		}
 	}
 
+	// Check if we have fontType in dto. If yes - call SetFontType
+	if req.FontType != nil {
+		if err := modifier.SetFontType(*req.FontType); err != nil {
+			return nil, err
+		}
+	}
+
 	// Save results
 	result, err := file.Save()
 	if err != nil {
