@@ -43,6 +43,11 @@ func (f *FormatService) FormatDoc(fileBytes []byte, req dto.UpdateRequest) ([]by
 		}
 	}
 
+	// We always get margins from frontend, so we don't need to check for the nil value
+	if err := modifier.SetMargins(*req.MTop, *req.MRgh, *req.MBtm, *req.MLft); err != nil {
+		return nil, err
+	}
+
 	// Save results
 	result, err := file.Save()
 	if err != nil {

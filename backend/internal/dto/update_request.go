@@ -6,4 +6,9 @@ type UpdateRequest struct {
 	// FontSize is float because user could need font size of 13.5 for example. So it's better to be float
 	FontSize *float64 `json:"fontSize"`
 	FontType *string `json:"fontType"`
+
+	MTop *float64 `json:"mTop"`
+	MRgh *float64 `json:"mRgh"`
+	MBtm *float64 `json:"mBtm"`
+	MLft *float64 `json:"mLft"`
 }
