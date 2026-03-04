@@ -32,6 +32,7 @@ function ModifyForm({ openForm, formRef }) {
     const obj = {};
     obj.lineSpacing = parseFloat(data.lineSpacing);
     obj.fontSize = parseFloat(data.fontSize);
+    obj.fontType = data.fontType;
 
     const formData = new FormData();
     formData.append("data", JSON.stringify(obj));
@@ -104,6 +105,27 @@ function ModifyForm({ openForm, formRef }) {
                 },
               })}
             />
+          </FormRow>
+
+          <FormRow label="Font type">
+            <select
+              id="fontType"
+              name="fontType"
+              className="w-47.25 rounded-lg bg-white p-1 pl-2"
+              placeholder="Choose an option"
+              {...register("fontType")}
+            >
+              <option value="">Choose an option</option>
+              <option value="Times New Roman">Times New Roman</option>
+              <option value="Calibri">Calibri</option>
+              <option value="Arial">Arial</option>
+              <option value="Georgia">Georgia</option>
+              <option value="Helvetica">Helvetica</option>
+              <option value="Verdana">Verdana</option>
+              <option value="Tahoma">Tahoma</option>
+              <option value="Century">Century</option>
+              <option value="Courier">Courier</option>
+            </select>
           </FormRow>
 
           <FormRow label="File" error={errors?.file?.message}>
