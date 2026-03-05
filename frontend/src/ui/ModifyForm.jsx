@@ -33,6 +33,10 @@ function ModifyForm({ openForm, formRef }) {
     obj.lineSpacing = parseFloat(data.lineSpacing);
     obj.fontSize = parseFloat(data.fontSize);
     obj.fontType = data.fontType;
+    obj.mTop = parseFloat(data.mTop);
+    obj.mRgh = parseFloat(data.mRgh);
+    obj.mBtm = parseFloat(data.mBtm);
+    obj.mLft = parseFloat(data.mLft);
 
     const formData = new FormData();
     formData.append("data", JSON.stringify(obj));
@@ -126,6 +130,86 @@ function ModifyForm({ openForm, formRef }) {
               <option value="Century">Century</option>
               <option value="Courier">Courier</option>
             </select>
+          </FormRow>
+
+          <FormRow label="Margin top">
+            <input
+              id="mTop"
+              type="number"
+              step={0.01}
+              className="rounded-lg bg-white p-1 pl-2"
+              defaultValue={2.54}
+              {...register("mTop", {
+                min: {
+                  value: 0,
+                  message: "Margin top couldn't be less than 0",
+                },
+                max: {
+                  value: 7,
+                  message: "Margin top should be less than 7",
+                },
+              })}
+            />
+          </FormRow>
+
+          <FormRow label="Margin right">
+            <input
+              id="mRgh"
+              type="number"
+              step={0.01}
+              className="rounded-lg bg-white p-1 pl-2"
+              defaultValue={2.54}
+              {...register("mRgh", {
+                min: {
+                  value: 0,
+                  message: "Margin right couldn't be less than 0",
+                },
+                max: {
+                  value: 7,
+                  message: "Margin right should be less than 7",
+                },
+              })}
+            />
+          </FormRow>
+
+          <FormRow label="Margin bottom">
+            <input
+              id="mBtm"
+              type="number"
+              step={0.01}
+              className="rounded-lg bg-white p-1 pl-2"
+              defaultValue={2.54}
+              {...register("mBtm", {
+                min: {
+                  value: 0,
+                  message: "Margin bottom couldn't be less than 0",
+                },
+                max: {
+                  value: 7,
+                  message: "Margin bottom should be less than 7",
+                },
+              })}
+            />
+          </FormRow>
+
+          <FormRow label="Margin left">
+            <input
+              id="mLft"
+              type="number"
+              step={0.01}
+              className="rounded-lg bg-white p-1 pl-2"
+              defaultValue={2.54}
+              {...register("mLft", {
+                min: {
+                  value: 0,
+                  message: "Margin left couldn't be less than 0",
+                },
+                max: {
+                  value: 7,
+                  message: "Margin left should be less than 7",
+                },
+              })}
+            />
           </FormRow>
 
           <FormRow label="File" error={errors?.file?.message}>
