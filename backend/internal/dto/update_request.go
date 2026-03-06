@@ -11,4 +11,6 @@ type UpdateRequest struct {
 	MRgh *float64 `json:"mRgh"`
 	MBtm *float64 `json:"mBtm"`
 	MLft *float64 `json:"mLft"`
+	// First line indent
+	FLInd *float64 `json:"fLind"`
 }

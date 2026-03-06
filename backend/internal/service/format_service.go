@@ -48,6 +48,13 @@ func (f *FormatService) FormatDoc(fileBytes []byte, req dto.UpdateRequest) ([]by
 		return nil, err
 	}
 
+	// Check if we have first line indent. If yes - call SetFirstLineIndent
+	if req.FLInd != nil {
+		if err := modifier.SetFirstLineIndent(*req.FLInd); err != nil {
+			return nil, err
+		}
+	}
+
 	// Save results
 	result, err := file.Save()
 	if err != nil {
