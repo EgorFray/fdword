@@ -180,3 +180,38 @@ func (d *DocModifier) SetMargins(MTop, MRgh, MBtm, MLft float64) error {
 
 	return nil
 }
+
+func(d *DocModifier) SetFirstLineIndent(FLInd float64) error {
+	// calculate first line indent. It's calculated in twips. 1cm ~ 567twip.
+	lineTwip := int(FLInd * 567)
+
+	// We need to remove all attr of w:firstLine from w:Ind in every w:pPr
+	for _, el := range d.doc.Document.FindElements("//w:pPr") {
+		ind := el.FindElement("w:Ind")
+		if ind == nil {
+			ind = el.CreateElement("w:ind")
+		}
+
+		ind.RemoveAttr("w:firstLine")
+	}
+
+	// Create global line indent in Styles.xml
+	root := d.doc.Styles.Root()
+	// What I need to set has a name of "Normal" in p
+	normalStyle := root.FindElement("//w:style[@w:styleId='Normal']")
+	// pPr
+	pPr := normalStyle.FindElement("w:pPr")
+	if pPr == nil {
+		pPr = normalStyle.CreateElement("w:pPr")
+	}
+	// ind
+	ind := pPr.FindElement("w:ind")
+	if ind == nil {
+		ind = pPr.CreateElement("w:ind")
+	}
+
+	ind.RemoveAttr("w:firstLine")
+	ind.CreateAttr("w:firstLine", strconv.Itoa(lineTwip))
+
+	return nil
+}
