@@ -187,7 +187,7 @@ func(d *DocModifier) SetFirstLineIndent(FLInd float64) error {
 
 	// We need to remove all attr of w:firstLine from w:Ind in every w:pPr
 	for _, el := range d.doc.Document.FindElements("//w:pPr") {
-		ind := el.FindElement("w:Ind")
+		ind := el.FindElement("w:ind")
 		if ind == nil {
 			ind = el.CreateElement("w:ind")
 		}
