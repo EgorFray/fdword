@@ -212,6 +212,25 @@ function ModifyForm({ openForm, formRef }) {
             />
           </FormRow>
 
+          <FormRow label="First line indent">
+            <input
+              id="fLind"
+              type="number"
+              step={0.01}
+              className="rounded-lg bg-white p-1 pl-2"
+              {...register("fLind", {
+                min: {
+                  value: 0,
+                  message: "Indent couldn't be less than 0",
+                },
+                max: {
+                  value: 3,
+                  message: "Indent should be less than 3",
+                },
+              })}
+            />
+          </FormRow>
+
           <FormRow label="File" error={errors?.file?.message}>
             <input
               type="file"
