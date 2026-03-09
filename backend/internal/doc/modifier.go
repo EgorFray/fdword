@@ -215,3 +215,35 @@ func(d *DocModifier) SetFirstLineIndent(FLInd float64) error {
 
 	return nil
 }
+
+// this method set default teext aligment for the whole document.
+// in the future I'll make another method for changing style only for the first paragraph 
+func(d *DocModifier) SetJC(JC string) error {
+	// delete all overrides in document.xml
+	for _, el := range d.doc.Document.FindElements("//w:pPr/w:jc") {
+		el.Parent().RemoveChild(el)
+	}
+
+	// Set default justify content in styles.xml
+	root := d.doc.Styles.Root()
+	// What I need to set has a name of "Normal" in p
+	normalStyle := root.FindElement("//w:style[@w:styleId='Normal']")
+	// pPr
+	pPr := normalStyle.FindElement("w:pPr")
+	if pPr == nil {
+		pPr = normalStyle.CreateElement("w:pPr")
+	}
+	// w:jc
+	jc := pPr.FindElement("w:jc")
+	if jc == nil {
+		jc = pPr.CreateElement("w:jc")
+	}
+
+	jc.RemoveAttr("w:val")
+	// Left is set by default. So we don't need to reset it
+	if JC != "left" {
+		jc.CreateAttr("w:val", JC)
+	}
+
+	return nil
+}
