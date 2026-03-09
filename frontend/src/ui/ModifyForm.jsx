@@ -37,6 +37,8 @@ function ModifyForm({ openForm, formRef }) {
     obj.mRgh = parseFloat(data.mRgh);
     obj.mBtm = parseFloat(data.mBtm);
     obj.mLft = parseFloat(data.mLft);
+    obj.fLind = parseFloat(data.fLind);
+    obj.jc = data.jc;
 
     const formData = new FormData();
     formData.append("data", JSON.stringify(obj));
@@ -229,6 +231,21 @@ function ModifyForm({ openForm, formRef }) {
                 },
               })}
             />
+          </FormRow>
+
+          <FormRow label="Justify content">
+            <select
+              id="jc"
+              name="jc"
+              className="w-47.25 rounded-lg bg-white p-1 pl-2"
+              placeholder="Choose an option"
+              {...register("jc")}
+            >
+              <option value="left">Left</option>
+              <option value="center">Center</option>
+              <option value="right">Right</option>
+              <option value="both">Both</option>
+            </select>
           </FormRow>
 
           <FormRow label="File" error={errors?.file?.message}>
