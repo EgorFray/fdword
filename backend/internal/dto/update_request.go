@@ -13,4 +13,6 @@ type UpdateRequest struct {
 	MLft *float64 `json:"mLft"`
 	// First line indent
 	FLInd *float64 `json:"fLind"`
+	// Justify content - left, center, right or both
+	JC *string `json:"jc"`
 }

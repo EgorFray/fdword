@@ -55,6 +55,13 @@ func (f *FormatService) FormatDoc(fileBytes []byte, req dto.UpdateRequest) ([]by
 		}
 	}
 
+	// Check if we have justify content. If yes - call SetJC
+	if req.JC != nil {
+		if err := modifier.SetJC(*req.JC); err != nil {
+			return nil, err
+		}
+	}
+
 	// Save results
 	result, err := file.Save()
 	if err != nil {
