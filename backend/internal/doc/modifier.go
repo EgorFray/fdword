@@ -3,6 +3,8 @@ package doc
 import (
 	"errors"
 	"strconv"
+
+	"github.com/beevik/etree"
 )
 
 type DocModifierInterface interface {
@@ -251,9 +253,23 @@ func(d *DocModifier) SetJC(JC string) error {
 
 // !!!!!!!!!! HEADING MODIFIERS !!!!!!!!!!
 // In heading we will work only with document.xml, because we'll change attrs only for 1st paragraph.
+
+// HELPER FUNCTION TO GET FIRST PARAGRAPH WITH TEXT - OUR HEADING
+func(d *DocModifier) getFirstParagraph() *etree.Element {
+	paragraphs := d.doc.Document.FindElements("//w:body/w:p")
+
+	for _, p := range paragraphs {
+		if p.FindElement(".//w:t") != nil {
+			return p
+		}
+	}
+	return nil
+}
+
+
 func(d *DocModifier) SetHeadingJC(JC string) error {
 	// 1. Find first paragraph with text
-	p := d.doc.Document.FindElement(`//w:body/w:p[string(.//w:t) != ""][1]`)
+	p := d.getFirstParagraph()
 	if p == nil {
 		return errors.New("There is no paragraph with text")
 	}
