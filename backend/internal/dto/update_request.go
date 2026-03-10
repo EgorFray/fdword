@@ -15,4 +15,12 @@ type UpdateRequest struct {
 	FLInd *float64 `json:"fLind"`
 	// Justify content - left, center, right or both
 	JC *string `json:"jc"`
+	// Separate dto for styling heading
+	Heading *HeadingDTO `json:"heading"`
+}
+
+// DTO for styling heading
+type HeadingDTO struct {
+	// Justify heading - left, center, right or both
+	JC *string `json:"jc"`
 }
