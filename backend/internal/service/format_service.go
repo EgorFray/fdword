@@ -61,6 +61,11 @@ func (f *FormatService) FormatDoc(fileBytes []byte, req dto.UpdateRequest) ([]by
 			return nil, err
 		}
 	}
+	// Check if we have something to style in heading
+	if req.Heading!= nil {
+		f.FormatHeading(*req.Heading, modifier)
+	}
+
 
 	// Save results
 	result, err := file.Save()
@@ -69,4 +74,13 @@ func (f *FormatService) FormatDoc(fileBytes []byte, req dto.UpdateRequest) ([]by
 	}
 
 	return result, nil
+}
+
+func(f *FormatService) FormatHeading(req dto.HeadingDTO, modifier *doc.DocModifier) {
+	// Check if we have justify content in heading dto
+	if req.JC != nil {
+		if err := modifier.SetHeadingJC(*req.JC); err != nil {
+			return nil, err
+		}
+	}
 }
