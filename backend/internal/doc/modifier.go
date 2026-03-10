@@ -1,6 +1,7 @@
 package doc
 
 import (
+	"errors"
 	"strconv"
 )
 
@@ -216,7 +217,7 @@ func(d *DocModifier) SetFirstLineIndent(FLInd float64) error {
 	return nil
 }
 
-// this method set default teext aligment for the whole document.
+// this method set default text aligment for the whole document.
 // in the future I'll make another method for changing style only for the first paragraph 
 func(d *DocModifier) SetJC(JC string) error {
 	// delete all overrides in document.xml
@@ -247,3 +248,30 @@ func(d *DocModifier) SetJC(JC string) error {
 
 	return nil
 }
+
+// !!!!!!!!!! HEADING MODIFIERS !!!!!!!!!!
+// In heading we will work only with document.xml, because we'll change attrs only for 1st paragraph.
+func(d *DocModifier) SetHeadingJC(JC string) error {
+	// 1. Find first paragraph with text
+	p := d.doc.Document.FindElement(`//w:body/w:p[string(.//w:t) != ""][1]`)
+	if p == nil {
+		return errors.New("There is no paragraph with text")
+	}
+	// 2. Find/Create path to styles. Path should be: p -> pPr -> w:jc
+	pPr := p.FindElement("w:pPr")
+	if pPr == nil {
+		pPr = p.CreateElement("w:pPr")
+	}
+	// jc
+	jc := pPr.FindElement("w:jc")
+	if jc == nil {
+		jc = pPr.CreateElement("w:jc")
+	}
+
+	if JC != "left" {
+		jc.CreateAttr("w:val", JC)
+	}
+	
+	return nil
+}
+
