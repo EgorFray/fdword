@@ -143,11 +143,10 @@ function ModifyForm({ openForm, formRef }) {
 
           <FormDropdown title="Page settings">
             <FormRow label="Margin top">
-              <input
+              <FormInput
                 id="mTop"
                 type="number"
                 step={0.01}
-                className="rounded-lg bg-white p-1 pl-2"
                 defaultValue={2.54}
                 {...register("mTop", {
                   min: {
@@ -163,11 +162,10 @@ function ModifyForm({ openForm, formRef }) {
             </FormRow>
 
             <FormRow label="Margin right">
-              <input
+              <FormInput
                 id="mRgh"
                 type="number"
                 step={0.01}
-                className="rounded-lg bg-white p-1 pl-2"
                 defaultValue={2.54}
                 {...register("mRgh", {
                   min: {
@@ -183,11 +181,10 @@ function ModifyForm({ openForm, formRef }) {
             </FormRow>
 
             <FormRow label="Margin bottom">
-              <input
+              <FormInput
                 id="mBtm"
                 type="number"
                 step={0.01}
-                className="rounded-lg bg-white p-1 pl-2"
                 defaultValue={2.54}
                 {...register("mBtm", {
                   min: {
@@ -203,11 +200,10 @@ function ModifyForm({ openForm, formRef }) {
             </FormRow>
 
             <FormRow label="Margin left">
-              <input
+              <FormInput
                 id="mLft"
                 type="number"
                 step={0.01}
-                className="rounded-lg bg-white p-1 pl-2"
                 defaultValue={2.54}
                 {...register("mLft", {
                   min: {
@@ -223,11 +219,10 @@ function ModifyForm({ openForm, formRef }) {
             </FormRow>
 
             <FormRow label="First line indent">
-              <input
+              <FormInput
                 id="fLind"
                 type="number"
                 step={0.01}
-                className="rounded-lg bg-white p-1 pl-2"
                 {...register("fLind", {
                   min: {
                     value: 0,
