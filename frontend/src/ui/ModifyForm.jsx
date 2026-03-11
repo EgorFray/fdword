@@ -11,12 +11,9 @@ import Form from "../features/modifyForm/Form";
 import FormHeading from "../features/modifyForm/FormHeading";
 import FormRow from "../features/modifyForm/FormRow";
 import FormDropdown from "../features/modifyForm/FormDropdown";
-import { useState } from "react";
 import FormInput from "../features/modifyForm/FormInput";
 
 function ModifyForm({ openForm, formRef }) {
-  const [isDropOpen, setIsDropOpen] = useState(false);
-
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
 
@@ -34,16 +31,21 @@ function ModifyForm({ openForm, formRef }) {
   });
 
   function onSubmit(data) {
-    const obj = {};
-    obj.lineSpacing = parseFloat(data.lineSpacing);
-    obj.fontSize = parseFloat(data.fontSize);
-    obj.fontType = data.fontType;
-    obj.mTop = parseFloat(data.mTop);
-    obj.mRgh = parseFloat(data.mRgh);
-    obj.mBtm = parseFloat(data.mBtm);
-    obj.mLft = parseFloat(data.mLft);
-    obj.fLind = parseFloat(data.fLind);
-    obj.jc = data.jc;
+    const obj = {
+      lineSpacing: parseFloat(data.lineSpacing),
+      fontSize: parseFloat(data.fontSize),
+      fontType: data.fontType,
+      mTop: parseFloat(data.mTop),
+      mRgh: parseFloat(data.mRgh),
+      mBtm: parseFloat(data.mBtm),
+      mLft: parseFloat(data.mLft),
+      fLind: parseFloat(data.fLind),
+      jc: data.jc,
+
+      heading: {
+        jc: data.headingjc,
+      },
+    };
 
     const formData = new FormData();
     formData.append("data", JSON.stringify(obj));
@@ -76,11 +78,7 @@ function ModifyForm({ openForm, formRef }) {
         <Form onSubmit={handleSubmit(onSubmit, onError)} formRef={formRef}>
           <FormHeading>Select what to change</FormHeading>
 
-          <FormDropdown
-            title="Font settings"
-            onClick={() => setIsDropOpen((isOpen) => !isOpen)}
-            isOpen={isDropOpen}
-          >
+          <FormDropdown title="Font settings">
             {/* Here I add another rows if needed. They will grow with time */}
             <FormRow label="Line spacing" error={errors?.lineSpacing?.message}>
               {/* NEED TO MAKE CUSTOM INPUT COMPONENT. Now I got the problem - empty placeholder in separate component */}
@@ -143,119 +141,138 @@ function ModifyForm({ openForm, formRef }) {
             </FormRow>
           </FormDropdown>
 
-          <FormRow label="Margin top">
-            <input
-              id="mTop"
-              type="number"
-              step={0.01}
-              className="rounded-lg bg-white p-1 pl-2"
-              defaultValue={2.54}
-              {...register("mTop", {
-                min: {
-                  value: 0,
-                  message: "Margin top couldn't be less than 0",
-                },
-                max: {
-                  value: 7,
-                  message: "Margin top should be less than 7",
-                },
-              })}
-            />
-          </FormRow>
+          <FormDropdown title="Page settings">
+            <FormRow label="Margin top">
+              <input
+                id="mTop"
+                type="number"
+                step={0.01}
+                className="rounded-lg bg-white p-1 pl-2"
+                defaultValue={2.54}
+                {...register("mTop", {
+                  min: {
+                    value: 0,
+                    message: "Margin top couldn't be less than 0",
+                  },
+                  max: {
+                    value: 7,
+                    message: "Margin top should be less than 7",
+                  },
+                })}
+              />
+            </FormRow>
 
-          <FormRow label="Margin right">
-            <input
-              id="mRgh"
-              type="number"
-              step={0.01}
-              className="rounded-lg bg-white p-1 pl-2"
-              defaultValue={2.54}
-              {...register("mRgh", {
-                min: {
-                  value: 0,
-                  message: "Margin right couldn't be less than 0",
-                },
-                max: {
-                  value: 7,
-                  message: "Margin right should be less than 7",
-                },
-              })}
-            />
-          </FormRow>
+            <FormRow label="Margin right">
+              <input
+                id="mRgh"
+                type="number"
+                step={0.01}
+                className="rounded-lg bg-white p-1 pl-2"
+                defaultValue={2.54}
+                {...register("mRgh", {
+                  min: {
+                    value: 0,
+                    message: "Margin right couldn't be less than 0",
+                  },
+                  max: {
+                    value: 7,
+                    message: "Margin right should be less than 7",
+                  },
+                })}
+              />
+            </FormRow>
 
-          <FormRow label="Margin bottom">
-            <input
-              id="mBtm"
-              type="number"
-              step={0.01}
-              className="rounded-lg bg-white p-1 pl-2"
-              defaultValue={2.54}
-              {...register("mBtm", {
-                min: {
-                  value: 0,
-                  message: "Margin bottom couldn't be less than 0",
-                },
-                max: {
-                  value: 7,
-                  message: "Margin bottom should be less than 7",
-                },
-              })}
-            />
-          </FormRow>
+            <FormRow label="Margin bottom">
+              <input
+                id="mBtm"
+                type="number"
+                step={0.01}
+                className="rounded-lg bg-white p-1 pl-2"
+                defaultValue={2.54}
+                {...register("mBtm", {
+                  min: {
+                    value: 0,
+                    message: "Margin bottom couldn't be less than 0",
+                  },
+                  max: {
+                    value: 7,
+                    message: "Margin bottom should be less than 7",
+                  },
+                })}
+              />
+            </FormRow>
 
-          <FormRow label="Margin left">
-            <input
-              id="mLft"
-              type="number"
-              step={0.01}
-              className="rounded-lg bg-white p-1 pl-2"
-              defaultValue={2.54}
-              {...register("mLft", {
-                min: {
-                  value: 0,
-                  message: "Margin left couldn't be less than 0",
-                },
-                max: {
-                  value: 7,
-                  message: "Margin left should be less than 7",
-                },
-              })}
-            />
-          </FormRow>
+            <FormRow label="Margin left">
+              <input
+                id="mLft"
+                type="number"
+                step={0.01}
+                className="rounded-lg bg-white p-1 pl-2"
+                defaultValue={2.54}
+                {...register("mLft", {
+                  min: {
+                    value: 0,
+                    message: "Margin left couldn't be less than 0",
+                  },
+                  max: {
+                    value: 7,
+                    message: "Margin left should be less than 7",
+                  },
+                })}
+              />
+            </FormRow>
 
-          <FormRow label="First line indent">
-            <input
-              id="fLind"
-              type="number"
-              step={0.01}
-              className="rounded-lg bg-white p-1 pl-2"
-              {...register("fLind", {
-                min: {
-                  value: 0,
-                  message: "Indent couldn't be less than 0",
-                },
-                max: {
-                  value: 3,
-                  message: "Indent should be less than 3",
-                },
-              })}
-            />
-          </FormRow>
+            <FormRow label="First line indent">
+              <input
+                id="fLind"
+                type="number"
+                step={0.01}
+                className="rounded-lg bg-white p-1 pl-2"
+                {...register("fLind", {
+                  min: {
+                    value: 0,
+                    message: "Indent couldn't be less than 0",
+                  },
+                  max: {
+                    value: 3,
+                    message: "Indent should be less than 3",
+                  },
+                })}
+              />
+            </FormRow>
 
-          <FormRow label="Justify content">
-            <select
-              id="jc"
-              name="jc"
-              className="w-47.25 rounded-lg bg-white p-1 pl-2"
-              placeholder="Choose an option"
-              {...register("jc")}
-            >
-              <option value="left">Left</option>
-              <option value="center">Center</option>
-              <option value="right">Right</option>
-              <option value="both">Both</option>
-            </select>
-          </FormRow>
+            <FormRow label="Justify content">
+              <select
+                id="jc"
+                name="jc"
+                className="w-47.25 rounded-lg bg-white p-1 pl-2"
+                placeholder="Choose an option"
+                {...register("jc")}
+              >
+                <option value="left">Left</option>
+                <option value="center">Center</option>
+                <option value="right">Right</option>
+                <option value="both">Both</option>
+              </select>
+            </FormRow>
+          </FormDropdown>
+
+          <FormDropdown title="First paragraph settings">
+            <FormRow label="Justify content">
+              <select
+                id="headingjc"
+                name="headingjc"
+                className="w-47.25 rounded-lg bg-white p-1 pl-2"
+                placeholder="Choose an option"
+                {...register("headingjc")}
+              >
+                <option value="left">Left</option>
+                <option value="center">Center</option>
+                <option value="right">Right</option>
+                <option value="both">Both</option>
+              </select>
+            </FormRow>
+          </FormDropdown>
 
           <FormRow label="File" error={errors?.file?.message}>
             <input
