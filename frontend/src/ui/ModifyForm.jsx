@@ -12,6 +12,7 @@ import FormHeading from "../features/modifyForm/FormHeading";
 import FormRow from "../features/modifyForm/FormRow";
 import FormDropdown from "../features/modifyForm/FormDropdown";
 import { useState } from "react";
+import FormInput from "../features/modifyForm/FormInput";
 
 function ModifyForm({ openForm, formRef }) {
   const [isDropOpen, setIsDropOpen] = useState(false);
@@ -83,12 +84,11 @@ function ModifyForm({ openForm, formRef }) {
             {/* Here I add another rows if needed. They will grow with time */}
             <FormRow label="Line spacing" error={errors?.lineSpacing?.message}>
               {/* NEED TO MAKE CUSTOM INPUT COMPONENT. Now I got the problem - empty placeholder in separate component */}
-              <input
+              <FormInput
                 id="lineSpacing"
                 type="number"
                 step={0.01}
-                className="rounded-lg bg-white p-1 pl-2"
-                placeholder="For example 1 or 1.15"
+                placeholder="from 0.5 to 5"
                 {...register("lineSpacing", {
                   min: {
                     value: 0.5,
@@ -103,12 +103,11 @@ function ModifyForm({ openForm, formRef }) {
             </FormRow>
 
             <FormRow label="Font size" error={errors.fontSize?.message}>
-              <input
+              <FormInput
                 id="fontSize"
                 type="number"
                 step={0.1}
-                className="rounded-lg bg-white p-1 pl-2"
-                placeholder="For example 14"
+                placeholder="from 5 to 72"
                 {...register("fontSize", {
                   min: {
                     value: 5,
@@ -127,10 +126,10 @@ function ModifyForm({ openForm, formRef }) {
                 id="fontType"
                 name="fontType"
                 className="w-47.25 rounded-lg bg-white p-1 pl-2"
-                placeholder="Choose an option"
+                placeholder="Select font"
                 {...register("fontType")}
               >
-                <option value="">Choose an option</option>
+                <option value="">Select font</option>
                 <option value="Times New Roman">Times New Roman</option>
                 <option value="Calibri">Calibri</option>
                 <option value="Arial">Arial</option>
