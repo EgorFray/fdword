@@ -44,6 +44,7 @@ function ModifyForm({ openForm, formRef }) {
 
       heading: {
         jc: data.headingjc,
+        fLind: data.headingfLind,
       },
     };
 
@@ -266,6 +267,24 @@ function ModifyForm({ openForm, formRef }) {
                 <option value="right">Right</option>
                 <option value="both">Both</option>
               </select>
+            </FormRow>
+
+            <FormRow label="First line indent">
+              <FormInput
+                id="headingfLind"
+                type="number"
+                step={0.01}
+                {...register("headingfLind", {
+                  min: {
+                    value: 0,
+                    message: "Indent couldn't be less than 0",
+                  },
+                  max: {
+                    value: 3,
+                    message: "Indent should be less than 3",
+                  },
+                })}
+              />
             </FormRow>
           </FormDropdown>
 
