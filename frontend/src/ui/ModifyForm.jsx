@@ -87,7 +87,7 @@ function ModifyForm({ openForm, formRef }) {
                 id="lineSpacing"
                 type="number"
                 step={0.01}
-                placeholder="from 0.5 to 5"
+                placeholder="From 0.5 to 5"
                 {...register("lineSpacing", {
                   min: {
                     value: 0.5,
@@ -106,7 +106,7 @@ function ModifyForm({ openForm, formRef }) {
                 id="fontSize"
                 type="number"
                 step={0.1}
-                placeholder="from 5 to 72"
+                placeholder="From 5 to 72"
                 {...register("fontSize", {
                   min: {
                     value: 5,
@@ -143,7 +143,7 @@ function ModifyForm({ openForm, formRef }) {
           </FormDropdown>
 
           <FormDropdown title="Page settings">
-            <FormRow label="Margin top">
+            <FormRow label="Margin top" error={errors?.mTop?.message}>
               <FormInput
                 id="mTop"
                 type="number"
@@ -162,7 +162,7 @@ function ModifyForm({ openForm, formRef }) {
               />
             </FormRow>
 
-            <FormRow label="Margin right">
+            <FormRow label="Margin right" error={errors?.mRgh?.message}>
               <FormInput
                 id="mRgh"
                 type="number"
@@ -181,7 +181,7 @@ function ModifyForm({ openForm, formRef }) {
               />
             </FormRow>
 
-            <FormRow label="Margin bottom">
+            <FormRow label="Margin bottom" error={errors?.mBtm?.message}>
               <FormInput
                 id="mBtm"
                 type="number"
@@ -200,7 +200,7 @@ function ModifyForm({ openForm, formRef }) {
               />
             </FormRow>
 
-            <FormRow label="Margin left">
+            <FormRow label="Margin left" error={errors?.mLft?.message}>
               <FormInput
                 id="mLft"
                 type="number"
@@ -219,11 +219,12 @@ function ModifyForm({ openForm, formRef }) {
               />
             </FormRow>
 
-            <FormRow label="First line indent">
+            <FormRow label="First line indent" error={errors?.fLind?.message}>
               <FormInput
                 id="fLind"
                 type="number"
                 step={0.01}
+                placeholder="From 0 to 3"
                 {...register("fLind", {
                   min: {
                     value: 0,
@@ -254,7 +255,7 @@ function ModifyForm({ openForm, formRef }) {
           </FormDropdown>
 
           <FormDropdown title="First paragraph settings">
-            <FormRow label="Justify content">
+            <FormRow label="Justify content" error={errors?.headingjc?.message}>
               <select
                 id="headingjc"
                 name="headingjc"
@@ -269,11 +270,15 @@ function ModifyForm({ openForm, formRef }) {
               </select>
             </FormRow>
 
-            <FormRow label="First line indent">
+            <FormRow
+              label="First line indent"
+              error={errors?.headingfLind?.message}
+            >
               <FormInput
                 id="headingfLind"
                 type="number"
                 step={0.01}
+                placeholder="From 0 to 3"
                 {...register("headingfLind", {
                   min: {
                     value: 0,
