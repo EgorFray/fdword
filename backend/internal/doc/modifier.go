@@ -272,7 +272,7 @@ func(d *DocModifier) SetHeadingJC(JC string) error {
 	if p == nil {
 		return errors.New("There is no paragraph with text")
 	}
-	// 2. Find/Create path to styles. Path should be: p -> pPr -> w:jc
+	// 2. Find/Create path to jc. Path should be: p -> pPr -> w:jc
 	pPr := p.FindElement("w:pPr")
 	if pPr == nil {
 		pPr = p.CreateElement("w:pPr")
@@ -287,6 +287,31 @@ func(d *DocModifier) SetHeadingJC(JC string) error {
 		jc.CreateAttr("w:val", JC)
 	}
 	
+	return nil
+}
+
+func (d *DocModifier) SetHeadingFLI(FLInd float64) error {
+	lineTwip := int(FLInd * 567)
+	// Get first paragraph with text
+	p := d.getFirstParagraph()
+	if p == nil {
+		return errors.New("There is no paragraph with text")
+	}
+	// Get or create path to w:ind. Path: p -> w:pPr -> w:ind w:firstLine
+	// pPr
+	pPr := p.FindElement("w:pPr")
+	if pPr == nil {
+		pPr = p.CreateElement("w:pPr")
+	}
+	// ind
+	ind := pPr.FindElement("w:ind")
+	if ind == nil {
+		ind = pPr.CreateElement("w:ind")
+	}
+
+	ind.RemoveAttr("w:firstLine")
+	ind.CreateAttr("w:firstLine", strconv.Itoa(lineTwip))
+
 	return nil
 }
 
