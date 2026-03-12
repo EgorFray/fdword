@@ -266,7 +266,6 @@ func(d *DocModifier) getFirstParagraph() *etree.Element {
 	return nil
 }
 
-
 func(d *DocModifier) SetHeadingJC(JC string) error {
 	// 1. Find first paragraph with text
 	p := d.getFirstParagraph()

@@ -19,8 +19,10 @@ type UpdateRequest struct {
 	Heading *HeadingDTO `json:"heading"`
 }
 
-// DTO for styling heading
+// DTO for styling heading (1st paragraph)
 type HeadingDTO struct {
 	// Justify heading - left, center, right or both
 	JC *string `json:"jc"`
+	// First line indent
+	FLInd *float64 `json:"fLind"`
 }
