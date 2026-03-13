@@ -1,11 +1,12 @@
 import { BsQuestionCircle } from "react-icons/bs";
 import { useState } from "react";
-import { useFloating } from "@floating-ui/react";
+import { useFloating, offset } from "@floating-ui/react";
 import Tooltip from "../../ui/Tooltip";
 
-function FormTooltip() {
+function FormTooltip({ video, tooltip }) {
   const { refs, floatingStyles } = useFloating({
     placement: "right",
+    middleware: [offset(10)],
   });
   const [isOpenTooltip, setIsOpenTooltip] = useState(false);
 
@@ -20,7 +21,12 @@ function FormTooltip() {
         className="cursor-pointer text-gray-400"
       />
       {isOpenTooltip && (
-        <Tooltip ref={refs.setFloating} style={floatingStyles} />
+        <Tooltip
+          ref={refs.setFloating}
+          style={floatingStyles}
+          video={video}
+          tooltip={tooltip}
+        />
       )}
     </div>
   );

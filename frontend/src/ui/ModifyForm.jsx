@@ -80,13 +80,13 @@ function ModifyForm({ openForm, formRef }) {
           <FormHeading>Select what to change</FormHeading>
 
           <FormDropdown title="Font settings">
-            {/* Here I add another rows if needed. They will grow with time */}
             <FormRow
               label="Line spacing"
               info={true}
               error={errors?.lineSpacing?.message}
+              video="/test.mp4"
+              tooltip="This is a test text"
             >
-              {/* NEED TO MAKE CUSTOM INPUT COMPONENT. Now I got the problem - empty placeholder in separate component */}
               <FormInput
                 id="lineSpacing"
                 type="number"
@@ -105,7 +105,7 @@ function ModifyForm({ openForm, formRef }) {
               />
             </FormRow>
 
-            <FormRow label="Font size" error={errors.fontSize?.message}>
+            <FormRow label="Font size" error={errors?.fontSize?.message}>
               <FormInput
                 id="fontSize"
                 type="number"
