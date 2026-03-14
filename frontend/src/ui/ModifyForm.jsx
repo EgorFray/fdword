@@ -84,8 +84,8 @@ function ModifyForm({ openForm, formRef }) {
               label="Line spacing"
               info={true}
               error={errors?.lineSpacing?.message}
-              video="/test.mp4"
-              tooltip="This is a test text"
+              video="/lineSpacing.mp4"
+              tooltip="Change the line spacing in an entire document"
             >
               <FormInput
                 id="lineSpacing"
