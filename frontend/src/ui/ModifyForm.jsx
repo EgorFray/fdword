@@ -105,7 +105,13 @@ function ModifyForm({ openForm, formRef }) {
               />
             </FormRow>
 
-            <FormRow label="Font size" error={errors?.fontSize?.message}>
+            <FormRow
+              label="Font size"
+              info={true}
+              error={errors?.fontSize?.message}
+              video="/fontSize.mp4"
+              tooltip="Change the default font size for all text"
+            >
               <FormInput
                 id="fontSize"
                 type="number"
@@ -124,7 +130,12 @@ function ModifyForm({ openForm, formRef }) {
               />
             </FormRow>
 
-            <FormRow label="Font type">
+            <FormRow
+              label="Font type"
+              info={true}
+              video="/fontType.mp4"
+              tooltip="Change the default font typp for all text"
+            >
               <select
                 id="fontType"
                 name="fontType"
