@@ -81,31 +81,6 @@ function ModifyForm({ openForm, formRef }) {
 
           <FormDropdown title="Font settings">
             <FormRow
-              label="Line spacing"
-              info={true}
-              error={errors?.lineSpacing?.message}
-              video="/lineSpacing.mp4"
-              tooltip="Change the line spacing in an entire document"
-            >
-              <FormInput
-                id="lineSpacing"
-                type="number"
-                step={0.01}
-                placeholder="From 0.5 to 5"
-                {...register("lineSpacing", {
-                  min: {
-                    value: 0.5,
-                    message: "Line space should be at least 0.5 or higher",
-                  },
-                  max: {
-                    value: 5,
-                    message: "Line space should be less than 5",
-                  },
-                })}
-              />
-            </FormRow>
-
-            <FormRow
               label="Font size"
               info={true}
               error={errors?.fontSize?.message}
@@ -134,7 +109,7 @@ function ModifyForm({ openForm, formRef }) {
               label="Font type"
               info={true}
               video="/fontType.mp4"
-              tooltip="Change the default font typp for all text"
+              tooltip="Change the default font type for all text"
             >
               <select
                 id="fontType"
@@ -158,6 +133,31 @@ function ModifyForm({ openForm, formRef }) {
           </FormDropdown>
 
           <FormDropdown title="Page settings">
+            <FormRow
+              label="Line spacing"
+              info={true}
+              error={errors?.lineSpacing?.message}
+              video="/lineSpacing.mp4"
+              tooltip="Change the line spacing in an entire document"
+            >
+              <FormInput
+                id="lineSpacing"
+                type="number"
+                step={0.01}
+                placeholder="From 0.5 to 5"
+                {...register("lineSpacing", {
+                  min: {
+                    value: 0.5,
+                    message: "Line space should be at least 0.5 or higher",
+                  },
+                  max: {
+                    value: 5,
+                    message: "Line space should be less than 5",
+                  },
+                })}
+              />
+            </FormRow>
+
             <FormRow label="Margin top" error={errors?.mTop?.message}>
               <FormInput
                 id="mTop"
@@ -234,7 +234,13 @@ function ModifyForm({ openForm, formRef }) {
               />
             </FormRow>
 
-            <FormRow label="First line indent" error={errors?.fLind?.message}>
+            <FormRow
+              label="First line indent"
+              info={true}
+              video="firstLineIndent.mp4"
+              tooltip="Indent the first line of a paragraph"
+              error={errors?.fLind?.message}
+            >
               <FormInput
                 id="fLind"
                 type="number"
@@ -253,7 +259,12 @@ function ModifyForm({ openForm, formRef }) {
               />
             </FormRow>
 
-            <FormRow label="Justify content">
+            <FormRow
+              label="Justify content"
+              info={true}
+              video="/justifyContent.mp4"
+              tooltip="Justify text left, center, right or both"
+            >
               <select
                 id="jc"
                 name="jc"
