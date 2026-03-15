@@ -281,7 +281,13 @@ function ModifyForm({ openForm, formRef }) {
           </FormDropdown>
 
           <FormDropdown title="First paragraph settings">
-            <FormRow label="Justify content" error={errors?.headingjc?.message}>
+            <FormRow
+              label="Justify content"
+              info={true}
+              error={errors?.headingjc?.message}
+              video="/headingJustifyContent.mp4"
+              tooltip="Justify first paragraph left, center, right or both"
+            >
               <select
                 id="headingjc"
                 name="headingjc"
@@ -298,7 +304,10 @@ function ModifyForm({ openForm, formRef }) {
 
             <FormRow
               label="First line indent"
+              info={true}
               error={errors?.headingfLind?.message}
+              video="/headingFirstLineIndent.mp4"
+              tooltip="Indent the first line of the first paragraph"
             >
               <FormInput
                 id="headingfLind"
