@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { BsChevronDown, BsChevronDoubleDown } from "react-icons/bs";
 
 function FormDropdown({ title, children }) {
@@ -21,18 +21,34 @@ function FormDropdown({ title, children }) {
         </div>
       </div>
 
-      {isDropOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          transition={{
-            height: { duration: 0.25 },
-            opacity: { delay: 0.2, duration: 0.25 },
-          }}
-        >
-          {children}
-        </motion.div>
-      )}
+      {
+        <AnimatePresence>
+          isDropOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={
+              isDropOpen
+                ? { opacity: 1, height: "auto" }
+                : { opacity: 0, height: 0 }
+            }
+            transition={
+              isDropOpen
+                ? {
+                    height: { duration: 0.25 },
+                    opacity: { delay: 0.2, duration: 0.25 },
+                  }
+                : {
+                    height: { delay: 0.25, duration: 0.25 },
+                    opacity: { duration: 0.25 },
+                  }
+            }
+            style={{ overflow: "hidden" }}
+          >
+            {children}
+          </motion.div>
+          )
+        </AnimatePresence>
+      }
     </>
   );
 }
