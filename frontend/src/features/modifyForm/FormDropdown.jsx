@@ -13,7 +13,7 @@ function FormDropdown({ title, children }) {
           behavior: "smooth",
           block: "center",
         });
-      }, 50);
+      }, 100);
     }
   }, [isDropOpen]);
 
