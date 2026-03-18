@@ -44,7 +44,8 @@ function ModifyForm({ openForm, formRef }) {
 
       heading: {
         jc: data.headingjc,
-        fLind: data.headingfLind,
+        fLind: parseFloat(data.headingfLind),
+        caps: JSON.parse(data.headingCaps),
       },
     };
 
@@ -325,6 +326,18 @@ function ModifyForm({ openForm, formRef }) {
                   },
                 })}
               />
+            </FormRow>
+
+            <FormRow label="Capitalize" info={true}>
+              <div className="align-start w-47.25">
+                <input
+                  id="headingCaps"
+                  name="headingCaps"
+                  type="checkbox"
+                  value="true"
+                  {...register("headingCaps")}
+                />
+              </div>
             </FormRow>
           </FormDropdown>
 
