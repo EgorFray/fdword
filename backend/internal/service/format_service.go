@@ -44,9 +44,14 @@ func (f *FormatService) FormatDoc(fileBytes []byte, req dto.UpdateRequest) ([]by
 	}
 
 	// We always get margins from frontend, so we don't need to check for the nil value
-	if err := modifier.SetMargins(*req.MTop, *req.MRgh, *req.MBtm, *req.MLft); err != nil {
-		return nil, err
-	}
+	// Update: actually there is 1 case where we don't get margins at all - when Dropdown in the ModifyForm is closed. In that case all margins would be nil.
+	// It will be enough to just check if mTop != nil, because all margins are in one block, but in case something change in the future we'll check every margin
+	if req.MTop != nil && req.MRgh != nil && req.MBtm != nil && req.MLft != nil {
+		if err := modifier.SetMargins(*req.MTop, *req.MRgh, *req.MBtm, *req.MLft); err != nil {
+			return nil, err
+		}
+	}  
+
 
 	// Check if we have first line indent. If yes - call SetFirstLineIndent
 	if req.FLInd != nil {
