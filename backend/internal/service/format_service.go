@@ -91,7 +91,7 @@ func(f *FormatService) FormatHeading(req dto.HeadingDTO, modifier *doc.DocModifi
 	}
 	// Check if we have capitalize=true in heading dto
 	if req.Caps != nil {
-		if err := modifier.SetHeadingCaps(*req.Caps); err != nil {
+		if err := modifier.SetHeadingCaps(); err != nil {
 			return err
 		}
 	}

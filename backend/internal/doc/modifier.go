@@ -315,3 +315,25 @@ func (d *DocModifier) SetHeadingFLI(FLInd float64) error {
 	return nil
 }
 
+func (d *DocModifier) SetHeadingCaps() error {
+	// Get first paragraph with text
+	p := d.getFirstParagraph()
+	if p == nil {
+		return errors.New("There is no paragraph with text")
+	}
+	// Path to capitalize property: p -> w:r -> w:rPr -> w:caps
+	// w:r
+	r := p.FindElement("w:r")
+	if r == nil {
+		r = p.CreateElement("w:r")
+	}
+	// w:rPr
+	rPr := r.FindElement("w:rPr")
+	if r == nil {
+		rPr = r.CreateElement("w:rPr")
+	}
+	// w:caps
+	rPr.CreateElement("w:caps")
+
+	return nil
+}
