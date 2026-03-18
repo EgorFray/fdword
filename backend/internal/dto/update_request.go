@@ -25,4 +25,6 @@ type HeadingDTO struct {
 	JC *string `json:"jc"`
 	// First line indent
 	FLInd *float64 `json:"fLind"`
+	// Capitalize heading
+	Caps *bool `json:"caps"`
 } 
