@@ -330,7 +330,7 @@ function ModifyForm({ openForm, formRef }) {
             </FormRow>
 
             <FormRow label="Capitalize" info={true}>
-              <div className="w-47.25">
+              <div className="w-47.25 text-start">
                 <input
                   id="headingCaps"
                   name="headingCaps"
@@ -342,7 +342,7 @@ function ModifyForm({ openForm, formRef }) {
             </FormRow>
 
             <FormRow label="Bold" info={true}>
-              <div className="w-47.25">
+              <div className="w-47.25 text-start">
                 <input
                   id="headingBold"
                   name="headingBold"
