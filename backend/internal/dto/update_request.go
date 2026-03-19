@@ -27,4 +27,6 @@ type HeadingDTO struct {
 	FLInd *float64 `json:"fLind"`
 	// Capitalize heading
 	Caps *bool `json:"caps"`
+	// Bold heading
+	Bold *bool `json:"bold"`
 } 

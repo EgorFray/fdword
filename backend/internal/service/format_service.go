@@ -22,7 +22,7 @@ func (f *FormatService) FormatDoc(fileBytes []byte, req dto.UpdateRequest) ([]by
 	// Create modifier
 	modifier := doc.NewDocModifier(file)
 
-	// Check if we have a neccessary field. If yes - call SetLineSpacing method.
+	// Check if we have a neccessary field. If yes - call SetLineSpacing method
 	if req.LineSpacing != nil {
 		if err := modifier.SetLineSpacing(*req.LineSpacing); err != nil {
 			return nil, err
@@ -97,6 +97,12 @@ func(f *FormatService) FormatHeading(req dto.HeadingDTO, modifier *doc.DocModifi
 	// Check if we have capitalize=true in heading dto
 	if req.Caps != nil {
 		if err := modifier.SetHeadingCaps(); err != nil {
+			return err
+		}
+	}
+	// Check if we have bold=true in heading dto
+	if req.Caps != nil {
+		if err := modifier.SetHeadingBold(); err != nil {
 			return err
 		}
 	}
