@@ -46,6 +46,7 @@ function ModifyForm({ openForm, formRef }) {
         jc: data.headingjc,
         fLind: parseFloat(data.headingfLind),
         caps: JSON.parse(data.headingCaps),
+        bold: JSON.parse(data.headingBold),
       },
     };
 
@@ -329,13 +330,25 @@ function ModifyForm({ openForm, formRef }) {
             </FormRow>
 
             <FormRow label="Capitalize" info={true}>
-              <div className="align-start w-47.25">
+              <div className="w-47.25">
                 <input
                   id="headingCaps"
                   name="headingCaps"
                   type="checkbox"
                   value="true"
                   {...register("headingCaps")}
+                />
+              </div>
+            </FormRow>
+
+            <FormRow label="Bold" info={true}>
+              <div className="w-47.25">
+                <input
+                  id="headingBold"
+                  name="headingBold"
+                  type="checkbox"
+                  value="true"
+                  {...register("headingBold")}
                 />
               </div>
             </FormRow>
