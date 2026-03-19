@@ -337,3 +337,26 @@ func (d *DocModifier) SetHeadingCaps() error {
 
 	return nil
 }
+
+func (d *DocModifier) SetHeadingBold() error {
+		// Get first paragraph with text
+	p := d.getFirstParagraph()
+	if p == nil {
+		return errors.New("There is no paragraph with text")
+	}
+		// Path to bold property: p -> w:r -> w:rPr -> w:b
+		// w:r
+	r := p.FindElement("w:r")
+	if r == nil {
+		r = p.CreateElement("w:r")
+	}
+	// w:rPr
+	rPr := r.FindElement("w:rPr")
+	if r == nil {
+		rPr = r.CreateElement("w:rPr")
+	}
+	// w:b
+	rPr.CreateElement("w:b")
+
+	return nil
+}
