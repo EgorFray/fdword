@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { BsChevronDown, BsChevronDoubleDown } from "react-icons/bs";
 
-function FormDropdown({ title, children }) {
+function Dropdown({ title, children }) {
   const [isDropOpen, setIsDropOpen] = useState(false);
   const rowRef = useRef(null);
 
@@ -56,4 +56,4 @@ function FormDropdown({ title, children }) {
   );
 }
 
-export default FormDropdown;
+export default Dropdown;

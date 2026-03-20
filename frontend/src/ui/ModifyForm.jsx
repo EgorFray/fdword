@@ -10,7 +10,7 @@ import FormContainer from "../features/modifyForm/FormContainer";
 import Form from "../features/modifyForm/Form";
 import FormHeading from "../features/modifyForm/FormHeading";
 import FormRow from "../features/modifyForm/FormRow";
-import FormDropdown from "../features/modifyForm/FormDropdown";
+import Dropdown from "./Dropdown";
 import FormInput from "../features/modifyForm/FormInput";
 
 function ModifyForm({ openForm, formRef }) {
@@ -81,7 +81,7 @@ function ModifyForm({ openForm, formRef }) {
         <Form onSubmit={handleSubmit(onSubmit, onError)} formRef={formRef}>
           <FormHeading>Select what to change</FormHeading>
 
-          <FormDropdown title="Font settings">
+          <Dropdown title="Font settings">
             <FormRow
               label="Font size"
               info={true}
@@ -132,9 +132,9 @@ function ModifyForm({ openForm, formRef }) {
                 <option value="Courier">Courier</option>
               </select>
             </FormRow>
-          </FormDropdown>
+          </Dropdown>
 
-          <FormDropdown title="Page settings">
+          <Dropdown title="Page settings">
             <FormRow
               label="Line spacing"
               info={true}
@@ -280,9 +280,9 @@ function ModifyForm({ openForm, formRef }) {
                 <option value="both">Both</option>
               </select>
             </FormRow>
-          </FormDropdown>
+          </Dropdown>
 
-          <FormDropdown title="First paragraph settings">
+          <Dropdown title="First paragraph settings">
             <FormRow
               label="Justify content"
               info={true}
@@ -352,7 +352,7 @@ function ModifyForm({ openForm, formRef }) {
                 />
               </div>
             </FormRow>
-          </FormDropdown>
+          </Dropdown>
 
           <FormRow label="File" error={errors?.file?.message}>
             <input
