@@ -1,8 +1,13 @@
+import ManualHeading from "../ui/ManualHeading";
 import ManualSection from "../ui/ManualSection";
 
 function Manual() {
   return (
     <>
+      <div className="flex flex-col gap-5">
+        <ManualHeading />
+      </div>
+
       <p className="mt-6 mb-4 text-xl font-medium text-blue-950/80">
         On this page you can find the names of the available attributes and see
         how each of them affects your document

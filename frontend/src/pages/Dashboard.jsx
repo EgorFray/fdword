@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Comparator from "../ui/Comparator";
 import Heading from "../ui/Heading";
 import ModifyForm from "../ui/ModifyForm";
+import PageLayout from "../ui/PageLayout";
 
 function Dashboard() {
   const [openForm, setOpenForm] = useState(false);
@@ -16,11 +17,11 @@ function Dashboard() {
   }, [openForm]);
 
   return (
-    <div className="flex flex-col gap-7 p-4 text-center">
+    <PageLayout>
       <Heading setOpenForm={setOpenForm} formRef={formRef} />
       <Comparator />
       <ModifyForm formRef={formRef} openForm={openForm} />
-    </div>
+    </PageLayout>
   );
 }
 
