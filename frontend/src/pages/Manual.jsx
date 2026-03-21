@@ -1,28 +1,34 @@
+import Dropdown from "../ui/Dropdown";
+import DropdownsLayout from "../ui/DropdownsLayout";
 import ManualHeading from "../ui/ManualHeading";
 import ManualSection from "../ui/ManualSection";
+import ManualSectionHeading from "../ui/ManualSectionHeading";
+import PageLayout from "../ui/PageLayout";
 
 function Manual() {
   return (
-    <>
-      <div className="flex flex-col gap-5">
-        <ManualHeading />
-      </div>
+    <PageLayout>
+      <ManualHeading />
 
-      <p className="mt-6 mb-4 text-xl font-medium text-blue-950/80">
-        On this page you can find the names of the available attributes and see
-        how each of them affects your document
-      </p>
+      <ManualSectionHeading />
+      <DropdownsLayout>
+        <Dropdown title="Line spacing">
+          <ManualSection
+            imageA="/line-space--1.5.png"
+            imageB="/line-space--1.png"
+          >
+            As you can guess this parameter controls the line spacing of a
+            paragraph. In formal documents, values such as 1 or 1.15 are
+            commonly used, but you can choose any spacing that best suits your
+            needs.
+          </ManualSection>
+        </Dropdown>
 
-      <ManualSection
-        argName="Line-spacing"
-        imageA="/line-space--1.5.png"
-        imageB="/line-space--1.png"
-      >
-        As you can guess this parameter controls the line spacing of a
-        paragraph. In formal documents, values such as 1 or 1.15 are commonly
-        used, but you can choose any spacing that best suits your needs.
-      </ManualSection>
-    </>
+        <Dropdown title="Font type">
+          <ManualSection reverse="true">Some text for testing</ManualSection>
+        </Dropdown>
+      </DropdownsLayout>
+    </PageLayout>
   );
 }
 

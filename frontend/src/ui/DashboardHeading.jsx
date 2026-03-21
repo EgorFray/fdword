@@ -1,6 +1,6 @@
 import Button from "./Button";
 
-function Heading({ setOpenForm }) {
+function DashboardHeading({ setOpenForm }) {
   function handleClick() {
     setOpenForm((open) => !open);
   }
@@ -19,4 +19,4 @@ function Heading({ setOpenForm }) {
   );
 }
 
-export default Heading;
+export default DashboardHeading;

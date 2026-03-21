@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Comparator from "../ui/Comparator";
-import Heading from "../ui/Heading";
+import DashboardHeading from "../ui/DashboardHeading";
 import ModifyForm from "../ui/ModifyForm";
 import PageLayout from "../ui/PageLayout";
 
@@ -18,7 +18,7 @@ function Dashboard() {
 
   return (
     <PageLayout>
-      <Heading setOpenForm={setOpenForm} formRef={formRef} />
+      <DashboardHeading setOpenForm={setOpenForm} formRef={formRef} />
       <Comparator />
       <ModifyForm formRef={formRef} openForm={openForm} />
     </PageLayout>
