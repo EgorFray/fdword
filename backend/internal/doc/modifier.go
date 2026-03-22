@@ -7,12 +7,6 @@ import (
 	"github.com/beevik/etree"
 )
 
-type DocModifierInterface interface {
-	SetLineSpacing(val float64) error
-	SetFontSize(val float64) error
-	SetFontType(val string) error
-}
-
 type DocModifier struct {
 	doc *WDoc
 }
