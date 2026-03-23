@@ -1,8 +1,8 @@
-function ManualSection({ argName, imageA, children, reverse = false }) {
+function ManualSection({ argName, imageA, children }) {
   return (
-    <section className="mx-4 mt-4 mb-6 grid grid-cols-[350px_1fr] gap-x-6">
+    <section className="mx-4 mt-4 mb-6 grid grid-cols-[400px_1fr] gap-x-6">
       {/* Image 1 (before) */}
-      <div className={`col-start-1 row-start-1 ${reverse ? "order-2" : ""}`}>
+      <div className="col-start-1 row-start-1">
         <img
           src={imageA}
           alt={`Example of ${argName} before changes`}
@@ -11,9 +11,7 @@ function ManualSection({ argName, imageA, children, reverse = false }) {
       </div>
 
       {/* Description */}
-      <div
-        className={`col-start-2 row-span-2 text-lg font-medium text-blue-950/80 ${reverse ? "order-1" : ""}`}
-      >
+      <div className="col-start-2 row-span-2 text-start text-lg font-medium text-blue-950/80">
         {children}
       </div>
     </section>

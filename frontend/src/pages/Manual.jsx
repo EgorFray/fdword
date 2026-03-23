@@ -10,13 +10,10 @@ function Manual() {
     <PageLayout>
       <ManualHeading />
 
-      <ManualSectionHeading />
+      <ManualSectionHeading>Font settings</ManualSectionHeading>
       <DropdownsLayout>
-        <Dropdown title="Line spacing">
-          <ManualSection
-            imageA="/line-space--1.5.png"
-            imageB="/line-space--1.png"
-          >
+        <Dropdown title="Font size">
+          <ManualSection>
             As you can guess this parameter controls the line spacing of a
             paragraph. In formal documents, values such as 1 or 1.15 are
             commonly used, but you can choose any spacing that best suits your
@@ -25,7 +22,31 @@ function Manual() {
         </Dropdown>
 
         <Dropdown title="Font type">
-          <ManualSection reverse="true">Some text for testing</ManualSection>
+          <ManualSection>Some text for testing</ManualSection>
+        </Dropdown>
+      </DropdownsLayout>
+
+      <ManualSectionHeading>Page settings</ManualSectionHeading>
+      <DropdownsLayout>
+        <Dropdown title="Line spacing">
+          <ManualSection>
+            As you can guess this parameter controls the line spacing of a
+            paragraph. In formal documents, values such as 1 or 1.15 are
+            commonly used, but you can choose any spacing that best suits your
+            needs.
+          </ManualSection>
+        </Dropdown>
+
+        <Dropdown title="Margins">
+          <ManualSection>Some text for testing</ManualSection>
+        </Dropdown>
+
+        <Dropdown title="First line indent">
+          <ManualSection>Some text for testing</ManualSection>
+        </Dropdown>
+
+        <Dropdown title="Justify content">
+          <ManualSection>Some text for testing</ManualSection>
         </Dropdown>
       </DropdownsLayout>
     </PageLayout>
