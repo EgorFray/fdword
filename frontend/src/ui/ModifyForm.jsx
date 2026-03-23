@@ -160,7 +160,13 @@ function ModifyForm({ openForm, formRef }) {
               />
             </FormRow>
 
-            <FormRow label="Margin top" error={errors?.mTop?.message}>
+            <FormRow
+              label="Margin top"
+              info={true}
+              error={errors?.mTop?.message}
+              video="/marginTop.mp4"
+              tooltip="Change margin top in the entire document"
+            >
               <FormInput
                 id="mTop"
                 type="number"
@@ -179,7 +185,13 @@ function ModifyForm({ openForm, formRef }) {
               />
             </FormRow>
 
-            <FormRow label="Margin right" error={errors?.mRgh?.message}>
+            <FormRow
+              label="Margin right"
+              info={true}
+              error={errors?.mRgh?.message}
+              video="/marginRight.mp4"
+              tooltip="Change margin right in the entire document"
+            >
               <FormInput
                 id="mRgh"
                 type="number"
@@ -198,7 +210,13 @@ function ModifyForm({ openForm, formRef }) {
               />
             </FormRow>
 
-            <FormRow label="Margin bottom" error={errors?.mBtm?.message}>
+            <FormRow
+              label="Margin bottom"
+              info={true}
+              error={errors?.mBtm?.message}
+              video="/marginBottom.mp4"
+              tooltip="Change margin bottom in the entire document"
+            >
               <FormInput
                 id="mBtm"
                 type="number"
@@ -217,7 +235,13 @@ function ModifyForm({ openForm, formRef }) {
               />
             </FormRow>
 
-            <FormRow label="Margin left" error={errors?.mLft?.message}>
+            <FormRow
+              label="Margin left"
+              info={true}
+              error={errors?.mLft?.message}
+              video="/marginLeft.mp4"
+              tooltip="Change margin left in the entire document"
+            >
               <FormInput
                 id="mLft"
                 type="number"
@@ -329,7 +353,12 @@ function ModifyForm({ openForm, formRef }) {
               />
             </FormRow>
 
-            <FormRow label="Capitalize" info={true}>
+            <FormRow
+              label="Capitalize"
+              info={true}
+              video="/capitalize.mp4"
+              tooltip="Set uppercase for the first paragraph"
+            >
               <div className="w-47.25 text-start">
                 <input
                   id="headingCaps"
@@ -341,7 +370,12 @@ function ModifyForm({ openForm, formRef }) {
               </div>
             </FormRow>
 
-            <FormRow label="Bold" info={true}>
+            <FormRow
+              label="Bold"
+              info={true}
+              video="/bold.mp4"
+              tooltip="Set first paragraph bold"
+            >
               <div className="w-47.25 text-start">
                 <input
                   id="headingBold"
