@@ -13,7 +13,7 @@ function Manual() {
       <ManualSectionHeading>Font settings</ManualSectionHeading>
       <DropdownsLayout>
         <Dropdown title="Font size">
-          <ManualSection>
+          <ManualSection argName="font size" image="/fontSize.png">
             As you can guess this parameter controls the line spacing of a
             paragraph. In formal documents, values such as 1 or 1.15 are
             commonly used, but you can choose any spacing that best suits your
@@ -22,14 +22,16 @@ function Manual() {
         </Dropdown>
 
         <Dropdown title="Font type">
-          <ManualSection>Some text for testing</ManualSection>
+          <ManualSection argName="font type" image="/fontType.png">
+            Some text for testing
+          </ManualSection>
         </Dropdown>
       </DropdownsLayout>
 
       <ManualSectionHeading>Page settings</ManualSectionHeading>
       <DropdownsLayout>
         <Dropdown title="Line spacing">
-          <ManualSection>
+          <ManualSection argName="line spacing" image="/lineSpacing.png">
             As you can guess this parameter controls the line spacing of a
             paragraph. In formal documents, values such as 1 or 1.15 are
             commonly used, but you can choose any spacing that best suits your
