@@ -14,16 +14,18 @@ function Manual() {
       <DropdownsLayout>
         <Dropdown title="Font size">
           <ManualSection argName="font size" image="/fontSize.png">
-            As you can guess this parameter controls the line spacing of a
-            paragraph. In formal documents, values such as 1 or 1.15 are
-            commonly used, but you can choose any spacing that best suits your
-            needs.
+            Specifies the font size in points. Allowed values range from 5 to
+            72.
           </ManualSection>
         </Dropdown>
 
         <Dropdown title="Font type">
           <ManualSection argName="font type" image="/fontType.png">
-            Some text for testing
+            Specifies the font family used throughout the document. Available
+            options include 9 widely used fonts: Times New Roman, Calibri,
+            Arial, Georgia, Helvetica, Verdana, Tahoma, Century and Courier. If
+            you omit setting the font type, the app will use your current
+            document font.
           </ManualSection>
         </Dropdown>
       </DropdownsLayout>
@@ -32,10 +34,8 @@ function Manual() {
       <DropdownsLayout>
         <Dropdown title="Line spacing">
           <ManualSection argName="line spacing" image="/lineSpacing.png">
-            As you can guess this parameter controls the line spacing of a
-            paragraph. In formal documents, values such as 1 or 1.15 are
-            commonly used, but you can choose any spacing that best suits your
-            needs.
+            Sets the vertical space between the lines of text in your document
+            by setting the line spacing.
           </ManualSection>
         </Dropdown>
 
@@ -48,13 +48,14 @@ function Manual() {
             argName="first line indent"
             image="/firstLineIndent.png"
           >
-            Some text for testing
+            Sets the first-line indent for all paragraphs in the document.
           </ManualSection>
         </Dropdown>
 
         <Dropdown title="Justify content">
           <ManualSection argName="justify content" image="/justifyContent.png">
-            Some text for testing
+            Sets the text alignment (left, center, right, or justified). Default
+            is left.
           </ManualSection>
         </Dropdown>
       </DropdownsLayout>
