@@ -44,11 +44,18 @@ function Manual() {
         </Dropdown>
 
         <Dropdown title="First line indent">
-          <ManualSection>Some text for testing</ManualSection>
+          <ManualSection
+            argName="first line indent"
+            image="/firstLineIndent.png"
+          >
+            Some text for testing
+          </ManualSection>
         </Dropdown>
 
         <Dropdown title="Justify content">
-          <ManualSection>Some text for testing</ManualSection>
+          <ManualSection argName="justify content" image="/justifyContent.png">
+            Some text for testing
+          </ManualSection>
         </Dropdown>
       </DropdownsLayout>
     </PageLayout>
