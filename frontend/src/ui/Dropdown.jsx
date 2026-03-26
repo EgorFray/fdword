@@ -7,21 +7,22 @@ function Dropdown({ title, children }) {
   const [isDropOpen, setIsDropOpen] = useState(false);
   const rowRef = useRef(null);
 
-  // I use timeout, because other solution with observers ar too complecated for me right now. I can come back later to solve it properly.
+  // I use timeout, because other solution with observers ar too complicated for me right now. I can come back later to solve it properly.
   useLayoutEffect(() => {
     if (rowRef.current) {
       setTimeout(() => setHeight(rowRef.current.scrollHeight), 100);
     }
   }, [isDropOpen]);
 
+  // The same issue is with scrollIntoView. I can fix it later.
   useEffect(() => {
     if (isDropOpen && rowRef.current) {
       setTimeout(() => {
         rowRef.current.scrollIntoView({
           behavior: "smooth",
-          block: "center",
+          block: "start",
         });
-      }, 120);
+      }, 275);
     }
   }, [isDropOpen]);
 

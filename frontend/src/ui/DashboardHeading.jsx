@@ -1,8 +1,10 @@
 import Button from "./Button";
 
-function DashboardHeading({ setOpenForm }) {
+function DashboardHeading({ formRef }) {
   function handleClick() {
-    setOpenForm((open) => !open);
+    formRef.current?.scrollIntoView({
+      behavior: "smooth",
+    });
   }
 
   return (
