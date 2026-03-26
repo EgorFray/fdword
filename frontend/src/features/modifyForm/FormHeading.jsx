@@ -1,5 +1,9 @@
 function FormHeading({ children }) {
-  return <h2 className="mb-6 ml-4 text-2xl font-bold">{children}</h2>;
+  return (
+    <div className="flex w-full items-center justify-center">
+      <h2 className="mb-6 text-3xl font-bold">{children}</h2>
+    </div>
+  );
 }
 
 export default FormHeading;

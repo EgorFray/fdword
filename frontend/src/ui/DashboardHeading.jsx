@@ -1,4 +1,7 @@
 import Button from "./Button";
+import Heading from "./Heading";
+import MainHeading from "./MainHeading";
+import SubHeading from "./SubHeading";
 
 function DashboardHeading({ formRef }) {
   function handleClick() {
@@ -8,16 +11,16 @@ function DashboardHeading({ formRef }) {
   }
 
   return (
-    <div className="flex flex-col gap-5">
-      <p className="text-3xl font-bold">
+    <Heading>
+      <MainHeading>
         Transform your word file into <br /> well-formated document
-      </p>
-      <p className="text-xl font-medium text-blue-950/80">
+      </MainHeading>
+      <SubHeading>
         Just add your document, choose what <br />
         to format and get the result
-      </p>
-      <Button onClick={handleClick}>Format document</Button>
-    </div>
+      </SubHeading>
+      <Button handleClick={handleClick}>Forrmat document</Button>
+    </Heading>
   );
 }
 
