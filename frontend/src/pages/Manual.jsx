@@ -1,64 +1,21 @@
-import Dropdown from "../ui/Dropdown";
-import DropdownsLayout from "../ui/DropdownsLayout";
-import ManualHeading from "../ui/ManualHeading";
-import ManualSection from "../ui/ManualSection";
-import ManualSectionHeading from "../ui/ManualSectionHeading";
+import Heading from "../ui/Heading";
+import MainHeading from "../ui/MainHeading";
+import ManualInfoSection from "../ui/ManualInfoSection";
 import PageLayout from "../ui/PageLayout";
+import SubHeading from "../ui/SubHeading";
 
 function Manual() {
   return (
     <PageLayout>
-      <ManualHeading />
+      <Heading>
+        <MainHeading>
+          All you need to know <br />
+          about word properties and formating
+        </MainHeading>
+        <SubHeading>Some text just to check how it looks</SubHeading>
+      </Heading>
 
-      <ManualSectionHeading>Font settings</ManualSectionHeading>
-      <DropdownsLayout>
-        <Dropdown title="Font size">
-          <ManualSection argName="font size" image="/fontSize.png">
-            Specifies the font size in points. Allowed values range from 5 to
-            72.
-          </ManualSection>
-        </Dropdown>
-
-        <Dropdown title="Font type">
-          <ManualSection argName="font type" image="/fontType.png">
-            Specifies the font family used throughout the document. Available
-            options include 9 widely used fonts: Times New Roman, Calibri,
-            Arial, Georgia, Helvetica, Verdana, Tahoma, Century and Courier. If
-            you omit setting the font type, the app will use your current
-            document font.
-          </ManualSection>
-        </Dropdown>
-      </DropdownsLayout>
-
-      <ManualSectionHeading>Page settings</ManualSectionHeading>
-      <DropdownsLayout>
-        <Dropdown title="Line spacing">
-          <ManualSection argName="line spacing" image="/lineSpacing.png">
-            Sets the vertical space between the lines of text in your document
-            by setting the line spacing.
-          </ManualSection>
-        </Dropdown>
-
-        <Dropdown title="Margins">
-          <ManualSection>Some text for testing</ManualSection>
-        </Dropdown>
-
-        <Dropdown title="First line indent">
-          <ManualSection
-            argName="first line indent"
-            image="/firstLineIndent.png"
-          >
-            Sets the first-line indent for all paragraphs in the document.
-          </ManualSection>
-        </Dropdown>
-
-        <Dropdown title="Justify content">
-          <ManualSection argName="justify content" image="/justifyContent.png">
-            Sets the text alignment (left, center, right, or justified). Default
-            is left.
-          </ManualSection>
-        </Dropdown>
-      </DropdownsLayout>
+      <ManualInfoSection />
     </PageLayout>
   );
 }
