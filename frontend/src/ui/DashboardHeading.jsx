@@ -19,7 +19,7 @@ function DashboardHeading({ formRef }) {
         Just add your document, choose what <br />
         to format and get the result
       </SubHeading>
-      <Button handleClick={handleClick}>Forrmat document</Button>
+      <Button onClick={handleClick}>Format document</Button>
     </Heading>
   );
 }
