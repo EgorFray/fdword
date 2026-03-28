@@ -1,5 +1,7 @@
 function SubHeading({ children }) {
-  return <p className="text-xl font-medium text-blue-950/80">{children}</p>;
+  return (
+    <p className="text-l font-medium text-blue-950/80 sm:text-xl">{children}</p>
+  );
 }
 
 export default SubHeading;
