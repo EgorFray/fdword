@@ -397,7 +397,7 @@ function ModifyForm({ formRef }) {
             </FormRow>
           </Dropdown>
 
-          <FormRow label="File" error={errors?.file?.message}>
+          <FormRow error={errors?.file?.message}>
             <input
               type="file"
               id="file"

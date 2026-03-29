@@ -4,9 +4,9 @@ import Label from "./Label";
 
 function FormRow({ label, children, info = false, error, video, tooltip }) {
   return (
-    <div className="mb-6 grid grid-cols-[160px_1fr_1fr] items-center justify-items-start gap-6">
+    <div className="mb-4 flex flex-col items-start justify-items-start gap-2 md:mb-6 md:grid md:grid-cols-[160px_1fr_1fr] md:items-center md:gap-6">
       {label && <Label>{label}</Label>}
-      <div className="flex w-full items-center gap-2">
+      <div className="ml-4 flex w-full items-center gap-2 md:ml-0">
         {children}
         {info && <FormTooltip video={video} tooltip={tooltip} />}
       </div>
