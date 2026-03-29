@@ -1,7 +1,7 @@
 function Form({ onSubmit, formRef, children }) {
   return (
     <form
-      className="flex max-w-160 flex-col items-start justify-items-start gap-7 p-6"
+      className="flex max-w-100 flex-col items-start justify-items-start gap-7 p-6 md:max-w-160"
       onSubmit={onSubmit}
       ref={formRef}
     >

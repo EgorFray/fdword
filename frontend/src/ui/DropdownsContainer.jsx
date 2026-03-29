@@ -1,5 +1,5 @@
 function DropdownsContainer({ children }) {
-  return <div>{children}</div>;
+  return <div className="max-w-full">{children}</div>;
 }
 
 export default DropdownsContainer;

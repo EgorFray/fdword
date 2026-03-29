@@ -28,7 +28,7 @@ function Dropdown({ title, children }) {
 
   return (
     <>
-      <div className="mb-2 w-full rounded-xl bg-blue-200 px-4 py-4 text-2xl font-semibold">
+      <div className="mb-2 rounded-xl bg-blue-200 px-4 py-4 text-2xl font-semibold">
         <div
           className="flex cursor-pointer items-center justify-between"
           onClick={() => setIsDropOpen((isOpen) => !isOpen)}
