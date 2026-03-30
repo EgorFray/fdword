@@ -6,6 +6,8 @@ import {
   offset,
   useInteractions,
   useTransitionStyles,
+  flip,
+  shift,
 } from "@floating-ui/react";
 import Tooltip from "../../ui/Tooltip";
 
@@ -13,7 +15,7 @@ function FormTooltip({ video, tooltip }) {
   const [isOpenTooltip, setIsOpenTooltip] = useState(false);
   const { refs, floatingStyles, context } = useFloating({
     placement: "right",
-    middleware: [offset(10)],
+    middleware: [offset(10), flip(), shift()],
     open: isOpenTooltip,
     onOpenChange: setIsOpenTooltip,
   });
