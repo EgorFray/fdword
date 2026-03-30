@@ -417,14 +417,14 @@ function ModifyForm({ formRef }) {
               })}
             />
           </FormRow>
-        </DropdownsContainer>
 
-        <div className="mr-4 flex w-full justify-end gap-2">
-          <ButtonEmpty type="reset" onClick={() => reset()}>
-            Cancel
-          </ButtonEmpty>
-          <Button disabled={isModifying}>Submit</Button>
-        </div>
+          <div className="mr-4 flex w-full justify-end gap-2">
+            <ButtonEmpty type="reset" onClick={() => reset()}>
+              Cancel
+            </ButtonEmpty>
+            <Button disabled={isModifying}>Submit</Button>
+          </div>
+        </DropdownsContainer>
       </Form>
 
       {fileBlob && <Download onClick={handleCreateLink} />}

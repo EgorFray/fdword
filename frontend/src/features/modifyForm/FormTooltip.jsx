@@ -31,11 +31,7 @@ function FormTooltip({ video, tooltip }) {
   const { getReferenceProps, getFloatingProps } = useInteractions([hover]);
 
   return (
-    <div
-      onClick={() => setIsOpenTooltip((isOpen) => !isOpen)}
-      // onMouseEnter={() => setIsOpenTooltip(true)}
-      // onMouseLeave={() => setIsOpenTooltip(false)}
-    >
+    <div onClick={() => setIsOpenTooltip((isOpen) => !isOpen)}>
       <BsQuestionCircle
         ref={refs.setReference}
         {...getReferenceProps()}
