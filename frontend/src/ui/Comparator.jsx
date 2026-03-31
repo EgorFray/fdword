@@ -1,11 +1,58 @@
+import { motion, useAnimation } from "framer-motion";
+import { useEffect, useState } from "react";
+
 function Comparator() {
+  const [showDivider, setShowDivider] = useState(false);
+  const controls = useAnimation();
+
+  useEffect(() => {
+    const sequence = async () => {
+      for (let i = 0; i < 1; i++) {
+        await controls.start({
+          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+          transition: { duration: 1.5, ease: "easeInOut" },
+        });
+
+        await controls.start({
+          clipPath: "polygon(0 0, 0% 0, 0% 100%, 0 100%)",
+          transition: { duration: 1.5, ease: "easeInOut" },
+        });
+      }
+
+      await controls.start({
+        clipPath: "polygon(0 0, 50% 0, 50% 100%, 0 100%)",
+        transition: { duration: 0.8 },
+      });
+
+      setShowDivider(true);
+    };
+
+    sequence();
+  }, []);
+
   return (
-    <div className="grid grid-cols-2 rounded-xl shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)]">
-      <img
+    <div className="relative m-auto w-full max-w-md overflow-hidden">
+      {/* AFTER */}
+      <img src="/after.png" className="w-full" />
+
+      {/* BEFORE */}
+      <motion.img
         src="/before.png"
-        className="rounded-tl-xl rounded-bl-xl border-r border-blue-950/20"
+        className="absolute inset-0 h-full w-full object-cover"
+        initial={{
+          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+        }}
+        animate={controls}
       />
-      <img src="/after.png" className="rounded-tr-xl rounded-br-xl" />
+
+      {showDivider && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.5 }}
+          className="absolute top-0 bottom-0 w-px bg-blue-950"
+          style={{ left: "50%" }}
+        />
+      )}
     </div>
   );
 }
