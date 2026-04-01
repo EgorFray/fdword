@@ -41,3 +41,19 @@ func TestSetFontSize(t *testing.T) {
 	// assert with 32 because in word font size is 2 times bigger than input value
 	assert.Equal(t, "32", val)
 }
+
+func TestSetFontType(t *testing.T) {
+	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
+
+	modifier := NewDocModifier(doc)
+
+	err := modifier.SetFontType("Calibri")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	fontType := doc.Styles.Root().FindElement("w:docDefaults/w:rPrDefault/w:rPr/w:rFonts")
+
+	val := fontType.SelectAttrValue("w:asciiTheme", "")
+	assert.Equal(t, "Calibri", val)
+}
