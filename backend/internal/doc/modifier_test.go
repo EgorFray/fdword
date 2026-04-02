@@ -67,8 +67,26 @@ func TestSetMargins(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	marginTop := doc.Document.Root().FindElement("//w:sectPr/w:pgMar")
 
 	val := marginTop.SelectAttrValue("w:top", "")
 	assert.Equal(t, "1701", val)	
+}
+
+func TestSetFirstLineIndent(t *testing.T) {
+	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
+
+	modifier := NewDocModifier(doc)
+
+	err := modifier.SetFirstLineIndent(2)
+	if err != nil {
+		t.Fatal(err)
+	}
+	
+	normalStyle := doc.Styles.Root().FindElement("//w:style[@w:styleId='Normal']")
+	ind := normalStyle.FindElement("w:pPr/w:ind")
+
+	val := ind.SelectAttrValue("w:firstLine", "")
+	assert.Equal(t, "1134", val)
 }
