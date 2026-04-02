@@ -57,3 +57,18 @@ func TestSetFontType(t *testing.T) {
 	val := fontType.SelectAttrValue("w:asciiTheme", "")
 	assert.Equal(t, "Calibri", val)
 }
+
+func TestSetMargins(t *testing.T) {
+	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
+
+	modifier := NewDocModifier(doc)
+
+	err := modifier.SetMargins(3, 1, 3, 3)
+	if err != nil {
+		t.Fatal(err)
+	}
+	marginTop := doc.Document.Root().FindElement("//w:sectPr/w:pgMar")
+
+	val := marginTop.SelectAttrValue("w:top", "")
+	assert.Equal(t, "1701", val)	
+}
