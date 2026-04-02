@@ -7,6 +7,7 @@ import (
 
 	"github.com/EgorFray/fdword/internal/dto"
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 )
 
 type FormatServiceInterface interface {
@@ -15,10 +16,11 @@ type FormatServiceInterface interface {
 
 type Handler struct {
 	Service FormatServiceInterface
+	Validator *validator.Validate
 }
 
 func NewHandler(s FormatServiceInterface) *Handler {
-	return &Handler{Service: s}
+	return &Handler{Service: s, Validator: validator.New()}
 }
 
 func (h *Handler) FormatDoc(c *gin.Context) {
@@ -51,6 +53,11 @@ func (h *Handler) FormatDoc(c *gin.Context) {
 	if err := json.Unmarshal([]byte(data), &req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
+	}
+
+	// Validation
+	if err := h.Validator.Struct(req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 
 	// Call the service
