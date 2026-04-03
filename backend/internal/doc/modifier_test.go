@@ -124,3 +124,20 @@ func TestSetHeadingJC(t *testing.T) {
 	val := hjc.SelectAttrValue("w:val", "")
 	assert.Equal(t, "right", val)
 }
+
+func TestSetHeadingFLI(t *testing.T) {
+	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
+
+	modifier := NewDocModifier(doc)
+
+	err := modifier.SetHeadingFLI(2)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	p := modifier.getFirstParagraph()
+
+	fli := p.FindElement("w:pPr/w:ind")
+	val := fli.SelectAttrValue("w:firstLine", "")
+	assert.Equal(t, "1134", val)
+}
