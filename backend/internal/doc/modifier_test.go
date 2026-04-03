@@ -107,3 +107,20 @@ func TestSetJC(t *testing.T) {
 	val := jc.SelectAttrValue("w:val", "")
 	assert.Equal(t, "both", val)	
 }
+
+func TestSetHeadingJC(t *testing.T) {
+	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
+
+	modifier := NewDocModifier(doc)
+
+	err := modifier.SetHeadingJC("right")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	p := modifier.getFirstParagraph()
+
+	hjc := p.FindElement("w:pPr/w:jc")
+	val := hjc.SelectAttrValue("w:val", "")
+	assert.Equal(t, "right", val)
+}
