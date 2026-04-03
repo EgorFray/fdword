@@ -90,3 +90,20 @@ func TestSetFirstLineIndent(t *testing.T) {
 	val := ind.SelectAttrValue("w:firstLine", "")
 	assert.Equal(t, "1134", val)
 }
+
+func TestSetJC(t *testing.T) {
+	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
+
+	modifier := NewDocModifier(doc)
+
+	err := modifier.SetJC("both")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	normalStyle := doc.Styles.Root().FindElement("//w:style[@w:styleId='Normal']")
+	jc := normalStyle.FindElement("w:pPr/w:jc")
+
+	val := jc.SelectAttrValue("w:val", "")
+	assert.Equal(t, "both", val)	
+}
