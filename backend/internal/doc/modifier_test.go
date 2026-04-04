@@ -141,3 +141,20 @@ func TestSetHeadingFLI(t *testing.T) {
 	val := fli.SelectAttrValue("w:firstLine", "")
 	assert.Equal(t, "1134", val)
 }
+
+func TestSetHeadingCaps(t *testing.T) {
+	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
+
+	modifier := NewDocModifier(doc)
+
+	err := modifier.SetHeadingCaps()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	p := modifier.getFirstParagraph()
+
+	caps := p.FindElement("w:r/w:rPr/w:caps")
+
+	assert.NotNil(t, caps)
+}
