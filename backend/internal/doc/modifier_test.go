@@ -158,3 +158,20 @@ func TestSetHeadingCaps(t *testing.T) {
 
 	assert.NotNil(t, caps)
 }
+
+func TestSetHeadingBold(t *testing.T) {
+	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
+
+	modifier := NewDocModifier(doc)
+
+	err := modifier.SetHeadingBold()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	p := modifier.getFirstParagraph()
+
+	bold := p.FindElement("w:r/w:rPr/w:b")
+
+	assert.NotNil(t, bold)
+}
