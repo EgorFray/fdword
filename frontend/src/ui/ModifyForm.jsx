@@ -19,6 +19,7 @@ import DropdownsContainer from "./DropdownsContainer";
 function ModifyForm({ formRef }) {
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
+  console.log(errors);
 
   const {
     mutate,
