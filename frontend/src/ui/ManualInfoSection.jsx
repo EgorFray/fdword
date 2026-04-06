@@ -50,8 +50,45 @@ function ManualInfoSection() {
 
         <Dropdown title="Justify content">
           <ManualSection argName="justify content" image="/justifyContent.png">
-            Sets the text alignment (left, center, right, or justified). Default
-            is left.
+            Sets the text alignment (left, center, right, or justified) for the
+            whole document. Default is left.
+          </ManualSection>
+        </Dropdown>
+      </DropdownsLayout>
+
+      <ManualSectionHeading>First paragraph settings</ManualSectionHeading>
+      <DropdownsLayout>
+        <Dropdown title="Justify content">
+          <ManualSection
+            argName="heading justify content"
+            image="/headingJustifyContent.png"
+          >
+            Sets the text alignment (left, center, right or justified) only for
+            the first paragraph of the document.
+          </ManualSection>
+        </Dropdown>
+
+        <Dropdown title="First line indent">
+          <ManualSection
+            argName="heading first line indent"
+            image="/headingFirstLineIndent.png"
+          >
+            Sets the first-line indent for the first paragraph only.
+          </ManualSection>
+        </Dropdown>
+
+        <Dropdown title="Capitalize">
+          <ManualSection
+            argName="heading capitalize"
+            image="/headingCapitalize.png"
+          >
+            Sets the first paragraph uppercase.
+          </ManualSection>
+        </Dropdown>
+
+        <Dropdown title="Bold">
+          <ManualSection argName="heading bold" image="/headingBold.png">
+            Sets the first paragraph bold.
           </ManualSection>
         </Dropdown>
       </DropdownsLayout>
