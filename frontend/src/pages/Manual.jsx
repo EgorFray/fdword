@@ -8,11 +8,11 @@ function Manual() {
   return (
     <PageLayout>
       <Heading>
-        <MainHeading>
-          All you need to know <br />
-          about word properties and formating
-        </MainHeading>
-        <SubHeading>Some text just to check how it looks</SubHeading>
+        <MainHeading>Everything about formatting</MainHeading>
+        <SubHeading>
+          Explore each option and see <br />
+          how it affects your document
+        </SubHeading>
       </Heading>
 
       <ManualInfoSection />

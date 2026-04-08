@@ -36,7 +36,11 @@ function ManualInfoSection() {
         </Dropdown>
 
         <Dropdown title="Margins">
-          <ManualSection>Some text for testing</ManualSection>
+          <ManualSection argName="margins" image="/margins.png">
+            Margins in Word are the blank spaces around the edges of a document
+            (top, bottom, left, and right) that separate text from the
+            paper&apos;s edge. Each page automatically has a 2.54 sm margin.
+          </ManualSection>
         </Dropdown>
 
         <Dropdown title="First line indent">
@@ -64,7 +68,9 @@ function ManualInfoSection() {
             image="/headingJustifyContent.png"
           >
             Sets the text alignment (left, center, right or justified) only for
-            the first paragraph of the document.
+            the first paragraph of the document. <br /> <strong>Tip: </strong>
+            to perfectly center the first paragraph, set it&apos;s first-line
+            indent to 0.
           </ManualSection>
         </Dropdown>
 

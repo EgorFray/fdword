@@ -83,9 +83,9 @@ function ModifyForm({ formRef }) {
     <FormContainer>
       <Form onSubmit={handleSubmit(onSubmit, onError)} formRef={formRef}>
         <Heading>
-          <MainHeading>Select what to change</MainHeading>
+          <MainHeading>Choose what to update</MainHeading>
           <SubHeading>
-            Change only what you need to change. <br /> Other fields just leave
+            Only fill in the fields you want to change. <br /> Leave the rest
             empty
           </SubHeading>
         </Heading>
