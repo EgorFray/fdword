@@ -38,10 +38,17 @@ function ModifyForm({ formRef }) {
 
   function onSubmit(data) {
     console.log("DATA:", data);
+    const heading = {
+      jc: data.headingjc || undefined,
+      fLind: toOptionalFloat(data.headingfLind),
+      caps: toOptionalBool(data.headingCaps),
+      bold: toOptionalBool(data.headingBold),
+    };
+
     const obj = {
       lineSpacing: toOptionalFloat(data.lineSpacing),
       fontSize: toOptionalFloat(data.fontSize),
-      fontType: data.fontType,
+      fontType: data.fontType || undefined,
       mTop: toOptionalFloat(data.mTop),
       mRgh: toOptionalFloat(data.mRgh),
       mBtm: toOptionalFloat(data.mBtm),
@@ -49,13 +56,17 @@ function ModifyForm({ formRef }) {
       fLind: toOptionalFloat(data.fLind),
       jc: data.jc || undefined,
 
-      heading: {
-        jc: data.headingjc || undefined,
-        fLind: toOptionalFloat(data.headingfLind),
-        caps: toOptionalBool(data.headingCaps),
-        bold: toOptionalBool(data.headingBold),
-      },
+      heading,
     };
+
+    if (
+      heading.jc === undefined &&
+      heading.fLind === undefined &&
+      heading.caps === undefined &&
+      heading.bold === undefined
+    ) {
+      delete obj.heading;
+    }
 
     const formData = new FormData();
     formData.append("data", JSON.stringify(obj));
