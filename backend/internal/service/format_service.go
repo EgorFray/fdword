@@ -1,8 +1,6 @@
 package service
 
 import (
-	"fmt"
-
 	doc "github.com/EgorFray/fdword/internal/doc"
 	"github.com/EgorFray/fdword/internal/dto"
 )
@@ -103,7 +101,7 @@ func(f *FormatService) FormatHeading(req dto.HeadingDTO, modifier *doc.DocModifi
 		}
 	}
 	// Check if we have bold=true in heading dto
-	if req.Caps != nil {
+	if req.Bold != nil {
 		if err := modifier.SetHeadingBold(); err != nil {
 			return err
 		}

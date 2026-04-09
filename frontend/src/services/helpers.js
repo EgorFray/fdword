@@ -4,6 +4,6 @@ export function toOptionalFloat(value) {
 }
 
 export function toOptionalBool(value) {
-  if (value === "" || value === undefined) return undefined;
+  if (value === false || value === undefined) return undefined;
   return value === true;
 }

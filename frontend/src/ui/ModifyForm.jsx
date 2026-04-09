@@ -54,25 +54,6 @@ function ModifyForm({ formRef }) {
       },
     };
 
-    // const obj = {
-    //   lineSpacing: parseFloat(data.lineSpacing),
-    //   fontSize: parseFloat(data.fontSize),
-    //   fontType: data.fontType,
-    //   mTop: parseFloat(data.mTop),
-    //   mRgh: parseFloat(data.mRgh),
-    //   mBtm: parseFloat(data.mBtm),
-    //   mLft: parseFloat(data.mLft),
-    //   fLind: parseFloat(data.fLind),
-    //   jc: data.jc,
-
-    //   heading: {
-    //     jc: data.headingjc,
-    //     fLind: parseFloat(data.headingfLind),
-    //     caps: JSON.parse(data.headingCaps),
-    //     bold: JSON.parse(data.headingBold),
-    //   },
-    // };
-
     const formData = new FormData();
     formData.append("data", JSON.stringify(obj));
     formData.append("file", data.file[0]);
