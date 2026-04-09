@@ -18,7 +18,9 @@ import SubHeading from "./SubHeading";
 import DropdownsContainer from "./DropdownsContainer";
 
 function ModifyForm({ formRef }) {
-  const { register, handleSubmit, reset, formState } = useForm();
+  const { register, handleSubmit, reset, formState } = useForm({
+    shouldUnregister: true,
+  });
   const { errors } = formState;
 
   const {
@@ -35,6 +37,7 @@ function ModifyForm({ formRef }) {
   });
 
   function onSubmit(data) {
+    console.log("DATA:", data);
     const obj = {
       lineSpacing: toOptionalFloat(data.lineSpacing),
       fontSize: toOptionalFloat(data.fontSize),
@@ -47,7 +50,7 @@ function ModifyForm({ formRef }) {
       jc: data.jc || undefined,
 
       heading: {
-        jc: data.headingjc,
+        jc: data.headingjc || undefined,
         fLind: toOptionalFloat(data.headingfLind),
         caps: toOptionalBool(data.headingCaps),
         bold: toOptionalBool(data.headingBold),
@@ -183,7 +186,7 @@ function ModifyForm({ formRef }) {
                 id="mTop"
                 type="number"
                 step={0.01}
-                defaultValue={2.54}
+                placeholder="Default value is 2.54 cm"
                 {...register("mTop", {
                   min: {
                     value: 0,
@@ -208,7 +211,7 @@ function ModifyForm({ formRef }) {
                 id="mRgh"
                 type="number"
                 step={0.01}
-                defaultValue={2.54}
+                placeholder="Default value is 2.54 cm"
                 {...register("mRgh", {
                   min: {
                     value: 0,
@@ -233,7 +236,7 @@ function ModifyForm({ formRef }) {
                 id="mBtm"
                 type="number"
                 step={0.01}
-                defaultValue={2.54}
+                placeholder="Default value is 2.54 cm"
                 {...register("mBtm", {
                   min: {
                     value: 0,
@@ -258,7 +261,7 @@ function ModifyForm({ formRef }) {
                 id="mLft"
                 type="number"
                 step={0.01}
-                defaultValue={2.54}
+                placeholder="Default value is 2.54 cm"
                 {...register("mLft", {
                   min: {
                     value: 0,
@@ -310,6 +313,7 @@ function ModifyForm({ formRef }) {
                 placeholder="Choose an option"
                 {...register("jc")}
               >
+                <option value="">Choose an option</option>
                 <option value="left">Left</option>
                 <option value="center">Center</option>
                 <option value="right">Right</option>
@@ -333,6 +337,7 @@ function ModifyForm({ formRef }) {
                 placeholder="Choose an option"
                 {...register("headingjc")}
               >
+                <option value="">Choose an option</option>
                 <option value="left">Left</option>
                 <option value="center">Center</option>
                 <option value="right">Right</option>
