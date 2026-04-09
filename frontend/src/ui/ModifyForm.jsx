@@ -4,6 +4,7 @@ import ButtonEmpty from "./ButtonEmpty";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { modifyDoc } from "../services/apiModify";
+import { toOptionalFloat, toOptionalBool } from "../services/helpers";
 import toast from "react-hot-toast";
 import Download from "./Download";
 import FormContainer from "../features/modifyForm/FormContainer";
@@ -19,7 +20,6 @@ import DropdownsContainer from "./DropdownsContainer";
 function ModifyForm({ formRef }) {
   const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
-  console.log(errors);
 
   const {
     mutate,
@@ -36,27 +36,48 @@ function ModifyForm({ formRef }) {
 
   function onSubmit(data) {
     const obj = {
-      lineSpacing: parseFloat(data.lineSpacing),
-      fontSize: parseFloat(data.fontSize),
+      lineSpacing: toOptionalFloat(data.lineSpacing),
+      fontSize: toOptionalFloat(data.fontSize),
       fontType: data.fontType,
-      mTop: parseFloat(data.mTop),
-      mRgh: parseFloat(data.mRgh),
-      mBtm: parseFloat(data.mBtm),
-      mLft: parseFloat(data.mLft),
-      fLind: parseFloat(data.fLind),
-      jc: data.jc,
+      mTop: toOptionalFloat(data.mTop),
+      mRgh: toOptionalFloat(data.mRgh),
+      mBtm: toOptionalFloat(data.mBtm),
+      mLft: toOptionalFloat(data.mLft),
+      fLind: toOptionalFloat(data.fLind),
+      jc: data.jc || undefined,
 
       heading: {
         jc: data.headingjc,
-        fLind: parseFloat(data.headingfLind),
-        caps: JSON.parse(data.headingCaps),
-        bold: JSON.parse(data.headingBold),
+        fLind: toOptionalFloat(data.headingfLind),
+        caps: toOptionalBool(data.headingCaps),
+        bold: toOptionalBool(data.headingBold),
       },
     };
+
+    // const obj = {
+    //   lineSpacing: parseFloat(data.lineSpacing),
+    //   fontSize: parseFloat(data.fontSize),
+    //   fontType: data.fontType,
+    //   mTop: parseFloat(data.mTop),
+    //   mRgh: parseFloat(data.mRgh),
+    //   mBtm: parseFloat(data.mBtm),
+    //   mLft: parseFloat(data.mLft),
+    //   fLind: parseFloat(data.fLind),
+    //   jc: data.jc,
+
+    //   heading: {
+    //     jc: data.headingjc,
+    //     fLind: parseFloat(data.headingfLind),
+    //     caps: JSON.parse(data.headingCaps),
+    //     bold: JSON.parse(data.headingBold),
+    //   },
+    // };
 
     const formData = new FormData();
     formData.append("data", JSON.stringify(obj));
     formData.append("file", data.file[0]);
+
+    console.log(Object.fromEntries(formData));
 
     mutate(formData);
   }

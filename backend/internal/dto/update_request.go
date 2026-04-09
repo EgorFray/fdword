@@ -5,7 +5,7 @@ type UpdateRequest struct {
 	LineSpacing *float64 `json:"lineSpacing" validate:"omitempty,min=0.5,max=5"`
 	// FontSize is float because user could need font size of 13.5 for example. So it's better to be float
 	FontSize *float64 `json:"fontSize" validate:"omitempty,min=5,max=72"`
-	FontType *string `json:"fontType" validate:"omitempty,oneof='Times New Roman' Calibri Arial Georgia Helvetica Verdana Tahoma Century Courier"`
+	FontType *string `json:"fontType" validate:"omitempty,fonttype"`
 	// Margins. We ALWAYS receive values from frontend. default - 2.54 
 	MTop *float64 `json:"mTop" validate:"omitempty,min=0,max=7"`
 	MRgh *float64 `json:"mRgh" validate:"omitempty,min=0,max=7"`

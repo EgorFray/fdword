@@ -1,6 +1,8 @@
 package service
 
 import (
+	"fmt"
+
 	doc "github.com/EgorFray/fdword/internal/doc"
 	"github.com/EgorFray/fdword/internal/dto"
 )

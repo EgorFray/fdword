@@ -2,10 +2,12 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 
 	"github.com/EgorFray/fdword/internal/dto"
+	"github.com/EgorFray/fdword/internal/validation"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 )
@@ -20,7 +22,7 @@ type Handler struct {
 }
 
 func NewHandler(s FormatServiceInterface) *Handler {
-	return &Handler{Service: s, Validator: validator.New()}
+	return &Handler{Service: s, Validator: validation.New()}
 }
 
 func (h *Handler) FormatDoc(c *gin.Context) {

@@ -141,15 +141,23 @@ func (d *DocModifier) SetFontType(val string) error {
 		rFonts = rPr.CreateElement("w:rFonts")
 	}
 
+	// Remove theme attributes
 	rFonts.RemoveAttr("w:asciiTheme")
 	rFonts.RemoveAttr("w:eastAsiaTheme")
 	rFonts.RemoveAttr("w:hAnsiTheme")
 	rFonts.RemoveAttr("w:cstheme")
 
-	rFonts.CreateAttr("w:asciiTheme", val)
-	rFonts.CreateAttr("w:eastAsiaTheme", val)
-	rFonts.CreateAttr("w:hAnsiTheme", val)
-	rFonts.CreateAttr("w:cstheme", val)
+	// Remove actual attributes
+	rFonts.RemoveAttr("w:ascii")
+	rFonts.RemoveAttr("w:eastAsia")
+	rFonts.RemoveAttr("w:hAnsi")
+	rFonts.RemoveAttr("w:cs")
+
+	// Create attributes. We don't need to create themeAttr. Only attr  
+	rFonts.CreateAttr("w:ascii", val)
+	rFonts.CreateAttr("w:eastAsia", val)
+	rFonts.CreateAttr("w:hAnsi", val)
+	rFonts.CreateAttr("w:cs", val)
 
 	return nil
 }
