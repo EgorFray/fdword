@@ -182,7 +182,7 @@ func (d *DocModifier) getMarginsPath() *etree.Element {
 // Margins 2nd helper - set margin attribute
 func (d *DocModifier) setMargin(attr string, val float64) error {
 	pgMar := d.getMarginsPath()
-
+	// Calculating twips. In word margins calculates in twips. 1 twip = 1 inch ~ 2.54 cm
 	valTwip := int(val * 567)
 
 	pgMar.RemoveAttr(attr)
@@ -191,29 +191,20 @@ func (d *DocModifier) setMargin(attr string, val float64) error {
 	return nil
 }
 
-func (d *DocModifier) SetMargins(MTop, MRgh, MBtm, MLft float64) error {
-	// Calculating twips. In word margins calculates in twips. 1 twip = 1 inch ~ 2.54 cm
-	topTwip := int(MTop * 567)
-	rghTwip := int(MRgh * 567)
-	btmTwip := int(MBtm * 567)
-	lftTwip := int(MLft * 567)
-
-	// We don't need to remove pgMar, because there are attrs, that we don't change - header, footer and gutter. 
-	// Path to margins in Document.xml: <w:body> -> <w:sectPr> -> <w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left=" 1440" />
-	for _, el := range d.doc.Document.Root().FindElements("//w:sectPr") {
-		pgMar := el.FindElement("w:pgMar")
-		if pgMar == nil {
-			pgMar = el.CreateElement("w:pgMar")
-		}
-
-		pgMar.CreateAttr("w:top", strconv.Itoa(topTwip))
-		pgMar.CreateAttr("w:right", strconv.Itoa(rghTwip))
-		pgMar.CreateAttr("w:bottom", strconv.Itoa(btmTwip))
-		pgMar.CreateAttr("w:left", strconv.Itoa(lftTwip))
-	}
-
-	return nil
+func (d *DocModifier) SetMarginTop(MTop float64) error {
+	return d.setMargin("w:top", MTop)
 }
+
+func (d *DocModifier) SetMarginRight(MRgh float64) error {
+	return d.setMargin("w:right", MRgh)
+}
+func (d *DocModifier) SetMarginBottom(MBtm float64) error {
+	return d.setMargin("w:bottom", MBtm)
+}
+func (d *DocModifier) SetMarginLeft(MLft float64) error {
+	return d.setMargin("w:left", MLft)
+}
+
 
 func(d *DocModifier) SetFirstLineIndent(FLInd float64) error {
 	// calculate first line indent. It's calculated in twips. 1cm ~ 567twip.
