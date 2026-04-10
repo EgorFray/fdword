@@ -162,6 +162,35 @@ func (d *DocModifier) SetFontType(val string) error {
 	return nil
 }
 
+// Margins 1st helper - get element where we will change attributes
+func (d *DocModifier) getMarginsPath() *etree.Element {
+	// We don't need to remove pgMar, because there are attrs, that we don't change - header, footer and gutter. 
+	// Path to margins in Document.xml: <w:body> -> <w:sectPr> -> <w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left=" 1440" />
+	sectPr := d.doc.Document.Root().FindElement("//w:sectPr")
+	if sectPr == nil {
+		d.doc.Document.Root().CreateElement("//w:sectPr")
+	}
+
+	pgMar := sectPr.FindElement("w:pgMar")
+	if pgMar == nil {
+		pgMar = sectPr.CreateElement("w:pgMar")
+	}
+
+	return pgMar
+}
+
+// Margins 2nd helper - set margin attribute
+func (d *DocModifier) setMargin(attr string, val float64) error {
+	pgMar := d.getMarginsPath()
+
+	valTwip := int(val * 567)
+
+	pgMar.RemoveAttr(attr)
+	pgMar.CreateAttr(attr, strconv.Itoa(valTwip))
+
+	return nil
+}
+
 func (d *DocModifier) SetMargins(MTop, MRgh, MBtm, MLft float64) error {
 	// Calculating twips. In word margins calculates in twips. 1 twip = 1 inch ~ 2.54 cm
 	topTwip := int(MTop * 567)

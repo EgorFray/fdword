@@ -1,8 +1,6 @@
 package service
 
 import (
-	"fmt"
-
 	doc "github.com/EgorFray/fdword/internal/doc"
 	"github.com/EgorFray/fdword/internal/dto"
 )
@@ -45,7 +43,7 @@ func (f *FormatService) FormatDoc(fileBytes []byte, req dto.UpdateRequest) ([]by
 		}
 	}
 
-
+	// Check if we have margins in dto. If yes - call SetMargins
 	if req.MTop != nil && req.MRgh != nil && req.MBtm != nil && req.MLft != nil {
 		if err := modifier.SetMargins(*req.MTop, *req.MRgh, *req.MBtm, *req.MLft); err != nil {
 			return nil, err
