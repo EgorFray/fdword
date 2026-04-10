@@ -43,9 +43,30 @@ func (f *FormatService) FormatDoc(fileBytes []byte, req dto.UpdateRequest) ([]by
 		}
 	}
 
-	// Check if we have margins in dto. If yes - call SetMargins
-	if req.MTop != nil && req.MRgh != nil && req.MBtm != nil && req.MLft != nil {
-		if err := modifier.SetMargins(*req.MTop, *req.MRgh, *req.MBtm, *req.MLft); err != nil {
+	// Check if we have marginTop in dto. If yes - call SetMarginTop
+	if req.MTop != nil {
+		if err := modifier.SetMarginTop(*req.MTop); err != nil {
+			return nil, err
+		}
+	}
+	
+	// Check if we have marginRight in dto. If yes - call SetMarginRight
+	if req.MRgh != nil {
+		if err := modifier.SetMarginRight(*req.MRgh); err != nil {
+			return nil, err
+		}
+	}
+	
+	// Check if we have marginBottom in dto. If yes - call SetMarginBottom
+	if req.MBtm != nil {
+		if err := modifier.SetMarginBottom(*req.MBtm); err != nil {
+			return nil, err
+		}
+	}
+	
+	// Check if we have marginLeft in dto. If yes - call SetMarginLeft
+	if req.MLft != nil {
+		if err := modifier.SetMarginLeft(*req.MLft); err != nil {
 			return nil, err
 		}
 	}  
