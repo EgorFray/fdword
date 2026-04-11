@@ -58,19 +58,67 @@ func TestSetFontType(t *testing.T) {
 	assert.Equal(t, "Calibri", val)
 }
 
-func TestSetMargins(t *testing.T) {
+func TestSetMarginTop(t *testing.T) {
 	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
 
 	modifier := NewDocModifier(doc)
 
-	err := modifier.SetMargins(3, 1, 3, 3)
+	err := modifier.SetMarginTop(3)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	marginTop := doc.Document.Root().FindElement("//w:sectPr/w:pgMar")
+	margin := doc.Document.Root().FindElement("//w:sectPr/w:pgMar")
 
-	val := marginTop.SelectAttrValue("w:top", "")
+	val := margin.SelectAttrValue("w:top", "")
+	assert.Equal(t, "1701", val)	
+}
+
+func TestSetMarginRight(t *testing.T) {
+	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
+
+	modifier := NewDocModifier(doc)
+
+	err := modifier.SetMarginRight(2)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	margin := doc.Document.Root().FindElement("//w:sectPr/w:pgMar")
+
+	val := margin.SelectAttrValue("w:right", "")
+	assert.Equal(t, "1134", val)	
+}
+
+func TestSetMarginBottom(t *testing.T) {
+	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
+
+	modifier := NewDocModifier(doc)
+
+	err := modifier.SetMarginBottom(3)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	margin := doc.Document.Root().FindElement("//w:sectPr/w:pgMar")
+
+	val := margin.SelectAttrValue("w:bottom", "")
+	assert.Equal(t, "1701", val)	
+}
+
+func TestSetMarginLeft(t *testing.T) {
+	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
+
+	modifier := NewDocModifier(doc)
+
+	err := modifier.SetMarginLeft(3)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	margin := doc.Document.Root().FindElement("//w:sectPr/w:pgMar")
+
+	val := margin.SelectAttrValue("w:left", "")
 	assert.Equal(t, "1701", val)	
 }
 
