@@ -54,7 +54,7 @@ func TestSetFontType(t *testing.T) {
 
 	fontType := doc.Styles.Root().FindElement("w:docDefaults/w:rPrDefault/w:rPr/w:rFonts")
 
-	val := fontType.SelectAttrValue("w:asciiTheme", "")
+	val := fontType.SelectAttrValue("w:ascii", "")
 	assert.Equal(t, "Calibri", val)
 }
 
