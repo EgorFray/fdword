@@ -191,13 +191,13 @@ function ModifyForm({ formRef }) {
               info={true}
               error={errors?.mTop?.message}
               video="/marginTop.mp4"
-              tooltip="Change margin top in the entire document"
+              tooltip="Change margin top in the entire document. Default value in word - 2.57"
             >
               <FormInput
                 id="mTop"
                 type="number"
                 step={0.01}
-                placeholder="Default value is 2.54 cm"
+                placeholder="From 0 to 7"
                 {...register("mTop", {
                   min: {
                     value: 0,
@@ -216,13 +216,13 @@ function ModifyForm({ formRef }) {
               info={true}
               error={errors?.mRgh?.message}
               video="/marginRight.mp4"
-              tooltip="Change margin right in the entire document"
+              tooltip="Change margin right in the entire document. Default value in word - 2.57"
             >
               <FormInput
                 id="mRgh"
                 type="number"
                 step={0.01}
-                placeholder="Default value is 2.54 cm"
+                placeholder="From 0 to 7"
                 {...register("mRgh", {
                   min: {
                     value: 0,
@@ -241,13 +241,13 @@ function ModifyForm({ formRef }) {
               info={true}
               error={errors?.mBtm?.message}
               video="/marginBottom.mp4"
-              tooltip="Change margin bottom in the entire document"
+              tooltip="Change margin bottom in the entire document. Default value in word - 2.57"
             >
               <FormInput
                 id="mBtm"
                 type="number"
                 step={0.01}
-                placeholder="Default value is 2.54 cm"
+                placeholder="From 0 to 7"
                 {...register("mBtm", {
                   min: {
                     value: 0,
@@ -266,13 +266,13 @@ function ModifyForm({ formRef }) {
               info={true}
               error={errors?.mLft?.message}
               video="/marginLeft.mp4"
-              tooltip="Change margin left in the entire document"
+              tooltip="Change margin left in the entire document. Default value in word - 2.57"
             >
               <FormInput
                 id="mLft"
                 type="number"
                 step={0.01}
-                placeholder="Default value is 2.54 cm"
+                placeholder="From 0 to 7"
                 {...register("mLft", {
                   min: {
                     value: 0,
