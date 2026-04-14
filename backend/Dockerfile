@@ -1,11 +1,10 @@
 # Step 1. Create the binary file  
-FROM golang:1.24-alpine AS builder
+FROM golang:1.25-alpine AS builder
 WORKDIR /app
-COPY go.mod ./
-COPY go.sum ./
+COPY go.mod go.sum ./ 
 RUN go mod download
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o app ./backend/cmd/
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o app ./cmd/
 
 # Step 2. Run the binary file
 FROM alpine:latest
