@@ -16,5 +16,5 @@ func main() {
 	r := gin.Default()
 	r.Use(cors.New(cfg.CorsConfig()))
 	r.POST("/format", handler.FormatDoc)
-	r.Run(":8000")
+	r.Run(":8080")
 }
