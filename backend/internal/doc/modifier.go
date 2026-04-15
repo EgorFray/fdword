@@ -223,13 +223,28 @@ func(d *DocModifier) SetFirstLineIndent(FLInd float64) error {
 
 	// Create global line indent in Styles.xml
 	root := d.doc.Styles.Root()
-	// What I need to set has a name of "Normal" in p
-	normalStyle := root.FindElement("//w:style[@w:styleId='Normal']")
-	// pPr
-	pPr := normalStyle.FindElement("w:pPr")
-	if pPr == nil {
-		pPr = normalStyle.CreateElement("w:pPr")
+	if root == nil {
+		return fmt.Errorf("styles.xml root is nil")
 	}
+
+	// docDefaults
+	docDefaults := root.FindElement("w:docDefaults")
+	if docDefaults == nil {
+		docDefaults = root.CreateElement("w:docDefaults")
+	}
+
+	// pPrDefault
+	pPrDefault := docDefaults.FindElement("w:pPrDefault")
+	if pPrDefault == nil {
+		pPrDefault = docDefaults.CreateElement("w:pPrDefault")
+	}
+
+	// pPr
+	pPr := pPrDefault.FindElement("w:pPr")
+	if pPr == nil {
+		pPr = pPrDefault.CreateElement("w:pPr")
+	}	
+	
 	// ind
 	ind := pPr.FindElement("w:ind")
 	if ind == nil {
@@ -237,13 +252,14 @@ func(d *DocModifier) SetFirstLineIndent(FLInd float64) error {
 	}
 
 	ind.RemoveAttr("w:firstLine")
+	ind.RemoveAttr("w:hanging")
+
 	ind.CreateAttr("w:firstLine", strconv.Itoa(lineTwip))
 
 	return nil
 }
 
 // this method set default text aligment for the whole document.
-// in the future I'll make another method for changing style only for the first paragraph 
 func(d *DocModifier) SetJC(JC string) error {
 	// delete all overrides in document.xml
 	for _, el := range d.doc.Document.FindElements("//w:pPr/w:jc") {
@@ -255,22 +271,22 @@ func(d *DocModifier) SetJC(JC string) error {
 	if root == nil {
 		return fmt.Errorf("styles.xml root is nil")
 	}
-
+	// docDefaults
 	docDefaults := root.FindElement("w:docDefaults")
 	if docDefaults == nil {
 		docDefaults = root.CreateElement("w:docDefaults")
 	}
-
+	// pPrDefault
 	pPrDefault := docDefaults.FindElement("w:pPrDefault")
 	if pPrDefault == nil {
 		pPrDefault = docDefaults.CreateElement("w:pPrDefault")
 	}
-
+	// pPr
 	pPr := pPrDefault.FindElement("w:pPr")
 	if pPr == nil {
 		pPr = pPrDefault.CreateElement("w:pPr")
 	}
-
+	// jc
 	jc := pPr.FindElement("w:jc")
 	if jc == nil {
 		jc = pPr.CreateElement("w:jc")
@@ -280,25 +296,6 @@ func(d *DocModifier) SetJC(JC string) error {
 	if JC != "left" {
 		jc.CreateAttr("w:val", JC)
 	}
-	// // What I need to set has a name of "Normal" in p
-	// normalStyle := root.FindElement("//w:style[@w:styleId='Normal']")
-	// // pPr
-	// pPr := normalStyle.FindElement("w:pPr")
-	// if pPr == nil {
-	// 	pPr = normalStyle.CreateElement("w:pPr")
-	// }
-	// // w:jc
-	// jc := pPr.FindElement("w:jc")
-	// if jc == nil {
-	// 	jc = pPr.CreateElement("w:jc")
-	// }
-
-	// jc.RemoveAttr("w:val")
-	// // Left is set by default. So we don't need to reset it
-	// if JC != "left" {
-	// 	jc.CreateAttr("w:val", JC)
-	// }
-
 	return nil
 }
 
