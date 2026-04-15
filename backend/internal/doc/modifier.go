@@ -2,6 +2,7 @@ package doc
 
 import (
 	"errors"
+	"fmt"
 	"strconv"
 
 	"github.com/beevik/etree"
@@ -251,24 +252,52 @@ func(d *DocModifier) SetJC(JC string) error {
 
 	// Set default justify content in styles.xml
 	root := d.doc.Styles.Root()
-	// What I need to set has a name of "Normal" in p
-	normalStyle := root.FindElement("//w:style[@w:styleId='Normal']")
-	// pPr
-	pPr := normalStyle.FindElement("w:pPr")
-	if pPr == nil {
-		pPr = normalStyle.CreateElement("w:pPr")
+	if root == nil {
+		return fmt.Errorf("styles.xml root is nil")
 	}
-	// w:jc
+
+	docDefaults := root.FindElement("w:docDefaults")
+	if docDefaults == nil {
+		docDefaults = root.CreateElement("w:docDefaults")
+	}
+
+	pPrDefault := docDefaults.FindElement("w:pPrDefault")
+	if pPrDefault == nil {
+		pPrDefault = docDefaults.CreateElement("w:pPrDefault")
+	}
+
+	pPr := pPrDefault.FindElement("w:pPr")
+	if pPr == nil {
+		pPr = pPrDefault.CreateElement("w:pPr")
+	}
+
 	jc := pPr.FindElement("w:jc")
 	if jc == nil {
 		jc = pPr.CreateElement("w:jc")
 	}
 
 	jc.RemoveAttr("w:val")
-	// Left is set by default. So we don't need to reset it
 	if JC != "left" {
 		jc.CreateAttr("w:val", JC)
 	}
+	// // What I need to set has a name of "Normal" in p
+	// normalStyle := root.FindElement("//w:style[@w:styleId='Normal']")
+	// // pPr
+	// pPr := normalStyle.FindElement("w:pPr")
+	// if pPr == nil {
+	// 	pPr = normalStyle.CreateElement("w:pPr")
+	// }
+	// // w:jc
+	// jc := pPr.FindElement("w:jc")
+	// if jc == nil {
+	// 	jc = pPr.CreateElement("w:jc")
+	// }
+
+	// jc.RemoveAttr("w:val")
+	// // Left is set by default. So we don't need to reset it
+	// if JC != "left" {
+	// 	jc.CreateAttr("w:val", JC)
+	// }
 
 	return nil
 }
