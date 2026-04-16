@@ -1,6 +1,6 @@
 function ManualSection({ argName, image, children }) {
   return (
-    <section className="mx-4 mt-2 mb-2 flex flex-col gap-3 md:mt-4 md:mb-6 md:grid md:grid-cols-[400px_1fr] md:gap-x-6">
+    <section className="mx-4 mt-2 flex flex-col gap-3 md:mt-4 md:mb-6 md:grid md:grid-cols-[400px_1fr] md:gap-x-6">
       <div className="flex items-center justify-center">
         <img
           src={image}

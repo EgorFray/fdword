@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { BsChevronDown, BsChevronDoubleDown } from "react-icons/bs";
 
@@ -7,24 +7,48 @@ function Dropdown({ title, children }) {
   const [isDropOpen, setIsDropOpen] = useState(false);
   const rowRef = useRef(null);
 
-  // I use timeout, because other solution with observers ar too complicated for me right now. I can come back later to solve it properly.
   useLayoutEffect(() => {
-    if (rowRef.current) {
-      setTimeout(() => setHeight(rowRef.current.scrollHeight), 100);
-    }
-  }, [isDropOpen]);
+    if (!isDropOpen || !rowRef.current) return;
+    const element = rowRef.current;
+    const updateHeight = () => {
+      setHeight(element.scrollHeight);
+    };
+    updateHeight();
 
-  // The same issue is with scrollIntoView. I can fix it later.
-  useEffect(() => {
-    if (isDropOpen && rowRef.current) {
-      setTimeout(() => {
-        rowRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }, 275);
+    const observer = new ResizeObserver(() => {
+      updateHeight();
+    });
+    observer.observe(element);
+    return () => {
+      observer.disconnect();
+    };
+  }, [isDropOpen, children]);
+
+  function scrollDropdownIntoView(element) {
+    if (!element) return;
+
+    const rect = element.getBoundingClientRect();
+    const topOffset = 10;
+    const bottomOffset = 10;
+
+    const viewportTop = topOffset;
+    const viewportBottom = window.innerHeight - bottomOffset;
+
+    if (rect.top < viewportTop) {
+      window.scrollBy({
+        top: rect.top - viewportTop,
+        behavior: "smooth",
+      });
+      return;
     }
-  }, [isDropOpen]);
+
+    if (rect.bottom > viewportBottom) {
+      window.scrollBy({
+        top: rect.bottom - viewportBottom,
+        behavior: "smooth",
+      });
+    }
+  }
 
   return (
     <>
@@ -46,21 +70,23 @@ function Dropdown({ title, children }) {
         <AnimatePresence>
           {isDropOpen && (
             <motion.div
-              layout
               initial={{ opacity: 0, height: 0 }}
-              animate={{
-                opacity: 1,
-                height: height,
-              }}
+              animate={{ opacity: 1, height }}
+              exit={{ opacity: 0, height: 0 }}
               transition={{
                 height: { duration: 0.25 },
-                opacity: { delay: 0.25, duration: 0.25 },
+                opacity: { delay: 0.1, duration: 0.3 },
               }}
-              exit={{ opacity: 0, height: 0 }}
               style={{ overflow: "hidden" }}
-              ref={rowRef}
+              onAnimationComplete={() => {
+                if (isDropOpen || rowRef.current) {
+                  scrollDropdownIntoView(rowRef.current);
+                }
+              }}
             >
-              {children}
+              <div ref={rowRef} className="p-1">
+                {children}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
