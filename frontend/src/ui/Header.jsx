@@ -7,7 +7,7 @@ function Header() {
       <Logo />
       <NavLink
         to="/manual"
-        className="cursor-pointer self-center rounded-full bg-blue-600 px-4 py-2 text-sm tracking-wide text-blue-50 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] transition-colors duration-300 hover:bg-blue-500 md:text-base"
+        className="cursor-pointer self-center rounded-full bg-blue-600 px-4 py-2 text-sm tracking-wide text-blue-50 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] transition-colors duration-300 hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 md:text-base"
       >
         Manual
       </NavLink>

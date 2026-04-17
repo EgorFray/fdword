@@ -2,7 +2,7 @@ function ButtonEmpty({ type, children }) {
   return (
     <button
       type={type}
-      className="text-md cursor-pointer self-center rounded-full px-4 py-2 tracking-wide text-blue-950 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] transition-colors duration-300 hover:bg-gray-300 md:text-base"
+      className="text-md cursor-pointer self-center rounded-full px-4 py-2 tracking-wide text-blue-950 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] transition-colors duration-300 hover:bg-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 md:text-base"
     >
       {children}
     </button>
