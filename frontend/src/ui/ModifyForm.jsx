@@ -142,7 +142,7 @@ function ModifyForm({ formRef }) {
               <select
                 id="fontType"
                 name="fontType"
-                className="w-47.25 rounded-lg bg-white p-1 pl-2"
+                className="w-full rounded-lg bg-white p-1 pl-2"
                 placeholder="Select font"
                 {...register("fontType")}
               >
@@ -320,7 +320,7 @@ function ModifyForm({ formRef }) {
               <select
                 id="jc"
                 name="jc"
-                className="w-47.25 rounded-lg bg-white p-1 pl-2"
+                className="w-full rounded-lg bg-white p-1 pl-2"
                 placeholder="Choose an option"
                 {...register("jc")}
               >
@@ -344,7 +344,7 @@ function ModifyForm({ formRef }) {
               <select
                 id="headingjc"
                 name="headingjc"
-                className="w-47.25 rounded-lg bg-white p-1 pl-2"
+                className="w-full rounded-lg bg-white p-1 pl-2"
                 placeholder="Choose an option"
                 {...register("headingjc")}
               >
