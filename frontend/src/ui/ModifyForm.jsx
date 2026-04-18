@@ -16,6 +16,7 @@ import Heading from "./Heading";
 import MainHeading from "./MainHeading";
 import SubHeading from "./SubHeading";
 import DropdownsContainer from "./DropdownsContainer";
+import { BsChevronDown } from "react-icons/bs";
 
 function ModifyForm({ formRef }) {
   const { register, handleSubmit, reset, formState } = useForm({
@@ -139,24 +140,26 @@ function ModifyForm({ formRef }) {
               video="/fontType.mp4"
               tooltip="Change the default font type for all text"
             >
-              <select
-                id="fontType"
-                name="fontType"
-                className="w-full rounded-lg bg-white p-1 pl-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
-                placeholder="Select font"
-                {...register("fontType")}
-              >
-                <option value="">Select font</option>
-                <option value="Times New Roman">Times New Roman</option>
-                <option value="Calibri">Calibri</option>
-                <option value="Arial">Arial</option>
-                <option value="Georgia">Georgia</option>
-                <option value="Helvetica">Helvetica</option>
-                <option value="Verdana">Verdana</option>
-                <option value="Tahoma">Tahoma</option>
-                <option value="Century">Century</option>
-                <option value="Courier">Courier</option>
-              </select>
+              <div className="relative w-full">
+                <select
+                  id="fontType"
+                  name="fontType"
+                  className="w-full cursor-pointer appearance-none rounded-lg bg-white p-1 pl-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+                  {...register("fontType")}
+                >
+                  <option value="">Select font</option>
+                  <option value="Times New Roman">Times New Roman</option>
+                  <option value="Calibri">Calibri</option>
+                  <option value="Arial">Arial</option>
+                  <option value="Georgia">Georgia</option>
+                  <option value="Helvetica">Helvetica</option>
+                  <option value="Verdana">Verdana</option>
+                  <option value="Tahoma">Tahoma</option>
+                  <option value="Century">Century</option>
+                  <option value="Courier">Courier</option>
+                </select>
+                <BsChevronDown className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2" />
+              </div>
             </FormRow>
           </Dropdown>
 
@@ -317,19 +320,22 @@ function ModifyForm({ formRef }) {
               video="/justifyContent.mp4"
               tooltip="Justify text left, center, right or both"
             >
-              <select
-                id="jc"
-                name="jc"
-                className="w-full rounded-lg bg-white p-1 pl-2"
-                placeholder="Choose an option"
-                {...register("jc")}
-              >
-                <option value="">Choose an option</option>
-                <option value="left">Left</option>
-                <option value="center">Center</option>
-                <option value="right">Right</option>
-                <option value="both">Both</option>
-              </select>
+              <div className="relative w-full">
+                <select
+                  id="jc"
+                  name="jc"
+                  className="w-full cursor-pointer appearance-none rounded-lg bg-white p-1 pl-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+                  placeholder="Choose an option"
+                  {...register("jc")}
+                >
+                  <option value="">Choose an option</option>
+                  <option value="left">Left</option>
+                  <option value="center">Center</option>
+                  <option value="right">Right</option>
+                  <option value="both">Both</option>
+                </select>
+                <BsChevronDown className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2" />
+              </div>
             </FormRow>
           </Dropdown>
 
@@ -341,19 +347,22 @@ function ModifyForm({ formRef }) {
               video="/headingJustifyContent.mp4"
               tooltip="Justify first paragraph left, center, right or both"
             >
-              <select
-                id="headingjc"
-                name="headingjc"
-                className="w-full rounded-lg bg-white p-1 pl-2"
-                placeholder="Choose an option"
-                {...register("headingjc")}
-              >
-                <option value="">Choose an option</option>
-                <option value="left">Left</option>
-                <option value="center">Center</option>
-                <option value="right">Right</option>
-                <option value="both">Both</option>
-              </select>
+              <div className="relative w-full">
+                <select
+                  id="headingjc"
+                  name="headingjc"
+                  className="w-full cursor-pointer appearance-none rounded-lg bg-white p-1 pl-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+                  placeholder="Choose an option"
+                  {...register("headingjc")}
+                >
+                  <option value="">Choose an option</option>
+                  <option value="left">Left</option>
+                  <option value="center">Center</option>
+                  <option value="right">Right</option>
+                  <option value="both">Both</option>
+                </select>
+                <BsChevronDown className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2" />
+              </div>
             </FormRow>
 
             <FormRow
@@ -387,7 +396,7 @@ function ModifyForm({ formRef }) {
               video="/capitalize.mp4"
               tooltip="Set uppercase for the first paragraph"
             >
-              <div className="w-47.25 text-start">
+              <div className="w-full text-start">
                 <input
                   id="headingCaps"
                   name="headingCaps"
@@ -404,7 +413,7 @@ function ModifyForm({ formRef }) {
               video="/bold.mp4"
               tooltip="Set first paragraph bold"
             >
-              <div className="w-47.25 text-start">
+              <div className="w-full text-start">
                 <input
                   id="headingBold"
                   name="headingBold"
