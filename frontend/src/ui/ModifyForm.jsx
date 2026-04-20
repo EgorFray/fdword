@@ -411,6 +411,7 @@ function ModifyForm({ formRef }) {
               label="Bold"
               info={true}
               video="/bold.mp4"
+              poster="/bold-poster.png"
               tooltip="Set first paragraph bold"
             >
               <div className="w-full text-start">

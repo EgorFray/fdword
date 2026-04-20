@@ -1,4 +1,4 @@
-function Tooltip({ ref, style, video, tooltip }) {
+function Tooltip({ ref, style, video, poster, tooltip }) {
   return (
     <div
       ref={ref}
@@ -6,6 +6,8 @@ function Tooltip({ ref, style, video, tooltip }) {
       className="flex max-h-60 max-w-50 flex-col gap-1 overflow-hidden rounded-xl bg-white shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)]"
     >
       <video
+        poster={poster}
+        preload="metadata"
         autoPlay
         loop
         muted
