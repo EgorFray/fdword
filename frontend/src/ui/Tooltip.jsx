@@ -1,7 +1,11 @@
 import { useState } from "react";
 
+const loadedVideos = new Set();
+
 function Tooltip({ ref, style, ratio, video, bluredPoster, tooltip }) {
-  const [isVideoReady, setIsVideoReady] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(() =>
+    loadedVideos.has(video),
+  );
 
   return (
     <div
@@ -27,7 +31,10 @@ function Tooltip({ ref, style, ratio, video, bluredPoster, tooltip }) {
           loop
           muted
           playsInline
-          onLoadedData={() => setIsVideoReady(true)}
+          onLoadedData={() => {
+            loadedVideos.add(video);
+            setIsVideoReady(true);
+          }}
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${
             isVideoReady ? "opacity-100" : "opacity-0"
           }`}
