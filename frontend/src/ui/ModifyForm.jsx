@@ -111,9 +111,11 @@ function ModifyForm({ formRef }) {
           <Dropdown title="Font settings">
             <FormRow
               label="Font size"
+              ratio="490/400"
               info={true}
               error={errors?.fontSize?.message}
               video="/fontSize.mp4"
+              bluredPoster="/fontSize-poster-blured.jpg"
               tooltip="Change the default font size for all text"
             >
               <FormInput
@@ -136,8 +138,10 @@ function ModifyForm({ formRef }) {
 
             <FormRow
               label="Font type"
+              ratio="490/400"
               info={true}
               video="/fontType.mp4"
+              bluredPoster="/fontType-poster-blured.jpg"
               tooltip="Change the default font type for all text"
             >
               <div className="relative w-full">
@@ -166,9 +170,11 @@ function ModifyForm({ formRef }) {
           <Dropdown title="Page settings">
             <FormRow
               label="Line spacing"
+              ratio="490/320"
               info={true}
               error={errors?.lineSpacing?.message}
               video="/lineSpacing.mp4"
+              bluredPoster="/lineSpacing-poster-blured.jpg"
               tooltip="Change the line spacing in an entire document"
             >
               <FormInput
@@ -291,9 +297,11 @@ function ModifyForm({ formRef }) {
 
             <FormRow
               label="First line indent"
+              ratio="490/260"
               info={true}
               video="firstLineIndent.mp4"
               tooltip="Indent the first line of a paragraph"
+              bluredPoster="/firstLineIndent-poster-blured.jpg"
               error={errors?.fLind?.message}
             >
               <FormInput
@@ -316,8 +324,10 @@ function ModifyForm({ formRef }) {
 
             <FormRow
               label="Justify content"
+              ratio="490/320"
               info={true}
               video="/justifyContent.mp4"
+              bluredPoster="/justifyContent-poster-blured.jpg"
               tooltip="Justify text left, center, right or both"
             >
               <div className="relative w-full">
@@ -342,9 +352,11 @@ function ModifyForm({ formRef }) {
           <Dropdown title="First paragraph settings">
             <FormRow
               label="Justify content"
+              ratio="490/360"
               info={true}
               error={errors?.headingjc?.message}
               video="/headingJustifyContent.mp4"
+              bluredPoster="/headingJustifyContent-poster-blured.jpg"
               tooltip="Justify first paragraph left, center, right or both"
             >
               <div className="relative w-full">
@@ -367,9 +379,11 @@ function ModifyForm({ formRef }) {
 
             <FormRow
               label="First line indent"
+              ratio="490/260"
               info={true}
               error={errors?.headingfLind?.message}
               video="/headingFirstLineIndent.mp4"
+              bluredPoster="/headingFirstLineIndent-poster-blured.jpg"
               tooltip="Indent the first line of the first paragraph"
             >
               <FormInput
@@ -393,7 +407,9 @@ function ModifyForm({ formRef }) {
             <FormRow
               label="Capitalize"
               info={true}
+              ratio="490/400"
               video="/capitalize.mp4"
+              bluredPoster="/capitalize-poster-blured.jpg"
               tooltip="Set uppercase for the first paragraph"
             >
               <div className="w-full text-start">
@@ -412,8 +428,7 @@ function ModifyForm({ formRef }) {
               info={true}
               ratio="490/360"
               video="/bold.mp4"
-              poster="/bold-poster.png"
-              bluredPoster="/bold-poster-blured.png"
+              bluredPoster="/bold-poster-blured.jpg"
               tooltip="Set first paragraph bold"
             >
               <div className="w-full text-start">
