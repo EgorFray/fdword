@@ -11,7 +11,7 @@ import {
 } from "@floating-ui/react";
 import Tooltip from "../../ui/Tooltip";
 
-function FormTooltip({ video, poster, tooltip }) {
+function FormTooltip({ ratio, video, poster, bluredPoster, tooltip }) {
   const [isOpenTooltip, setIsOpenTooltip] = useState(false);
   const { refs, floatingStyles, context } = useFloating({
     placement: "right",
@@ -43,8 +43,10 @@ function FormTooltip({ video, poster, tooltip }) {
         <Tooltip
           ref={refs.setFloating}
           style={{ ...floatingStyles, ...transitionStyles }}
+          ratio={ratio}
           video={video}
           poster={poster}
+          bluredPoster={bluredPoster}
           tooltip={tooltip}
           {...getFloatingProps()}
         />

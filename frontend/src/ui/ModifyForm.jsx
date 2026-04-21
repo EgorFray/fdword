@@ -410,8 +410,10 @@ function ModifyForm({ formRef }) {
             <FormRow
               label="Bold"
               info={true}
+              ratio="490/360"
               video="/bold.mp4"
               poster="/bold-poster.png"
+              bluredPoster="/bold-poster-blured.png"
               tooltip="Set first paragraph bold"
             >
               <div className="w-full text-start">

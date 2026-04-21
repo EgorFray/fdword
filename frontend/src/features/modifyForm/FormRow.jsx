@@ -7,8 +7,10 @@ function FormRow({
   children,
   info = false,
   error,
+  ratio,
   video,
   poster,
+  bluredPoster,
   tooltip,
 }) {
   return (
@@ -17,7 +19,13 @@ function FormRow({
       <div className="ml-4 flex w-full items-center gap-2 md:ml-0">
         {children}
         {info && (
-          <FormTooltip video={video} poster={poster} tooltip={tooltip} />
+          <FormTooltip
+            ratio={ratio}
+            video={video}
+            poster={poster}
+            bluredPoster={bluredPoster}
+            tooltip={tooltip}
+          />
         )}
       </div>
       {error && <FormError>{error}</FormError>}
