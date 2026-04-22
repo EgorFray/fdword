@@ -175,7 +175,7 @@ function ModifyForm({ formRef }) {
               error={errors?.lineSpacing?.message}
               video="/lineSpacing.mp4"
               bluredPoster="/lineSpacing-poster-blured.jpg"
-              tooltip="Change the line spacing in an entire document"
+              tooltip="Change the line spacing in the entire document"
             >
               <FormInput
                 id="lineSpacing"
@@ -437,7 +437,7 @@ function ModifyForm({ formRef }) {
               ratio="490/360"
               video="/bold.mp4"
               bluredPoster="/bold-poster-blured.jpg"
-              tooltip="Set first paragraph bold"
+              tooltip="Set the first paragraph bold"
             >
               <div className="w-full text-start">
                 <input
