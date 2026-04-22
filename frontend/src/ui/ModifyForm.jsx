@@ -197,9 +197,11 @@ function ModifyForm({ formRef }) {
 
             <FormRow
               label="Margin top"
+              ratio="1420/900"
               info={true}
               error={errors?.mTop?.message}
               video="/marginTop.mp4"
+              bluredPoster="/marginTop-poster-blured.jpg"
               tooltip="Change margin top in the entire document. Default value in word - 2.57"
             >
               <FormInput
@@ -222,9 +224,11 @@ function ModifyForm({ formRef }) {
 
             <FormRow
               label="Margin right"
+              ratio="1420/900"
               info={true}
               error={errors?.mRgh?.message}
               video="/marginRight.mp4"
+              bluredPoster="/marginRight-poster-blured.jpg"
               tooltip="Change margin right in the entire document. Default value in word - 2.57"
             >
               <FormInput
@@ -247,9 +251,11 @@ function ModifyForm({ formRef }) {
 
             <FormRow
               label="Margin bottom"
+              ratio="1420/900"
               info={true}
               error={errors?.mBtm?.message}
               video="/marginBottom.mp4"
+              bluredPoster="/marginBottom-poster-blured.jpg"
               tooltip="Change margin bottom in the entire document. Default value in word - 2.57"
             >
               <FormInput
@@ -272,9 +278,11 @@ function ModifyForm({ formRef }) {
 
             <FormRow
               label="Margin left"
+              ratio="1420/900"
               info={true}
               error={errors?.mLft?.message}
               video="/marginLeft.mp4"
+              bluredPoster="/marginLeft-poster-blured.jpg"
               tooltip="Change margin left in the entire document. Default value in word - 2.57"
             >
               <FormInput
