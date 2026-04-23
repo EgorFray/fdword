@@ -16,7 +16,7 @@ function FormRow({
   return (
     <div className="mb-4 flex flex-col items-start justify-items-start gap-2 md:mb-6 md:grid md:grid-cols-[160px_1fr_1fr] md:items-center md:gap-6">
       {label && <Label htmlFor={children.props.id}>{label}</Label>}
-      <div className="ml-4 flex w-full items-center gap-2 md:ml-0">
+      <div className="ml-4 flex items-center gap-2 md:ml-0 md:w-full">
         {children}
         {info && (
           <FormTooltip
