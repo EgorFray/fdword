@@ -6,6 +6,7 @@ import Heading from "../ui/Heading";
 import MainHeading from "../ui/MainHeading";
 import SubHeading from "../ui/SubHeading";
 import Button from "../ui/Button";
+import CustomMetadata from "../ui/CustomMetadata";
 
 function Dashboard() {
   const formRef = useRef(null);
@@ -18,6 +19,10 @@ function Dashboard() {
 
   return (
     <PageLayout>
+      <CustomMetadata
+        title="Dashboard"
+        description="Format your Word document exactly the way you need - control fonts, spacing, margins, and layout in seconds."
+      />
       <Heading>
         <MainHeading>
           Transform your word file into <br /> well-formated document
