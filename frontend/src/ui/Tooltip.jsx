@@ -11,7 +11,7 @@ function Tooltip({ ref, style, ratio, video, bluredPoster, tooltip }) {
     <div
       ref={ref}
       style={style}
-      className="flex max-h-60 max-w-50 flex-col gap-1 overflow-hidden rounded-xl bg-white shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)]"
+      className="z-1 flex max-h-60 max-w-50 flex-col gap-1 overflow-hidden rounded-xl bg-white shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)]"
     >
       <div
         className="relative w-full overflow-hidden bg-gray-100"

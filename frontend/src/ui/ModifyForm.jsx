@@ -162,7 +162,7 @@ function ModifyForm({ formRef }) {
                   <option value="Century">Century</option>
                   <option value="Courier">Courier</option>
                 </select>
-                <BsChevronDown className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2" />
+                <BsChevronDown className="pointer-events-none absolute top-1/2 right-2 -translate-y-1/2" />
               </div>
             </FormRow>
           </Dropdown>
