@@ -9,14 +9,24 @@ function ManualInfoSection() {
       <ManualSectionHeading>Font settings</ManualSectionHeading>
       <DropdownsLayout>
         <Dropdown title="Font size">
-          <ManualSection argName="font size" image="/fontSize.png">
+          <ManualSection
+            argName="font size"
+            image="/fontSize.png"
+            lazyImg="/fontSize-lazy.jpg"
+            lazyRatio="680 / 340"
+          >
             Specifies the font size in points. Allowed values range from 5 to
             72.
           </ManualSection>
         </Dropdown>
 
         <Dropdown title="Font type">
-          <ManualSection argName="font type" image="/fontType.png">
+          <ManualSection
+            argName="font type"
+            image="/fontType.png"
+            lazyImg="/fontType-lazy.jpg"
+            lazyRatio="1062 / 1062"
+          >
             Specifies the font family used throughout the document. Available
             options include 9 widely used fonts: Times New Roman, Calibri,
             Arial, Georgia, Helvetica, Verdana, Tahoma, Century and Courier. If

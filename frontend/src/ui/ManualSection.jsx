@@ -1,11 +1,27 @@
-function ManualSection({ argName, image, children }) {
+import { useState } from "react";
+
+function ManualSection({ argName, image, lazyImg, lazyRatio, children }) {
+  const [isLoadedImage, setIsLoadedImage] = useState(false);
+
   return (
     <section className="mx-4 mt-2 flex flex-col gap-3 md:mt-4 md:mb-6 md:grid md:grid-cols-[400px_1fr] md:gap-x-6">
-      <div className="flex items-center justify-center">
+      <div
+        className="relative flex w-4/6 items-center justify-center rounded-xl md:w-full"
+        style={{ aspectRatio: lazyRatio }}
+      >
+        {!isLoadedImage && (
+          <img
+            src={lazyImg}
+            alt={`Blured image of ${image}`}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        )}
         <img
           src={image}
+          loading="lazy"
           alt={`Example of ${argName} before changes`}
-          className="w-4/6 rounded-xl md:w-full"
+          className="absolute inset-0 h-full w-full object-cover"
+          onLoad={() => setIsLoadedImage(true)}
         />
       </div>
 
