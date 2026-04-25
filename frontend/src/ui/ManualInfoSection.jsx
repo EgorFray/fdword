@@ -39,14 +39,24 @@ function ManualInfoSection() {
       <ManualSectionHeading>Page settings</ManualSectionHeading>
       <DropdownsLayout>
         <Dropdown title="Line spacing">
-          <ManualSection argName="line spacing" image="/lineSpacing.png">
+          <ManualSection
+            argName="line spacing"
+            image="/lineSpacing.png"
+            lazyImg="/lineSpacing-lazy.jpg"
+            lazyRatio="680 / 340"
+          >
             Sets the vertical space between the lines of text in your document
             by setting the line spacing.
           </ManualSection>
         </Dropdown>
 
         <Dropdown title="Margins">
-          <ManualSection argName="margins" image="/margins.png">
+          <ManualSection
+            argName="margins"
+            image="/margins.png"
+            lazyImg="/margins-lazy.jpg"
+            lazyRatio="1050 / 460"
+          >
             Margins in Word are the blank spaces around the edges of a document
             (top, bottom, left, and right) that separate text from the
             paper&apos;s edge. Each page automatically has a 2.54 sm margin.
@@ -57,13 +67,20 @@ function ManualInfoSection() {
           <ManualSection
             argName="first line indent"
             image="/firstLineIndent.png"
+            lazyImg="/firstLineIndent-lazy.jpg"
+            lazyRatio="680 / 340"
           >
             Sets the first-line indent for all paragraphs in the document.
           </ManualSection>
         </Dropdown>
 
         <Dropdown title="Justify content">
-          <ManualSection argName="justify content" image="/justifyContent.png">
+          <ManualSection
+            argName="justify content"
+            image="/justifyContent.png"
+            lazyImg="/justifyContent-lazy.jpg"
+            lazyRatio="598 / 780"
+          >
             Sets the text alignment (left, center, right, or justified) for the
             whole document. Default is left.
           </ManualSection>
@@ -76,6 +93,8 @@ function ManualInfoSection() {
           <ManualSection
             argName="heading justify content"
             image="/headingJustifyContent.png"
+            lazyImg="/headingJustifyContent-lazy.jpg"
+            lazyRatio="678 / 640"
           >
             Sets the text alignment (left, center, right or justified) only for
             the first paragraph of the document. <br /> <strong>Tip: </strong>
@@ -88,6 +107,8 @@ function ManualInfoSection() {
           <ManualSection
             argName="heading first line indent"
             image="/headingFirstLineIndent.png"
+            lazyImg="/headingFirstLineIndent-lazy.jpg"
+            lazyRatio="680 / 340"
           >
             Sets the first-line indent for the first paragraph only.
           </ManualSection>
@@ -97,13 +118,20 @@ function ManualInfoSection() {
           <ManualSection
             argName="heading capitalize"
             image="/headingCapitalize.png"
+            lazyImg="/headingCapitalize-lazy.png"
+            lazyRatio="680 / 340"
           >
             Sets the first paragraph uppercase.
           </ManualSection>
         </Dropdown>
 
         <Dropdown title="Bold">
-          <ManualSection argName="heading bold" image="/headingBold.png">
+          <ManualSection
+            argName="heading bold"
+            image="/headingBold.png"
+            lazyImg="/headingBold-lazy.jpg"
+            lazyRatio="680 / 338"
+          >
             Sets the first paragraph bold.
           </ManualSection>
         </Dropdown>
