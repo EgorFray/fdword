@@ -33,11 +33,12 @@ function Comparator() {
   return (
     <div className="relative m-auto w-full max-w-md overflow-hidden">
       {/* AFTER */}
-      <img src="/after.png" className="w-full" />
+      <img src="/after.png" alt="Document after formating" className="w-full" />
 
       {/* BEFORE */}
       <motion.img
         src="/before.png"
+        alt="Document before formating"
         className="absolute inset-0 h-full w-full object-cover"
         initial={{
           clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",

@@ -7,7 +7,11 @@ function Logo() {
         to="/dashboard"
         className="inline-block rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
       >
-        <img src="/logo.png" className="block cursor-pointer" />
+        <img
+          src="/logo.png"
+          alt="Logo of docxfixer"
+          className="block cursor-pointer"
+        />
       </NavLink>
     </div>
   );
