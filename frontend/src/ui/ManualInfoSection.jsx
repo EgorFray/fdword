@@ -13,7 +13,7 @@ function ManualInfoSection() {
             argName="font size"
             image="/fontSize.png"
             lazyImg="/fontSize-lazy.jpg"
-            lazyRatio="680 / 340"
+            ratio="680 / 340"
           >
             Specifies the font size in points. Allowed values range from 5 to
             72.
@@ -25,7 +25,7 @@ function ManualInfoSection() {
             argName="font type"
             image="/fontType.png"
             lazyImg="/fontType-lazy.jpg"
-            lazyRatio="1062 / 1062"
+            ratio="1062 / 1062"
           >
             Specifies the font family used throughout the document. Available
             options include 9 widely used fonts: Times New Roman, Calibri,
@@ -43,7 +43,7 @@ function ManualInfoSection() {
             argName="line spacing"
             image="/lineSpacing.png"
             lazyImg="/lineSpacing-lazy.jpg"
-            lazyRatio="680 / 340"
+            ratio="680 / 340"
           >
             Sets the vertical space between the lines of text in your document
             by setting the line spacing.
@@ -55,7 +55,7 @@ function ManualInfoSection() {
             argName="margins"
             image="/margins.png"
             lazyImg="/margins-lazy.jpg"
-            lazyRatio="1050 / 460"
+            ratio="1050 / 460"
           >
             Margins in Word are the blank spaces around the edges of a document
             (top, bottom, left, and right) that separate text from the
@@ -68,7 +68,7 @@ function ManualInfoSection() {
             argName="first line indent"
             image="/firstLineIndent.png"
             lazyImg="/firstLineIndent-lazy.jpg"
-            lazyRatio="680 / 340"
+            ratio="680 / 340"
           >
             Sets the first-line indent for all paragraphs in the document.
           </ManualSection>
@@ -79,7 +79,7 @@ function ManualInfoSection() {
             argName="justify content"
             image="/justifyContent.png"
             lazyImg="/justifyContent-lazy.jpg"
-            lazyRatio="598 / 780"
+            ratio="598 / 780"
           >
             Sets the text alignment (left, center, right, or justified) for the
             whole document. Default is left.
@@ -94,7 +94,7 @@ function ManualInfoSection() {
             argName="heading justify content"
             image="/headingJustifyContent.png"
             lazyImg="/headingJustifyContent-lazy.jpg"
-            lazyRatio="678 / 640"
+            ratio="678 / 640"
           >
             Sets the text alignment (left, center, right or justified) only for
             the first paragraph of the document. <br /> <strong>Tip: </strong>
@@ -108,7 +108,7 @@ function ManualInfoSection() {
             argName="heading first line indent"
             image="/headingFirstLineIndent.png"
             lazyImg="/headingFirstLineIndent-lazy.jpg"
-            lazyRatio="680 / 340"
+            ratio="680 / 340"
           >
             Sets the first-line indent for the first paragraph only.
           </ManualSection>
@@ -119,7 +119,7 @@ function ManualInfoSection() {
             argName="heading capitalize"
             image="/headingCapitalize.png"
             lazyImg="/headingCapitalize-lazy.png"
-            lazyRatio="680 / 340"
+            ratio="680 / 340"
           >
             Sets the first paragraph uppercase.
           </ManualSection>
@@ -130,7 +130,7 @@ function ManualInfoSection() {
             argName="heading bold"
             image="/headingBold.png"
             lazyImg="/headingBold-lazy.jpg"
-            lazyRatio="680 / 338"
+            ratio="680 / 338"
           >
             Sets the first paragraph bold.
           </ManualSection>
