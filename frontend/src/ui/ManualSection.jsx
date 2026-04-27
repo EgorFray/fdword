@@ -13,7 +13,7 @@ function ManualSection({ argName, image, lazyImg, ratio, children }) {
           <img
             src={lazyImg}
             alt={`Blured image of ${image.replace(/^\/|\.png$/g, "")}`}
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover blur-md"
           />
         )}
         <img
