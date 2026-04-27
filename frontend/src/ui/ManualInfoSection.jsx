@@ -2,11 +2,31 @@ import Dropdown from "./Dropdown";
 import DropdownsLayout from "./DropdownsLayout";
 import ManualSection from "./ManualSection";
 import ManualSectionHeading from "./ManualSectionHeading";
+import { manualSectionData } from "../services/manualSectionData";
 
 function ManualInfoSection() {
-  return (
+  return manualSectionData.map((section) => (
     <>
-      <ManualSectionHeading>Font settings</ManualSectionHeading>
+      <ManualSectionHeading>{section.groupTitle}</ManualSectionHeading>
+      <DropdownsLayout>
+        {section.items.map((data) => (
+          <Dropdown title={data.title} key={data.argName}>
+            <ManualSection
+              argName={data.argName}
+              image={data.image}
+              lazyImg={data.lazyImg}
+              ratio={data.ratio}
+            >
+              {data.description}
+            </ManualSection>
+          </Dropdown>
+        ))}
+      </DropdownsLayout>
+    </>
+  ));
+}
+{
+  /* <ManualSectionHeading>Font settings</ManualSectionHeading>
       <DropdownsLayout>
         <Dropdown title="Font size">
           <ManualSection
@@ -35,7 +55,6 @@ function ManualInfoSection() {
           </ManualSection>
         </Dropdown>
       </DropdownsLayout>
-
       <ManualSectionHeading>Page settings</ManualSectionHeading>
       <DropdownsLayout>
         <Dropdown title="Line spacing">
@@ -86,7 +105,6 @@ function ManualInfoSection() {
           </ManualSection>
         </Dropdown>
       </DropdownsLayout>
-
       <ManualSectionHeading>First paragraph settings</ManualSectionHeading>
       <DropdownsLayout>
         <Dropdown title="Justify content">
@@ -135,9 +153,7 @@ function ManualInfoSection() {
             Sets the first paragraph bold.
           </ManualSection>
         </Dropdown>
-      </DropdownsLayout>
-    </>
-  );
+      </DropdownsLayout> */
 }
 
 export default ManualInfoSection;
