@@ -21,7 +21,7 @@ function Tooltip({ ref, style, ratio, video, bluredPoster, tooltip }) {
           <img
             src={bluredPoster}
             alt=""
-            className={`${!isVideoReady ? "opacity-100" : "opacity-0"} absolute inset-0 h-full w-full scale-105 object-cover transition-opacity duration-700`}
+            className="absolut inset-0 h-full w-full scale-105 object-cover transition-opacity duration-700"
           />
         )}
 

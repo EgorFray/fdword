@@ -17,6 +17,8 @@ import MainHeading from "./MainHeading";
 import SubHeading from "./SubHeading";
 import DropdownsContainer from "./DropdownsContainer";
 import { BsChevronDown } from "react-icons/bs";
+import { preloadTooltip } from "../services/modifyFormData";
+import { preload } from "react-dom";
 
 function ModifyForm({ formRef }) {
   const { register, handleSubmit, reset, formState } = useForm({
@@ -38,7 +40,6 @@ function ModifyForm({ formRef }) {
   });
 
   function onSubmit(data) {
-    console.log("DATA:", data);
     const heading = {
       jc: data.headingjc || undefined,
       fLind: toOptionalFloat(data.headingfLind),
@@ -73,8 +74,6 @@ function ModifyForm({ formRef }) {
     formData.append("data", JSON.stringify(obj));
     formData.append("file", data.file[0]);
 
-    console.log(Object.fromEntries(formData));
-
     mutate(formData);
   }
 
@@ -95,6 +94,8 @@ function ModifyForm({ formRef }) {
 
     URL.revokeObjectURL(url);
   }
+
+  preloadTooltip.forEach((poster) => preload(poster, { as: "image" }));
 
   return (
     <FormContainer>

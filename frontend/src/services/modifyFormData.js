@@ -1,0 +1,15 @@
+export const preloadTooltip = [
+  "/fontSize-poster-blured.jpg",
+  "/fontType-poster-blured.jpg",
+  "/lineSpacing-poster-blured.jpg",
+  "/marginTop-poster-blured.jpg",
+  "/marginRight-poster-blured.jpg",
+  "/marginBottom-poster-blured.jpg",
+  "/marginLeft-poster-blured.jpg",
+  "/firstLineIndent-poster-blured.jpg",
+  "/justifyContent-poster-blured.jpg",
+  "/headingJustifyContent-poster-blured.jpg",
+  "/headingFirstLineIndent-poster-blured.jpg",
+  "/capitalize-poster-blured.jpg",
+  "/bold-poster-blured.jpg",
+];
