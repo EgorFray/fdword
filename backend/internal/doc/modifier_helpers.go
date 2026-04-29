@@ -22,5 +22,29 @@ func (d *DocModifier) getNormalStyle() *etree.Element {
 		name.CreateAttr("w:val", "Normal")
 
 		return nil
+}
+
+func (d *DocModifier) getNormalpPr() *etree.Element {
+	ns := d.getNormalStyle()
+	// pPr
+	npPr := ns.FindElement("w:pPr")
+	if npPr == nil {
+		npPr = ns.CreateElement("w:pPr")
 	}
+
+	return npPr
+}
+
+func (d *DocModifier) getNormalrPr() *etree.Element {
+	ns := d.getNormalStyle()
+	// rPr
+	nrPr := ns.FindElement("w:rPr")
+	if nrPr == nil {
+		nrPr = ns.CreateElement("w:rPr")
+	}
+
+	return nrPr
+}
+
+
 	

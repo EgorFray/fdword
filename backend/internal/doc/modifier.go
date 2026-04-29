@@ -110,12 +110,7 @@ func (d *DocModifier) SetFontSize(val float64) error {
 
 	// Now we need to change the same proprties in normal style in Styles.xml
 	// Path to font size is ns -> w:rPr -> w:sz / w:szCs -> w:val
-	ns := d.getNormalStyle()
-	// rPr
-	nrPr := ns.FindElement("w:rPr")
-	if nrPr == nil {
-		nrPr = ns.CreateElement("w:rPr")
-	}
+	nrPr := d.getNormalrPr()
 	// sz
 	nsz := nrPr.FindElement("w:sz")
 	if nsz == nil {
