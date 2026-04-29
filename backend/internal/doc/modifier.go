@@ -74,7 +74,7 @@ func (d *DocModifier) SetFontSize(val float64) error {
 	}
 
 	// Path to sizes in Styles.xml: <w:docDefaults> -> <w:rPrDefault> -> <w:rPr> -> <w:sz w:val="24" /> and <w:szCs w:val="24" />
-	// Create global style of linespacing in Styles.Xml
+	// Create global style of font size in Styles.Xml
 	root := d.doc.Styles.Root()
 	// docDefaults
 	docDefaults := root.FindElement("w:docDefaults")
@@ -108,6 +108,31 @@ func (d *DocModifier) SetFontSize(val float64) error {
 	sz.CreateAttr("w:val", strconv.Itoa(fontSize))
 	szCs.CreateAttr("w:val", strconv.Itoa(fontSize))
 
+	// Now we need to change the same proprties in normal style in Styles.xml
+	// Path to font size is ns -> w:rPr -> w:sz / w:szCs -> w:val
+	ns := d.getNormalStyle()
+	// rPr
+	nrPr := ns.FindElement("w:rPr")
+	if nrPr == nil {
+		nrPr = ns.CreateElement("w:rPr")
+	}
+	// sz
+	nsz := nrPr.FindElement("w:sz")
+	if nsz == nil {
+		nsz = nrPr.CreateElement("w:sz")
+	}
+	// w:szCs
+	nszCs := nrPr.FindElement("w:szCs")
+	if nszCs == nil {
+		nszCs = nrPr.CreateElement("w:szCs")
+	}
+
+	nsz.RemoveAttr("w:val")
+	nszCs.RemoveAttr("w:val")
+
+	nsz.CreateAttr("w:val", strconv.Itoa(fontSize))
+	nszCs.CreateAttr("w:val", strconv.Itoa(fontSize))
+	
 	return nil
 }
 
