@@ -75,22 +75,7 @@ func (d *DocModifier) SetFontSize(val float64) error {
 
 	// Path to sizes in Styles.xml: <w:docDefaults> -> <w:rPrDefault> -> <w:rPr> -> <w:sz w:val="24" /> and <w:szCs w:val="24" />
 	// Create global style of font size in Styles.Xml
-	root := d.doc.Styles.Root()
-	// docDefaults
-	docDefaults := root.FindElement("w:docDefaults")
-	if docDefaults == nil {
-		docDefaults = root.CreateElement("w:docDefaults")
-	}
-	// rPrDefault
-	rPrDefault := docDefaults.FindElement("w:rPrDefault")
-	if rPrDefault == nil {
-		rPrDefault = docDefaults.CreateElement("w:rPrDefault")
-	}
-	// rPr
-	rPr := rPrDefault.FindElement("w:rPr")
-	if rPr == nil {
-		rPr = rPrDefault.CreateElement("w:rPr")
-	}
+	rPr := d.getrPr()
 	// sz
 	sz := rPr.FindElement("w:sz")
 	if sz == nil {
@@ -237,7 +222,6 @@ func(d *DocModifier) SetFirstLineIndent(FLInd float64) error {
 		if ind == nil {
 			ind = el.CreateElement("w:ind")
 		}
-
 		ind.RemoveAttr("w:firstLine")
 	}
 
