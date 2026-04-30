@@ -34,11 +34,26 @@ func (d *DocModifier) SetLineSpacing(val float64) error {
 		spacing = pPr.CreateElement("w:spacing")
 	}
 
+	// This is for spacing in defaults
 	spacing.RemoveAttr("w:line")
 	spacing.RemoveAttr("w:lineRule")
 
 	spacing.CreateAttr("w:line", strconv.Itoa(line))
 	spacing.CreateAttr("w:lineRule", "auto")
+
+	// And the same for Normal style
+	npPr := d.getNormalpPr()
+	// spacing
+	nspacing := npPr.FindElement("w:spacing")
+	if nspacing == nil {
+		nspacing = npPr.CreateElement("w:spacing")
+	}
+
+	nspacing.RemoveAttr("w:line")
+	nspacing.RemoveAttr("w:lineRule")
+
+	nspacing.CreateAttr("w:line", strconv.Itoa(line))
+	nspacing.CreateAttr("w:lineRule", "auto")
 
 	return nil
 }
