@@ -4,6 +4,7 @@ import (
 	"github.com/beevik/etree"
 )
 
+//  These 2 helpers (getpPr & getrPr) get path to styles.xml docDefaults page settings.
 func (d *DocModifier) getpPr() *etree.Element {
 	root := d.doc.Styles.Root()
 	// docDefaults
@@ -21,6 +22,7 @@ func (d *DocModifier) getpPr() *etree.Element {
 	if pPr == nil {
     pPr = pPrDefault.CreateElement("w:pPr")
 	}
+
 	return pPr
 }
 
@@ -41,6 +43,7 @@ func (d *DocModifier) getrPr() *etree.Element {
 	if rPr == nil {
 		rPr = rPrDefault.CreateElement("w:rPr")
 	}
+
 	return rPr
 }
 
@@ -64,6 +67,7 @@ func (d *DocModifier) getNormalStyle() *etree.Element {
 		return style
 }
 
+// path to Normal style pPr
 func (d *DocModifier) getNormalpPr() *etree.Element {
 	ns := d.getNormalStyle()
 	// pPr
@@ -75,6 +79,7 @@ func (d *DocModifier) getNormalpPr() *etree.Element {
 	return npPr
 }
 
+// path to Normal style rPr
 func (d *DocModifier) getNormalrPr() *etree.Element {
 	ns := d.getNormalStyle()
 	// rPr
@@ -85,6 +90,3 @@ func (d *DocModifier) getNormalrPr() *etree.Element {
 
 	return nrPr
 }
-
-
-	

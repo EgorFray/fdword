@@ -27,22 +27,7 @@ func (d *DocModifier) SetLineSpacing(val float64) error {
 		}
 	
 	// Create global style of linespacing in Styles.Xml
-	root := d.doc.Styles.Root()
-	// docDefaults
-	docDefaults := root.FindElement("w:docDefaults")
-	if docDefaults == nil {
-		docDefaults = root.CreateElement("w:docDefaults")
-	}
-	// pPrDefault
-	pPrDefault := docDefaults.FindElement("w:pPrDefault")
-	if pPrDefault == nil {
-		pPrDefault = docDefaults.CreateElement("w:pPrDefault")
-	}
-	// pPr
-	pPr := pPrDefault.FindElement("w:pPr")
-	if pPr == nil {
-    pPr = pPrDefault.CreateElement("w:pPr")
-	}
+	pPr := d.getpPr()
 	// spacing
 	spacing := pPr.FindElement("w:spacing")
 	if spacing == nil {
@@ -124,23 +109,8 @@ func (d *DocModifier) SetFontType(val string) error {
 	}
 
 	// Path to font type in Styles.xml: <w:docDefaults> -> <w:rPrDefault> -> <w:rPr> -> <w:rFonts w:asciiTheme="minorHAnsi" w:eastAsiaTheme="minorHAnsi" w:hAnsiTheme="minorHAnsi" w:cstheme="minorBidi" />
-	// Create global style of linespacing in Styles.Xml
-	root := d.doc.Styles.Root()
-	// docDefaults
-	docDefaults := root.FindElement("w:docDefaults")
-	if docDefaults == nil {
-		docDefaults = root.CreateElement("w:docDefaults")
-	}
-	// rPrDefault
-	rPrDefault := docDefaults.FindElement("w:rPrDefault")
-	if rPrDefault == nil {
-		rPrDefault = docDefaults.CreateElement("w:rPrDefault")
-	}
-	// rPr
-	rPr := rPrDefault.FindElement("w:rPr")
-	if rPr == nil {
-		rPr = rPrDefault.CreateElement("w:rPr")
-	}
+	// Create global style of font type in Styles.Xml
+	rPr := d.getrPr();
 	// rFonts
 	rFonts := rPr.FindElement("w:rFonts")
 	if rFonts == nil {
@@ -164,6 +134,26 @@ func (d *DocModifier) SetFontType(val string) error {
 	rFonts.CreateAttr("w:eastAsia", val)
 	rFonts.CreateAttr("w:hAnsi", val)
 	rFonts.CreateAttr("w:cs", val)
+
+	// And the same for Normal style
+	nrPr := d.getNormalrPr()
+	// rFonts
+	nrFonts := nrPr.FindElement("w:rFonts")
+	if nrFonts == nil {
+		nrFonts = rPr.CreateElement("w:rFonts")
+	}
+
+	// Remove theme attributes
+	nrFonts.RemoveAttr("w:asciiTheme")
+	nrFonts.RemoveAttr("w:eastAsiaTheme")
+	nrFonts.RemoveAttr("w:hAnsiTheme")
+	nrFonts.RemoveAttr("w:cstheme")
+
+	// Create attributes. Not themes but actual attrs
+	nrFonts.CreateAttr("w:ascii", val)
+	nrFonts.CreateAttr("w:eastAsia", val)
+	nrFonts.CreateAttr("w:hAnsi", val)
+	nrFonts.CreateAttr("w:cs", val)
 
 	return nil
 }
