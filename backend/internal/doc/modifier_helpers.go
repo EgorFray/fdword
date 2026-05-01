@@ -105,15 +105,3 @@ func (d *DocModifier) getListParagraph() *etree.Element {
 	return nil
 }
 
-// Get ListParzgraph pPr
-func (d *DocModifier) getListParagraphpPr() *etree.Element {
-	// ls -> list style
-	ls := d.getListParagraph()
-	// pPr
-	lspPr := ls.FindElement("w:pPr")
-	if lspPr == nil {
-		lspPr = ls.CreateElement("w:pPr")
-	}
-
-	return lspPr
-}

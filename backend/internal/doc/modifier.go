@@ -55,6 +55,26 @@ func (d *DocModifier) SetLineSpacing(val float64) error {
 	nspacing.CreateAttr("w:line", strconv.Itoa(line))
 	nspacing.CreateAttr("w:lineRule", "auto")
 
+	// And for the ListParagraph. If it is not empty we change lineSpace inside it too.
+	ls := d.getListParagraph()
+	if ls != nil {
+		lspPr := ls.FindElement("w:pPr")
+		if lspPr == nil {
+			lspPr = ls.CreateElement("w:pPr")
+		}
+
+		lspacing := lspPr.FindElement("w:spacing")
+		if lspacing == nil {
+			lspacing = lspPr.CreateElement("w:spacing")
+		}
+
+		lspacing.RemoveAttr("w:line")
+		lspacing.RemoveAttr("w:lineRule")
+
+		lspacing.CreateAttr("w:line", strconv.Itoa(line))
+		lspacing.CreateAttr("w:lineRule", "auto")
+	}
+	
 	return nil
 }
 
