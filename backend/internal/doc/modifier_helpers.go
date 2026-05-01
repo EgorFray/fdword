@@ -81,6 +81,7 @@ func (d *DocModifier) getNormalpPr() *etree.Element {
 
 // path to Normal style rPr
 func (d *DocModifier) getNormalrPr() *etree.Element {
+	// ns - normal style
 	ns := d.getNormalStyle()
 	// rPr
 	nrPr := ns.FindElement("w:rPr")
@@ -89,4 +90,30 @@ func (d *DocModifier) getNormalrPr() *etree.Element {
 	}
 
 	return nrPr
+}
+
+// Get Style of ListParagraph. We need this because lists have unique styling, so it's another place where we should set our values
+func (d *DocModifier) getListParagraph() *etree.Element {
+	root := d.doc.Styles.Root()
+
+	for _, style := range root.FindElements("//w:style") {
+		if style.SelectAttrValue("w:styleId", "") == "ListParagraph" {
+			return style
+		}
+		}
+	
+	return nil
+}
+
+// Get ListParzgraph pPr
+func (d *DocModifier) getListParagraphpPr() *etree.Element {
+	// ls -> list style
+	ls := d.getListParagraph()
+	// pPr
+	lspPr := ls.FindElement("w:pPr")
+	if lspPr == nil {
+		lspPr = ls.CreateElement("w:pPr")
+	}
+
+	return lspPr
 }
