@@ -74,7 +74,7 @@ func (d *DocModifier) SetLineSpacing(val float64) error {
 		lspacing.CreateAttr("w:line", strconv.Itoa(line))
 		lspacing.CreateAttr("w:lineRule", "auto")
 	}
-	
+
 	return nil
 }
 
@@ -251,29 +251,7 @@ func(d *DocModifier) SetFirstLineIndent(FLInd float64) error {
 	}
 
 	// Create global line indent in Styles.xml
-	root := d.doc.Styles.Root()
-	if root == nil {
-		return fmt.Errorf("styles.xml root is nil")
-	}
-
-	// docDefaults
-	docDefaults := root.FindElement("w:docDefaults")
-	if docDefaults == nil {
-		docDefaults = root.CreateElement("w:docDefaults")
-	}
-
-	// pPrDefault
-	pPrDefault := docDefaults.FindElement("w:pPrDefault")
-	if pPrDefault == nil {
-		pPrDefault = docDefaults.CreateElement("w:pPrDefault")
-	}
-
-	// pPr
-	pPr := pPrDefault.FindElement("w:pPr")
-	if pPr == nil {
-		pPr = pPrDefault.CreateElement("w:pPr")
-	}	
-	
+	pPr := d.getpPr()
 	// ind
 	ind := pPr.FindElement("w:ind")
 	if ind == nil {
@@ -284,6 +262,26 @@ func(d *DocModifier) SetFirstLineIndent(FLInd float64) error {
 	ind.RemoveAttr("w:hanging")
 
 	ind.CreateAttr("w:firstLine", strconv.Itoa(lineTwip))
+
+	// And the same for the ListParagraph if it exists
+	ls := d.getListParagraph()
+	if ls != nil {
+		lspPr := ls.FindElement("w:pPr")
+		if lspPr == nil {
+			lspPr = ls.CreateElement("w:pPr")
+		}
+		// w:ind
+		lsind := lspPr.FindElement("w:ind")
+		if lsind == nil {
+			lsind = lspPr.CreateElement("w:ind")
+		}
+
+		lsind.RemoveAttr("w:left")
+		lsind.RemoveAttr("w:firstLine")
+		lsind.RemoveAttr("w:hanging")
+
+		lsind.CreateAttr("w:firstLine", strconv.Itoa(lineTwip))
+	}
 
 	return nil
 }
