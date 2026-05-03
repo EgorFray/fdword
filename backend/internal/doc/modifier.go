@@ -358,9 +358,8 @@ func(d *DocModifier) SetHeadingJC(JC string) error {
 		jc = pPr.CreateElement("w:jc")
 	}
 
-	if JC != "left" {
-		jc.CreateAttr("w:val", JC)
-	}
+	jc.RemoveAttr("w:val")
+	jc.CreateAttr("w:val", JC)
 	
 	return nil
 }
