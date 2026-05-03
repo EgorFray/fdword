@@ -403,7 +403,7 @@ func (d *DocModifier) SetHeadingCaps() error {
 	}
 	// w:rPr
 	rPr := r.FindElement("w:rPr")
-	if r == nil {
+	if rPr == nil {
 		rPr = r.CreateElement("w:rPr")
 	}
 	// w:caps
@@ -426,7 +426,7 @@ func (d *DocModifier) SetHeadingBold() error {
 	}
 	// w:rPr
 	rPr := r.FindElement("w:rPr")
-	if r == nil {
+	if rPr == nil {
 		rPr = r.CreateElement("w:rPr")
 	}
 	// w:b
