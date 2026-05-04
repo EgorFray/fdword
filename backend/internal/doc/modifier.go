@@ -35,6 +35,8 @@ func (d *DocModifier) SetLineSpacing(val float64) error {
 	}
 
 	// This is for spacing in defaults
+	spacing.RemoveAttr("w:before")
+	spacing.RemoveAttr("w:after")
 	spacing.RemoveAttr("w:line")
 	spacing.RemoveAttr("w:lineRule")
 
