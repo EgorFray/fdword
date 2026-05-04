@@ -51,6 +51,8 @@ func (d *DocModifier) SetLineSpacing(val float64) error {
 		nspacing = npPr.CreateElement("w:spacing")
 	}
 
+	nspacing.RemoveAttr("w:before")
+	nspacing.RemoveAttr("w:after")
 	nspacing.RemoveAttr("w:line")
 	nspacing.RemoveAttr("w:lineRule")
 
