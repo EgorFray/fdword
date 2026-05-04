@@ -375,7 +375,8 @@ func (d *DocModifier) SetHeadingFLI(FLInd float64) error {
 	// pPr
 	pPr := p.FindElement("w:pPr")
 	if pPr == nil {
-		pPr = p.CreateElement("w:pPr")
+		pPr = etree.NewElement("w:pPr")
+		p.InsertChildAt(0, pPr)
 	}
 	// ind
 	ind := pPr.FindElement("w:ind")

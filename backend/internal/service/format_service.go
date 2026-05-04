@@ -106,6 +106,7 @@ func(f *FormatService) FormatHeading(req dto.HeadingDTO, modifier *doc.DocModifi
 		if err := modifier.SetHeadingJC(*req.JC); err != nil {
 			return err
 		}
+	}
   // Check if we have first line indent in heading dto
 	if req.FLInd != nil {
 		if err := modifier.SetHeadingFLI(*req.FLInd); err != nil {
@@ -123,7 +124,6 @@ func(f *FormatService) FormatHeading(req dto.HeadingDTO, modifier *doc.DocModifi
 		if err := modifier.SetHeadingBold(); err != nil {
 			return err
 		}
-	}
 	}
 
 	return nil
