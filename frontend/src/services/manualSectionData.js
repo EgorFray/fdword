@@ -59,7 +59,7 @@ export const manualSectionData = [
         lazyImg: "/justifyContent-lazy.jpg",
         ratio: "598 / 780",
         description:
-          "Sets the text alignment (left, center, right, or justified) for the swhole document. Default is left.",
+          "Sets the text alignment (left, center, right, or justified) for the whole document.",
       },
     ],
   },
@@ -73,7 +73,7 @@ export const manualSectionData = [
         lazyImg: "/headingJustifyContent-lazy.jpg",
         ratio: "678 / 640",
         description:
-          "Sets the text alignment (left, center, right or justified) only for the first paragraph of the document. Tip: to perfectly center the first paragraph, set it&apos;s first-line indent to 0.",
+          "Sets the text alignment (left, center, right or justified) only for the first paragraph of the document. Tip: to perfectly center the first paragraph, set it`s first-line indent to 0.",
       },
       {
         title: "First line indent",
