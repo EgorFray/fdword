@@ -41,7 +41,7 @@ export const manualSectionData = [
         lazyImg: "/margins-lazy.jpg",
         ratio: "1050 / 460",
         description:
-          "Margins in Word are the blank spaces around the edges of a document (top, bottom, left, and right) that separate text from the paper&apos;s edge. Each page automatically has a 2.54 sm margin.",
+          "Margins in Word are the blank spaces around the edges of a document (top, bottom, left, and right) that separate text from the paper`s edge.",
       },
       {
         title: "First line indent",
