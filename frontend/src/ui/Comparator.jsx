@@ -1,59 +1,64 @@
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 function Comparator() {
-  const [showDivider, setShowDivider] = useState(false);
-  const controls = useAnimation();
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [isAutoDone, setIsAutoDone] = useState(false);
 
   useEffect(() => {
-    const sequence = async () => {
-      for (let i = 0; i < 1; i++) {
-        await controls.start({
-          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-          transition: { duration: 1.5, ease: "easeInOut" },
-        });
-
-        await controls.start({
-          clipPath: "polygon(0 0, 0% 0, 0% 100%, 0 100%)",
-          transition: { duration: 1.5, ease: "easeInOut" },
-        });
-      }
-
-      await controls.start({
-        clipPath: "polygon(0 0, 50% 0, 50% 100%, 0 100%)",
-        transition: { duration: 0.8 },
-      });
-
-      setShowDivider(true);
+    const flipToAfter = setTimeout(() => setIsFlipped(true), 600);
+    const flipBackToBefore = setTimeout(() => {
+      setIsFlipped(false);
+      setIsAutoDone(true);
+    }, 1800);
+    return () => {
+      clearTimeout(flipToAfter);
+      clearTimeout(flipBackToBefore);
     };
-
-    sequence();
   }, []);
 
+  function handleFlip() {
+    if (!isAutoDone) return;
+    setIsFlipped((prev) => !prev);
+  }
+
   return (
-    <div className="relative m-auto w-full max-w-md overflow-hidden">
-      {/* AFTER */}
-      <img src="/after.png" alt="Document after formating" className="w-full" />
-
-      {/* BEFORE */}
-      <motion.img
-        src="/before.png"
-        alt="Document before formating"
-        className="absolute inset-0 h-full w-full object-cover"
-        initial={{
-          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+    <div
+      className="relative m-auto w-80 max-w-md cursor-pointer md:w-full"
+      style={{ perspective: "1200px" }}
+      onClick={handleFlip}
+    >
+      <motion.div
+        className="relative flex aspect-3/4 w-full rounded-2xl shadow-lg"
+        style={{ transformStyle: "preserve-3d" }}
+        animate={{ rotateY: isFlipped ? 180 : 0 }}
+        transition={{
+          duration: 0.8,
+          ease: "easeInOut",
         }}
-        animate={controls}
-      />
-
-      {showDivider && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.5 }}
-          className="absolute top-0 bottom-0 w-px bg-blue-950"
-          style={{ left: "50%" }}
+        whileTap={isAutoDone ? { scale: 0.98 } : undefined}
+      >
+        {/* BEFORE */}
+        <img
+          src="/before.png"
+          alt="Document before formatting"
+          className="absolute inset-0 h-full w-full rounded-2xl object-cover"
+          style={{
+            backfaceVisibility: "hidden",
+          }}
         />
-      )}
+
+        {/* AFTER */}
+        <img
+          src="/after.png"
+          alt="Document after formatting"
+          className="absolute inset-0 h-full w-full rounded-2xl object-cover"
+          style={{
+            transform: "rotateY(180deg)",
+            backfaceVisibility: "hidden",
+          }}
+        />
+      </motion.div>
     </div>
   );
 }
