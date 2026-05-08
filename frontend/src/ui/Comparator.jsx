@@ -5,6 +5,11 @@ function Comparator() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isAutoDone, setIsAutoDone] = useState(false);
 
+  const [isBeforeLoad, setIsBeforeLoad] = useState(false);
+  const [isAfterLoad, setIsAfterLoad] = useState(false);
+
+  const isImagesLoad = isBeforeLoad && isAfterLoad;
+
   useEffect(() => {
     const flipToAfter = setTimeout(() => setIsFlipped(true), 600);
     const flipBackToBefore = setTimeout(() => {
@@ -29,7 +34,7 @@ function Comparator() {
       onClick={handleFlip}
     >
       <motion.div
-        className="relative flex aspect-3/4 w-full rounded-2xl shadow-lg"
+        className="relative flex aspect-3/4 w-full rounded-xl shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
         style={{ transformStyle: "preserve-3d" }}
         animate={{ rotateY: isFlipped ? 180 : 0 }}
         transition={{
@@ -42,7 +47,7 @@ function Comparator() {
         <img
           src="/before.png"
           alt="Document before formatting"
-          className="absolute inset-0 h-full w-full rounded-2xl object-cover"
+          className="absolute inset-0 h-full w-full rounded-xl object-cover"
           style={{
             backfaceVisibility: "hidden",
           }}
@@ -52,7 +57,7 @@ function Comparator() {
         <img
           src="/after.png"
           alt="Document after formatting"
-          className="absolute inset-0 h-full w-full rounded-2xl object-cover"
+          className="absolute inset-0 h-full w-full rounded-xl object-cover"
           style={{
             transform: "rotateY(180deg)",
             backfaceVisibility: "hidden",
