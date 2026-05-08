@@ -8,9 +8,11 @@ function Comparator() {
   const [isBeforeLoad, setIsBeforeLoad] = useState(false);
   const [isAfterLoad, setIsAfterLoad] = useState(false);
 
-  const isImagesLoad = isBeforeLoad && isAfterLoad;
+  const isImagesLoaded = isBeforeLoad && isAfterLoad;
 
   useEffect(() => {
+    if (!isImagesLoaded) return;
+
     const flipToAfter = setTimeout(() => setIsFlipped(true), 600);
     const flipBackToBefore = setTimeout(() => {
       setIsFlipped(false);
@@ -20,7 +22,7 @@ function Comparator() {
       clearTimeout(flipToAfter);
       clearTimeout(flipBackToBefore);
     };
-  }, []);
+  }, [isImagesLoaded]);
 
   function handleFlip() {
     if (!isAutoDone) return;
@@ -47,6 +49,7 @@ function Comparator() {
         <img
           src="/before.png"
           alt="Document before formatting"
+          onLoad={() => setIsBeforeLoad(true)}
           className="absolute inset-0 h-full w-full rounded-xl object-cover"
           style={{
             backfaceVisibility: "hidden",
@@ -57,6 +60,7 @@ function Comparator() {
         <img
           src="/after.png"
           alt="Document after formatting"
+          onLoad={() => setIsAfterLoad(true)}
           className="absolute inset-0 h-full w-full rounded-xl object-cover"
           style={{
             transform: "rotateY(180deg)",
