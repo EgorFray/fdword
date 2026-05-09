@@ -21,7 +21,7 @@ function Tooltip({ ref, style, ratio, video, bluredPoster, tooltip }) {
           <img
             src={bluredPoster}
             alt={`Blured img of ${video.replace(/^\/|\.mp4$/g, "")}`}
-            className="absolut inset-0 h-full w-full scale-105 object-cover blur-md transition-opacity duration-700"
+            className="absolute inset-0 h-full w-full scale-105 object-cover blur-md transition-opacity duration-700"
           />
         )}
 

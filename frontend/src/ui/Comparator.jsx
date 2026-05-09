@@ -10,6 +10,9 @@ function Comparator() {
 
   const isImagesLoaded = isBeforeLoad && isAfterLoad;
 
+  const bluredPoster =
+    "/9j/7gAhQWRvYmUAZIAAAAABAwAQAwIDBgAAAAAAAAAAAAAAAP/bAIQAICEhMyQzUTAwUUIvLy9CJxwcHBwnIhcXFxcXIhEMDAwMDAwRDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAEiMzM0JjQiGBgiFA4ODhQUDg4ODhQRDAwMDAwREQwMDAwMDBEMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwM/8IAEQgAjABsAwEiAAIRAQMRAf/EAHcAAQEBAQEBAAAAAAAAAAAAAAABAgMEBgEBAAAAAAAAAAAAAAAAAAAAABAAAgMBAAICAwEAAAAAAAAAAAERAhIiECADEzBQIUARAQEAAgIDAQAAAAAAAAAAAAAxESEQIDBAATISAQAAAAAAAAAAAAAAAAAAAFD/2gAMAwEBAhEDEQAAAPoDkdXk6nZxHZyh2cR2cdmwJcFvGHdxHZwp2cKdnCnayjG8GJoRYS2ApJqm6DG+ZiBqQVKNTRKpsDG8nK2AAEqkUb1nQxvByoSgBKF3zHa42MbwZgWAAsFQdmNjG8HKqQpJoRYSh10DOhynYc+gAAAAf//aAAgBAgABBQD9/wD/2gAIAQMAAQUA/f8A/9oACAEBAAEFAPz/ACOFpmLRhmLDpYXx2PrsfXYxYrVr0Z/CUSiUSiUSiUSiV6Xg4OB4OI4IoRQ5ODNWJR5s4NGh2Hb+Sag0aJNC82k6Ojo7Fo7Ozs6Fr0upWUZTITFVIyjKFST6xfHAqR6Xg4RNDlHJwRUTrU+xH2IV0/SzaNWNMVmaZpmmaZpks1Yq214tJFiLEWIsRYixFhKwlYzcqmvN0mRUhGakVZFURUipFSrVTaE583aRNSUyamkSiULJKZKG6lHPm0k2JsN2JsTYm43YmxNhO0+bKUkyGQyGJMhmWQyGQyvm8HBFDg5IocHBFGcI4K1VfN3Bok0OwrSaNCsOwrelpIuRcqrf6P/aAAgBAgIGPwB//9oACAEDAgY/AH//2gAIAQEBBj8A9C/VVVVVVvfpb7Z6Y6TKIiIiIidNea4VVVVVVXpviIiJ4NfMoiIiIiI3zpVVVVVVW+dqzlVVVVeu0REREREa50iIiIiInS4VVVVVVVc875x4NczKI/KIiIzhOmud+x//2Q==";
+
   useEffect(() => {
     if (!isImagesLoaded) return;
 
@@ -46,6 +49,12 @@ function Comparator() {
         whileTap={isAutoDone ? { scale: 0.98 } : undefined}
       >
         {/* BEFORE */}
+        {!isImagesLoaded && (
+          <div
+            className="absolute inset-0 scale-105 bg-cover bg-center blur-md"
+            style={{ backgroundImage: `url(${bluredPoster})` }}
+          />
+        )}
         <img
           src="/before.png"
           alt="Document before formatting"
