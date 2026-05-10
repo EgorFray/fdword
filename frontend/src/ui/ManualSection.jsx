@@ -4,9 +4,9 @@ function ManualSection({ argName, image, lazyImg, ratio, children }) {
   const [isLoadedImage, setIsLoadedImage] = useState(false);
 
   return (
-    <section className="mx-4 mt-2 mb-3 flex flex-col items-center gap-3 md:mt-4 md:mb-6 md:grid md:grid-cols-[400px_1fr] md:gap-x-6">
+    <section className="mx-4 mt-2 mb-3 flex flex-col gap-3 md:mt-4 md:mb-6 md:grid md:grid-cols-[400px_1fr] md:gap-x-6">
       <div
-        className="relative flex w-4/6 overflow-hidden rounded-xl md:w-full"
+        className="relative flex w-4/6 self-center overflow-hidden rounded-xl md:w-full"
         style={{ aspectRatio: ratio }}
       >
         {!isLoadedImage && (
