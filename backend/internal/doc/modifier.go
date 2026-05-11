@@ -197,35 +197,6 @@ func (d *DocModifier) SetFontType(val string) error {
 	return nil
 }
 
-// Margins 1st helper - get element where we will change attributes
-func (d *DocModifier) getMarginsPath() *etree.Element {
-	// We don't need to remove pgMar, because there are attrs, that we don't change - header, footer and gutter. 
-	// Path to margins in Document.xml: <w:body> -> <w:sectPr> -> <w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left=" 1440" />
-	sectPr := d.doc.Document.Root().FindElement("//w:sectPr")
-	if sectPr == nil {
-		d.doc.Document.Root().CreateElement("//w:sectPr")
-	}
-
-	pgMar := sectPr.FindElement("w:pgMar")
-	if pgMar == nil {
-		pgMar = sectPr.CreateElement("w:pgMar")
-	}
-
-	return pgMar
-}
-
-// Margins 2nd helper - set margin attribute
-func (d *DocModifier) setMargin(attr string, val float64) error {
-	pgMar := d.getMarginsPath()
-	// Calculating twips. In word margins calculates in twips. 1 twip = 1 inch ~ 2.54 cm
-	valTwip := int(val * 567)
-
-	pgMar.RemoveAttr(attr)
-	pgMar.CreateAttr(attr, strconv.Itoa(valTwip))
-
-	return nil
-}
-
 func (d *DocModifier) SetMarginTop(MTop float64) error {
 	return d.setMargin("w:top", MTop)
 }
@@ -332,19 +303,6 @@ func(d *DocModifier) SetJC(JC string) error {
 
 // !!!!!!!!!! HEADING MODIFIERS !!!!!!!!!!
 // In heading we will work only with document.xml, because we'll change attrs only for 1st paragraph.
-
-// HELPER FUNCTION TO GET FIRST PARAGRAPH WITH TEXT - OUR HEADING
-func(d *DocModifier) getFirstParagraph() *etree.Element {
-	paragraphs := d.doc.Document.FindElements("//w:body/w:p")
-
-	for _, p := range paragraphs {
-		if p.FindElement(".//w:t") != nil {
-			return p
-		}
-	}
-	return nil
-}
-
 func(d *DocModifier) SetHeadingJC(JC string) error {
 	// 1. Find first paragraph with text
 	p := d.getFirstParagraph()
