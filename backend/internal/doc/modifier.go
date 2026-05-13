@@ -216,14 +216,21 @@ func(d *DocModifier) SetFirstLineIndent(FLInd float64) error {
 	// calculate first line indent. It's calculated in twips. 1cm ~ 567twip.
 	lineTwip := int(FLInd * 567)
 
-	// We need to remove all attr of w:firstLine from w:Ind in every w:pPr
+	// We need to remove all attr of w:firstLine and w:hanging from w:Ind in every w:pPr
+	// and also we need to completely remove w:ind from ListParagraphs because default
+	// indents for ListParagraphs should be set in numbering.xml
 	for _, el := range d.doc.Document.FindElements("//w:pPr") {
 		ind := el.FindElement("w:ind")
 		if ind == nil {
-			ind = el.CreateElement("w:ind")
+			continue
 		}
+
 		ind.RemoveAttr("w:firstLine")
+		ind.RemoveAttr("w:hanging")
 	}
+
+	// And remove w:ind for ListParagraph
+	d.removeListParagraphsIndent()
 
 	// Create global line indent in Styles.xml
 	pPr := d.getpPr()
@@ -237,26 +244,6 @@ func(d *DocModifier) SetFirstLineIndent(FLInd float64) error {
 	ind.RemoveAttr("w:hanging")
 
 	ind.CreateAttr("w:firstLine", strconv.Itoa(lineTwip))
-
-	// And the same for the ListParagraph if it exists
-	ls := d.getListParagraph()
-	if ls != nil {
-		lspPr := ls.FindElement("w:pPr")
-		if lspPr == nil {
-			lspPr = ls.CreateElement("w:pPr")
-		}
-		// w:ind
-		lsind := lspPr.FindElement("w:ind")
-		if lsind == nil {
-			lsind = lspPr.CreateElement("w:ind")
-		}
-
-		lsind.RemoveAttr("w:left")
-		lsind.RemoveAttr("w:firstLine")
-		lsind.RemoveAttr("w:hanging")
-
-		lsind.CreateAttr("w:firstLine", strconv.Itoa(lineTwip))
-	}
 
 	return nil
 }

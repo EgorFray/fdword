@@ -107,6 +107,25 @@ func (d *DocModifier) getListParagraph() *etree.Element {
 	return nil
 }
 
+func (d *DocModifier) removeListParagraphsIndent() {
+	// lp -> list paragraph
+	lp := d.doc.Document.FindElements("//w:body/w:p[w:pPr/w:numPr]")
+
+	for _, p := range lp {
+		pPr := p.FindElement("w:pPr")
+		if pPr == nil {
+			continue
+		}
+
+		ind := pPr.FindElement("w:ind")
+		if ind == nil {
+			continue
+		}
+
+		pPr.RemoveChild(ind)
+	}
+}
+
 // Margins 1st helper - get element where we will change attributes
 func (d *DocModifier) getMarginsPath() *etree.Element {
 	// We don't need to remove pgMar, because there are attrs, that we don't change - header, footer and gutter. 
