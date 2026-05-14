@@ -19,7 +19,7 @@ func Load(fileBytes []byte) (*WDoc, error) {
 		return nil, err
 	}
 
-	var sDoc, dDoc *etree.Document
+	var sDoc, dDoc, nDoc *etree.Document
 	files := make(map[string][]byte)
 
 	for _, f := range archive.File {
@@ -52,15 +52,24 @@ func Load(fileBytes []byte) (*WDoc, error) {
 			}
 			dDoc = doc
 		}
+
+		if f.Name == "word/numbering.xml" {
+			doc := etree.NewDocument()
+			if err := doc.ReadFromBytes(data); err != nil {
+				return nil, err
+			}
+			nDoc = doc
+		}
 	}
 
-	if sDoc == nil || dDoc == nil {
+	if sDoc == nil || dDoc == nil || nDoc == nil {
 		return nil, errors.New("invalid docx structure")
 	}
 
 	return &WDoc{
 		Styles:   sDoc,
 		Document: dDoc,
+		Numbering: nDoc,
 		files:    files,
 	}, nil
 }
