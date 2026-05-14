@@ -166,3 +166,35 @@ func(d *DocModifier) getFirstParagraph() *etree.Element {
 	}
 	return nil
 }
+
+// Helper function to get unique NumId and Ilvl from document.xml - we need it later to get and style ListParagraphs
+func(d *DocModifier) getListParagraphRefs() map[ListRef]bool {
+	refs := make(map[ListRef]bool)
+	// Get list of all w:p which have w:numPr
+	lp := d.doc.Document.FindElements("//w:body/w:p[w:pPr/w:numPr]")
+	// get the numId and ilvl
+	for _, el := range lp {
+		numIdEl := el.FindElement("w:pPr/w:numPr/w:numId")
+		if numIdEl == nil {
+			continue
+		}
+		// Now getting the numId attribute
+		numId := numIdEl.SelectAttrValue("w:val", "")
+		if numId == "" {
+			continue
+		}
+
+		// And getting ilvl attribute
+		ilvl := "0"
+		ilvlEl := el.FindElement("w:pPr/w:numPr/w:ilvl")
+		if ilvlEl != nil {
+			ilvl = ilvlEl.SelectAttrValue("w:val", "0")
+		}
+
+		refs[ListRef{
+			NumId: numId,
+			Ilvl: ilvl,
+		}] = true
+	}
+	return refs
+}
