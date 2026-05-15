@@ -15,3 +15,9 @@ type ListRef struct {
 	NumId string
   Ilvl string
 }
+
+// This struct is need for updating specific ListParagraph
+type ListUpdate struct {
+	Ilvl string
+	AbstractNumId string
+}
