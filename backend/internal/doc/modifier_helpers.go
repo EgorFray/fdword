@@ -200,4 +200,27 @@ func(d *DocModifier) getListParagraphRefs() map[ListRef]bool {
 	return refs
 }
 
+// Next we need to get <w:num> from numbring xml, where attr w:numId = ListRef.numId
+func (d *DocModifier) getListParagraphData() []ListUpdate {
+	var res []ListUpdate
+	refs := d.getListParagraphRefs()
+	for ref := range refs {
+		for _, num := range d.doc.Numbering.FindElements("//w:num") {
+			if num.SelectAttrValue("w:numId", "") == ref.NumId {
+				// get the abstractNumIdEl
+				abstractNumIdEl := num.FindElement("w:abstractNumId")
+				if abstractNumIdEl == nil {
+					continue
+				}
+				// And finally get the value from abstractNumId
+				ani := abstractNumIdEl.SelectAttrValue("w:val", "")
+				if ani == "" {
+					continue
+				}
 
+				res = append(res, ListUpdate{Ilvl: ref.Ilvl, AbstractNumId: ani})
+			}
+		}
+	}
+	return res
+}
