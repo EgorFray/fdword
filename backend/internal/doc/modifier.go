@@ -249,12 +249,21 @@ func(d *DocModifier) SetFirstLineIndent(FLInd float64) error {
 }
 
 // This method is for modifying ListParagraph indent, but for now it will be integrated in SetFirstLineIndent method.
-func(d *DocModifier) setListParagraphIndent(indTwip string) error {
+func(d *DocModifier) setListParagraphIndent(lIndTwip int) error {
 	// Get list of updates from getListParagraphData
 	updates := d.getListParagraphData()
 	// Now use for loop to find neccessary component in path.
 	// Full path to indent of the ListParagraph: w:abstractNum -> w:lvl(w:lvl="update.Ilvl") -> w:pPr -> w:ind (w:left, w:hanging)
 	for _, update := range updates {
+		// this will dynamically set left indent based on the level of list.
+		level, err := strconv.Atoi(update.Ilvl)
+		if err != nil {
+			level = 0
+		}
+
+		left := (level + 1) * lIndTwip
+		hanging := lIndTwip
+
 		// Get the abstractNum where w:anstractNumId == update.AbstractNumId
 		for _, abstractNum := range d.doc.Numbering.FindElements("//w:abstractNum") {
 			if abstractNum.SelectAttrValue("w:abstractNumId", "") != update.AbstractNumId {
@@ -281,8 +290,8 @@ func(d *DocModifier) setListParagraphIndent(indTwip string) error {
 				ind.RemoveAttr("w:hanging")
 
 				// Last step - create attributes
-				ind.CreateAttr("w:left", indTwip)
-				ind.CreateAttr("w:hanging", indTwip)
+				ind.CreateAttr("w:left", strconv.Itoa(left))
+				ind.CreateAttr("w:hanging", strconv.Itoa(hanging))
 			}
 		}
 	}
