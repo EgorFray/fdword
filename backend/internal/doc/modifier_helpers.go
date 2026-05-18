@@ -204,6 +204,9 @@ func(d *DocModifier) getListParagraphRefs() map[ListRef]bool {
 func (d *DocModifier) getListParagraphData() []ListUpdate {
 	var res []ListUpdate
 	refs := d.getListParagraphRefs()
+	// We need 'seen' for imitating set - so we can add to 'res' only unique ListUpdate data. Better for performance. 
+	seen := make(map[ListUpdate]bool)
+
 	for ref := range refs {
 		for _, num := range d.doc.Numbering.FindElements("//w:num") {
 			if num.SelectAttrValue("w:numId", "") == ref.NumId {
@@ -218,7 +221,16 @@ func (d *DocModifier) getListParagraphData() []ListUpdate {
 					continue
 				}
 
-				res = append(res, ListUpdate{Ilvl: ref.Ilvl, AbstractNumId: ani})
+				update := ListUpdate{
+					Ilvl: ref.Ilvl, 
+					AbstractNumId: ani,
+				}
+
+				// Add only unique 'update' to res 
+				if !seen[update] {
+					seen[update] = true
+					res = append(res, update)
+				}	
 			}
 		}
 	}

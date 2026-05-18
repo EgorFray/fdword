@@ -16,7 +16,7 @@ type ListRef struct {
   Ilvl string
 }
 
-// This struct is need for updating specific ListParagraph
+// This struct is need for updating specific ListParagraph. Ilvl is responsible for level of nesting and AbstructNumId - for specific rules of styling for each paragraph.
 type ListUpdate struct {
 	Ilvl string
 	AbstractNumId string
