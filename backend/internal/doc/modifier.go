@@ -248,6 +248,47 @@ func(d *DocModifier) SetFirstLineIndent(FLInd float64) error {
 	return nil
 }
 
+// This method is for modifying ListParagraph indent, but for now it will be integrated in SetFirstLineIndent method.
+func(d *DocModifier) setListParagraphIndent(indTwip string) error {
+	// Get list of updates from getListParagraphData
+	updates := d.getListParagraphData()
+	// Now use for loop to find neccessary component in path.
+	// Full path to indent of the ListParagraph: w:abstractNum -> w:lvl(w:lvl="update.Ilvl") -> w:pPr -> w:ind (w:left, w:hanging)
+	for _, update := range updates {
+		// Get the abstractNum where w:anstractNumId == update.AbstractNumId
+		for _, abstractNum := range d.doc.Numbering.FindElements("//w:abstractNum") {
+			if abstractNum.SelectAttrValue("w:abstractNumId", "") != update.AbstractNumId {
+				continue
+			}
+			// Get the lvl where w:ilvl = update.Ilvl
+			for _, lvl := range abstractNum.FindElements("w:lvl") {
+				if lvl.SelectAttrValue("w:ilvl", "") != update.Ilvl {
+					continue
+				}
+				// And here we FINALLY have level that we need. So now let's get the w:pPr
+				pPr := lvl.FindElement("w:pPr")
+				if pPr == nil {
+					pPr = lvl.CreateElement("w:pPr")
+				}
+				// Inside pPr we need w:ind
+				ind := pPr.FindElement("w:ind")
+				if ind == nil {
+					ind = pPr.CreateElement("w:ind")
+				}
+
+				// And finally we remove attributes
+				ind.RemoveAttr("w:left")
+				ind.RemoveAttr("w:hanging")
+
+				// Last step - create attributes
+				ind.CreateAttr("w:left", indTwip)
+				ind.CreateAttr("w:hanging", indTwip)
+			}
+		}
+	}
+	return nil
+}
+
 // this method set default text aligment for the whole document.
 func(d *DocModifier) SetJC(JC string) error {
 	// delete all overrides in document.xml
