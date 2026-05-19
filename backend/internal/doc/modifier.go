@@ -245,6 +245,9 @@ func(d *DocModifier) SetFirstLineIndent(FLInd float64) error {
 
 	ind.CreateAttr("w:firstLine", strconv.Itoa(lineTwip))
 
+	// And finally change defaults for ListParagraph
+	d.setListParagraphIndent(lineTwip)
+
 	return nil
 }
 

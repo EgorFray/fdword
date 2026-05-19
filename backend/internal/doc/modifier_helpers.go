@@ -109,7 +109,7 @@ func (d *DocModifier) getListParagraph() *etree.Element {
 
 func (d *DocModifier) removeListParagraphsIndent() {
 	// lp -> list paragraph
-	lp := d.doc.Document.FindElements("//w:body/w:p[w:pPr/w:numPr]")
+	lp := d.doc.Document.FindElements("//w:body/w:p")
 
 	for _, p := range lp {
 		pPr := p.FindElement("w:pPr")
@@ -172,7 +172,7 @@ func(d *DocModifier) getFirstParagraph() *etree.Element {
 func(d *DocModifier) getListParagraphRefs() map[ListRef]bool {
 	refs := make(map[ListRef]bool)
 	// Get list of all w:p which have w:numPr
-	lp := d.doc.Document.FindElements("//w:body/w:p[w:pPr/w:numPr]")
+	lp := d.doc.Document.FindElements("//w:body/w:p")
 	// get the numId and ilvl
 	for _, el := range lp {
 		numIdEl := el.FindElement("w:pPr/w:numPr/w:numId")
