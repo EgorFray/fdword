@@ -167,6 +167,8 @@ func(d *DocModifier) getFirstParagraph() *etree.Element {
 	return nil
 }
 
+
+
 // THESE ARE HELPERS FOR THE STYLING LIST PARAGRAPH
 // Helper function to get unique NumId and Ilvl from document.xml - we need it later to get and style ListParagraphs
 func(d *DocModifier) getListParagraphRefs() map[ListRef]bool {

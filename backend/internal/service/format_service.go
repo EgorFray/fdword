@@ -85,8 +85,8 @@ func (f *FormatService) FormatDoc(fileBytes []byte, req dto.UpdateRequest) ([]by
 		}
 	}
 	// Check if we have something to style in heading
-	if req.Heading!= nil {
-		if err := f.FormatHeading(*req.Heading, modifier); err != nil {
+	if len(req.Headings) > 0 {
+		if err := f.FormatHeadings(req.Headings, modifier); err != nil {
 			return nil, err
 		}
 	}
@@ -100,31 +100,36 @@ func (f *FormatService) FormatDoc(fileBytes []byte, req dto.UpdateRequest) ([]by
 	return result, nil
 }
 
-func(f *FormatService) FormatHeading(req dto.HeadingDTO, modifier *doc.DocModifier) error {
-	// Check if we have justify content in heading dto
-	if req.JC != nil {
-		if err := modifier.SetHeadingJC(*req.JC); err != nil {
-			return err
+func(f *FormatService) FormatHeadings(headings []dto.HeadingDTO, modifier *doc.DocModifier) error {
+	// In loop we get every separate heading and change it with index
+	// hReq -> heading request
+	for i, hReq := range headings {
+		// Check if we have justify content in heading dto
+		if hReq.JC != nil {
+			if err := modifier.SetHeadingJC(i, *hReq.JC); err != nil {
+				return err
+			}
+		}
+		// Check if we have first line indent in heading dto
+		if hReq.FLInd != nil {
+			if err := modifier.SetHeadingFLI(i, *hReq.FLInd); err != nil {
+				return err
+			}
+		}
+		// Check if we have capitalize=true in heading dto
+		if hReq.Caps != nil {
+			if err := modifier.SetHeadingCaps(); err != nil {
+				return err
+			}
+		}
+		// Check if we have bold=true in heading dto
+		if hReq.Bold != nil {
+			if err := modifier.SetHeadingBold(); err != nil {
+				return err
+			}
 		}
 	}
-  // Check if we have first line indent in heading dto
-	if req.FLInd != nil {
-		if err := modifier.SetHeadingFLI(*req.FLInd); err != nil {
-			return err
-		}
-	}
-	// Check if we have capitalize=true in heading dto
-	if req.Caps != nil {
-		if err := modifier.SetHeadingCaps(); err != nil {
-			return err
-		}
-	}
-	// Check if we have bold=true in heading dto
-	if req.Bold != nil {
-		if err := modifier.SetHeadingBold(); err != nil {
-			return err
-		}
-	}
+	
 
 	return nil
 }
