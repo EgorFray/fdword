@@ -167,7 +167,25 @@ func(d *DocModifier) getFirstParagraph() *etree.Element {
 	return nil
 }
 
+// Takes int as an argument and returns list of i first paragraphs
+func(d *DocModifier) getFirstParagraphs(i int) []*etree.Element {
+	var res []*etree.Element
 
+	paragraphs := d.doc.Document.FindElements("//w:body/w:p")
+
+	for _, p := range paragraphs {
+		if p.FindElement(".//w:t") == nil {
+			continue
+		}
+
+		res = append(res, p)
+
+		if len(res) == i {
+			break
+		}
+	}
+	return res
+}
 
 // THESE ARE HELPERS FOR THE STYLING LIST PARAGRAPH
 // Helper function to get unique NumId and Ilvl from document.xml - we need it later to get and style ListParagraphs
