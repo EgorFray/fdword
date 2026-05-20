@@ -155,16 +155,15 @@ func (d *DocModifier) setMargin(attr string, val float64) error {
 	return nil
 }
 
-// HELPER FUNCTION TO GET FIRST PARAGRAPH WITH TEXT - OUR HEADING
-func(d *DocModifier) getFirstParagraph() *etree.Element {
-	paragraphs := d.doc.Document.FindElements("//w:body/w:p")
+// Takes index int as an argument and return paragraph from list of first paragraphs with index
+func(d *DocModifier) getParagraphByIndex(index int) *etree.Element {
+	paragraphs := d.getFirstParagraphs(index + 1)
 
-	for _, p := range paragraphs {
-		if p.FindElement(".//w:t") != nil {
-			return p
-		}
+	if len(paragraphs) <= index {
+		return nil
 	}
-	return nil
+
+	return paragraphs[index]
 }
 
 // Takes int as an argument and returns list of i first paragraphs
