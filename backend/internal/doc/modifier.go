@@ -343,9 +343,9 @@ func(d *DocModifier) SetJC(JC string) error {
 
 // !!!!!!!!!! HEADING MODIFIERS !!!!!!!!!!
 // In heading we will work only with document.xml, because we'll change attrs only for 1st paragraph.
-func(d *DocModifier) SetHeadingJC(JC string) error {
+func(d *DocModifier) SetHeadingJC(index int, JC string) error {
 	// 1. Find first paragraph with text
-	p := d.getFirstParagraph()
+	p := d.getParagraphByIndex(index)
 	if p == nil {
 		return errors.New("There is no paragraph with text")
 	}
@@ -366,10 +366,10 @@ func(d *DocModifier) SetHeadingJC(JC string) error {
 	return nil
 }
 
-func (d *DocModifier) SetHeadingFLI(FLInd float64) error {
+func (d *DocModifier) SetHeadingFLI(index int, FLInd float64) error {
 	lineTwip := int(FLInd * 567)
 	// Get first paragraph with text
-	p := d.getFirstParagraph()
+	p := d.getParagraphByIndex(index)
 	if p == nil {
 		return errors.New("There is no paragraph with text")
 	}
@@ -392,9 +392,9 @@ func (d *DocModifier) SetHeadingFLI(FLInd float64) error {
 	return nil
 }
 
-func (d *DocModifier) SetHeadingCaps() error {
+func (d *DocModifier) SetHeadingCaps(index int) error {
 	// Get first paragraph with text
-	p := d.getFirstParagraph()
+	p := d.getParagraphByIndex(index)
 	if p == nil {
 		return errors.New("There is no paragraph with text")
 	}
@@ -415,9 +415,9 @@ func (d *DocModifier) SetHeadingCaps() error {
 	return nil
 }
 
-func (d *DocModifier) SetHeadingBold() error {
+func (d *DocModifier) SetHeadingBold(index int) error {
 		// Get first paragraph with text
-	p := d.getFirstParagraph()
+	p := d.getParagraphByIndex(index)
 	if p == nil {
 		return errors.New("There is no paragraph with text")
 	}

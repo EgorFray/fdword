@@ -167,7 +167,7 @@ func(d *DocModifier) getParagraphByIndex(index int) *etree.Element {
 }
 
 // Takes int as an argument and returns list of i first paragraphs
-func(d *DocModifier) getFirstParagraphs(i int) []*etree.Element {
+func(d *DocModifier) getFirstParagraphs(index int) []*etree.Element {
 	var res []*etree.Element
 
 	paragraphs := d.doc.Document.FindElements("//w:body/w:p")
@@ -179,7 +179,7 @@ func(d *DocModifier) getFirstParagraphs(i int) []*etree.Element {
 
 		res = append(res, p)
 
-		if len(res) == i {
+		if len(res) == index {
 			break
 		}
 	}

@@ -118,13 +118,13 @@ func(f *FormatService) FormatHeadings(headings []dto.HeadingDTO, modifier *doc.D
 		}
 		// Check if we have capitalize=true in heading dto
 		if hReq.Caps != nil {
-			if err := modifier.SetHeadingCaps(); err != nil {
+			if err := modifier.SetHeadingCaps(i); err != nil {
 				return err
 			}
 		}
 		// Check if we have bold=true in heading dto
 		if hReq.Bold != nil {
-			if err := modifier.SetHeadingBold(); err != nil {
+			if err := modifier.SetHeadingBold(i); err != nil {
 				return err
 			}
 		}
