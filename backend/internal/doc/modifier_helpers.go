@@ -222,6 +222,11 @@ func(d *DocModifier) getListParagraphRefs() map[ListRef]bool {
 // Next we need to get <w:num> from numbring xml, where attr w:numId = ListRef.numId
 func (d *DocModifier) getListParagraphData() []ListUpdate {
 	var res []ListUpdate
+	// Check if numbering.xml exists
+	if d.doc.Numbering == nil {
+		return nil
+	}
+	
 	refs := d.getListParagraphRefs()
 	// We need 'seen' for imitating set - so we can add to 'res' only unique ListUpdate data. Better for performance. 
 	seen := make(map[ListUpdate]bool)

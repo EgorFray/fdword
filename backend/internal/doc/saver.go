@@ -28,11 +28,15 @@ func (w *WDoc) Save() ([]byte, error) {
 			content = styleBytes
 
 		case "word/numbering.xml":
-			numBytes, err := w.Numbering.WriteToBytes()
-			if err != nil {
-				return nil, err
+			if w.Numbering == nil {
+				numBytes, err := w.Numbering.WriteToBytes()
+				if err != nil {
+					return nil, err
+				}
+				content = numBytes
+			} else {
+				content = data
 			}
-			content = numBytes
 
 		default:
 			content = data

@@ -253,6 +253,10 @@ func(d *DocModifier) SetFirstLineIndent(FLInd float64) error {
 
 // This method is for modifying ListParagraph indent, but for now it will be integrated in SetFirstLineIndent method.
 func(d *DocModifier) setListParagraphIndent(lIndTwip int) error {
+	// Check if numbering.xml exists
+	if d.doc.Numbering == nil {
+		return nil
+	}
 	// Get list of updates from getListParagraphData
 	updates := d.getListParagraphData()
 	// Now use for loop to find neccessary component in path.

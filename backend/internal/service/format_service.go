@@ -129,7 +129,6 @@ func(f *FormatService) FormatHeadings(headings []dto.HeadingDTO, modifier *doc.D
 			}
 		}
 	}
-	
 
 	return nil
 }

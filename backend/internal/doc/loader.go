@@ -62,7 +62,7 @@ func Load(fileBytes []byte) (*WDoc, error) {
 		}
 	}
 
-	if sDoc == nil || dDoc == nil || nDoc == nil {
+	if sDoc == nil || dDoc == nil {
 		return nil, errors.New("invalid docx structure")
 	}
 
