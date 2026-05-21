@@ -216,14 +216,21 @@ func(d *DocModifier) SetFirstLineIndent(FLInd float64) error {
 	// calculate first line indent. It's calculated in twips. 1cm ~ 567twip.
 	lineTwip := int(FLInd * 567)
 
-	// We need to remove all attr of w:firstLine from w:Ind in every w:pPr
+	// We need to remove all attr of w:firstLine and w:hanging from w:Ind in every w:pPr
+	// and also we need to completely remove w:ind from ListParagraphs because default
+	// indents for ListParagraphs should be set in numbering.xml
 	for _, el := range d.doc.Document.FindElements("//w:pPr") {
 		ind := el.FindElement("w:ind")
 		if ind == nil {
-			ind = el.CreateElement("w:ind")
+			continue
 		}
+
 		ind.RemoveAttr("w:firstLine")
+		ind.RemoveAttr("w:hanging")
 	}
+
+	// And remove w:ind for ListParagraph
+	d.removeListParagraphsIndent()
 
 	// Create global line indent in Styles.xml
 	pPr := d.getpPr()
@@ -238,26 +245,63 @@ func(d *DocModifier) SetFirstLineIndent(FLInd float64) error {
 
 	ind.CreateAttr("w:firstLine", strconv.Itoa(lineTwip))
 
-	// And the same for the ListParagraph if it exists
-	ls := d.getListParagraph()
-	if ls != nil {
-		lspPr := ls.FindElement("w:pPr")
-		if lspPr == nil {
-			lspPr = ls.CreateElement("w:pPr")
-		}
-		// w:ind
-		lsind := lspPr.FindElement("w:ind")
-		if lsind == nil {
-			lsind = lspPr.CreateElement("w:ind")
-		}
+	// And finally change defaults for ListParagraph
+	d.setListParagraphIndent(lineTwip)
 
-		lsind.RemoveAttr("w:left")
-		lsind.RemoveAttr("w:firstLine")
-		lsind.RemoveAttr("w:hanging")
+	return nil
+}
 
-		lsind.CreateAttr("w:firstLine", strconv.Itoa(lineTwip))
+// This method is for modifying ListParagraph indent, but for now it will be integrated in SetFirstLineIndent method.
+func(d *DocModifier) setListParagraphIndent(lIndTwip int) error {
+	// Check if numbering.xml exists
+	if d.doc.Numbering == nil {
+		return nil
 	}
+	// Get list of updates from getListParagraphData
+	updates := d.getListParagraphData()
+	// Now use for loop to find neccessary component in path.
+	// Full path to indent of the ListParagraph: w:abstractNum -> w:lvl(w:lvl="update.Ilvl") -> w:pPr -> w:ind (w:left, w:hanging)
+	for _, update := range updates {
+		// this will dynamically set left indent based on the level of list.
+		level, err := strconv.Atoi(update.Ilvl)
+		if err != nil {
+			level = 0
+		}
 
+		left := (level + 1) * lIndTwip
+		hanging := lIndTwip
+
+		// Get the abstractNum where w:anstractNumId == update.AbstractNumId
+		for _, abstractNum := range d.doc.Numbering.FindElements("//w:abstractNum") {
+			if abstractNum.SelectAttrValue("w:abstractNumId", "") != update.AbstractNumId {
+				continue
+			}
+			// Get the lvl where w:ilvl = update.Ilvl
+			for _, lvl := range abstractNum.FindElements("w:lvl") {
+				if lvl.SelectAttrValue("w:ilvl", "") != update.Ilvl {
+					continue
+				}
+				// And here we FINALLY have level that we need. So now let's get the w:pPr
+				pPr := lvl.FindElement("w:pPr")
+				if pPr == nil {
+					pPr = lvl.CreateElement("w:pPr")
+				}
+				// Inside pPr we need w:ind
+				ind := pPr.FindElement("w:ind")
+				if ind == nil {
+					ind = pPr.CreateElement("w:ind")
+				}
+
+				// And finally we remove attributes
+				ind.RemoveAttr("w:left")
+				ind.RemoveAttr("w:hanging")
+
+				// Last step - create attributes
+				ind.CreateAttr("w:left", strconv.Itoa(left))
+				ind.CreateAttr("w:hanging", strconv.Itoa(hanging))
+			}
+		}
+	}
 	return nil
 }
 
@@ -303,9 +347,9 @@ func(d *DocModifier) SetJC(JC string) error {
 
 // !!!!!!!!!! HEADING MODIFIERS !!!!!!!!!!
 // In heading we will work only with document.xml, because we'll change attrs only for 1st paragraph.
-func(d *DocModifier) SetHeadingJC(JC string) error {
+func(d *DocModifier) SetHeadingJC(index int, JC string) error {
 	// 1. Find first paragraph with text
-	p := d.getFirstParagraph()
+	p := d.getParagraphByIndex(index)
 	if p == nil {
 		return errors.New("There is no paragraph with text")
 	}
@@ -326,10 +370,10 @@ func(d *DocModifier) SetHeadingJC(JC string) error {
 	return nil
 }
 
-func (d *DocModifier) SetHeadingFLI(FLInd float64) error {
+func (d *DocModifier) SetHeadingFLI(index int, FLInd float64) error {
 	lineTwip := int(FLInd * 567)
 	// Get first paragraph with text
-	p := d.getFirstParagraph()
+	p := d.getParagraphByIndex(index)
 	if p == nil {
 		return errors.New("There is no paragraph with text")
 	}
@@ -352,9 +396,9 @@ func (d *DocModifier) SetHeadingFLI(FLInd float64) error {
 	return nil
 }
 
-func (d *DocModifier) SetHeadingCaps() error {
+func (d *DocModifier) SetHeadingCaps(index int) error {
 	// Get first paragraph with text
-	p := d.getFirstParagraph()
+	p := d.getParagraphByIndex(index)
 	if p == nil {
 		return errors.New("There is no paragraph with text")
 	}
@@ -375,9 +419,9 @@ func (d *DocModifier) SetHeadingCaps() error {
 	return nil
 }
 
-func (d *DocModifier) SetHeadingBold() error {
+func (d *DocModifier) SetHeadingBold(index int) error {
 		// Get first paragraph with text
-	p := d.getFirstParagraph()
+	p := d.getParagraphByIndex(index)
 	if p == nil {
 		return errors.New("There is no paragraph with text")
 	}

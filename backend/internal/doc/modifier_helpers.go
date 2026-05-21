@@ -107,6 +107,25 @@ func (d *DocModifier) getListParagraph() *etree.Element {
 	return nil
 }
 
+func (d *DocModifier) removeListParagraphsIndent() {
+	// lp -> list paragraph
+	lp := d.doc.Document.FindElements("//w:body/w:p")
+
+	for _, p := range lp {
+		pPr := p.FindElement("w:pPr")
+		if pPr == nil {
+			continue
+		}
+
+		ind := pPr.FindElement("w:ind")
+		if ind == nil {
+			continue
+		}
+
+		pPr.RemoveChild(ind)
+	}
+}
+
 // Margins 1st helper - get element where we will change attributes
 func (d *DocModifier) getMarginsPath() *etree.Element {
 	// We don't need to remove pgMar, because there are attrs, that we don't change - header, footer and gutter. 
@@ -136,14 +155,108 @@ func (d *DocModifier) setMargin(attr string, val float64) error {
 	return nil
 }
 
-// HELPER FUNCTION TO GET FIRST PARAGRAPH WITH TEXT - OUR HEADING
-func(d *DocModifier) getFirstParagraph() *etree.Element {
+// Takes index int as an argument and return paragraph from list of first paragraphs with index
+func(d *DocModifier) getParagraphByIndex(index int) *etree.Element {
+	paragraphs := d.getFirstParagraphs(index + 1)
+
+	if len(paragraphs) <= index {
+		return nil
+	}
+
+	return paragraphs[index]
+}
+
+// Takes int as an argument and returns list of i first paragraphs
+func(d *DocModifier) getFirstParagraphs(index int) []*etree.Element {
+	var res []*etree.Element
+
 	paragraphs := d.doc.Document.FindElements("//w:body/w:p")
 
 	for _, p := range paragraphs {
-		if p.FindElement(".//w:t") != nil {
-			return p
+		if p.FindElement(".//w:t") == nil {
+			continue
+		}
+
+		res = append(res, p)
+
+		if len(res) == index {
+			break
 		}
 	}
-	return nil
+	return res
+}
+
+// THESE ARE HELPERS FOR THE STYLING LIST PARAGRAPH
+// Helper function to get unique NumId and Ilvl from document.xml - we need it later to get and style ListParagraphs
+func(d *DocModifier) getListParagraphRefs() map[ListRef]bool {
+	refs := make(map[ListRef]bool)
+	// Get list of all w:p which have w:numPr
+	lp := d.doc.Document.FindElements("//w:body/w:p")
+	// get the numId and ilvl
+	for _, el := range lp {
+		numIdEl := el.FindElement("w:pPr/w:numPr/w:numId")
+		if numIdEl == nil {
+			continue
+		}
+		// Now getting the numId attribute
+		numId := numIdEl.SelectAttrValue("w:val", "")
+		if numId == "" {
+			continue
+		}
+
+		// And getting ilvl attribute
+		ilvl := "0"
+		ilvlEl := el.FindElement("w:pPr/w:numPr/w:ilvl")
+		if ilvlEl != nil {
+			ilvl = ilvlEl.SelectAttrValue("w:val", "0")
+		}
+
+		refs[ListRef{
+			NumId: numId,
+			Ilvl: ilvl,
+		}] = true
+	}
+	return refs
+}
+
+// Next we need to get <w:num> from numbring xml, where attr w:numId = ListRef.numId
+func (d *DocModifier) getListParagraphData() []ListUpdate {
+	var res []ListUpdate
+	// Check if numbering.xml exists
+	if d.doc.Numbering == nil {
+		return nil
+	}
+	
+	refs := d.getListParagraphRefs()
+	// We need 'seen' for imitating set - so we can add to 'res' only unique ListUpdate data. Better for performance. 
+	seen := make(map[ListUpdate]bool)
+
+	for ref := range refs {
+		for _, num := range d.doc.Numbering.FindElements("//w:num") {
+			if num.SelectAttrValue("w:numId", "") == ref.NumId {
+				// get the abstractNumIdEl
+				abstractNumIdEl := num.FindElement("w:abstractNumId")
+				if abstractNumIdEl == nil {
+					continue
+				}
+				// And finally get the value from abstractNumId
+				ani := abstractNumIdEl.SelectAttrValue("w:val", "")
+				if ani == "" {
+					continue
+				}
+
+				update := ListUpdate{
+					Ilvl: ref.Ilvl, 
+					AbstractNumId: ani,
+				}
+
+				// Add only unique 'update' to res 
+				if !seen[update] {
+					seen[update] = true
+					res = append(res, update)
+				}	
+			}
+		}
+	}
+	return res
 }
