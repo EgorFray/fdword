@@ -5,8 +5,8 @@ import TemplateCard from "./TemplateCard";
 
 function Templates() {
   return (
-    <section className="flex flex-col items-center gap-6 p-6">
-      <div className="flex flex-col items-center gap-4">
+    <section className="flex flex-col items-center gap-4 p-6 md:gap-7">
+      <div className="flex flex-col items-center gap-3 md:gap-4">
         <MainHeading>
           Step 1 <br /> Choose the template
         </MainHeading>

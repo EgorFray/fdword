@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Comparator from "../ui/Comparator";
 import ModifyForm from "../ui/ModifyForm";
 import PageLayout from "../ui/PageLayout";
@@ -8,8 +8,10 @@ import SubHeading from "../ui/SubHeading";
 import Button from "../ui/Button";
 import CustomMetadata from "../ui/CustomMetadata";
 import Templates from "../ui/Templates";
+import { templates } from "../services/templatesData";
 
 function Dashboard() {
+  // const [selectedTemplate, setSelectedTemplate] = useState(templates[0]);
   const formRef = useRef(null);
 
   function handleClick() {
