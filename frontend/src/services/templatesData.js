@@ -4,15 +4,15 @@ export const templates = [
     headingCount: 1,
   },
   {
-    id: "two-heading",
+    id: "two-headings",
     headingCount: 2,
   },
   {
-    id: "three-heading",
+    id: "three-headings",
     headingCount: 3,
   },
   {
-    id: "four-heading",
+    id: "four-headings",
     headingCount: 4,
   },
 ];

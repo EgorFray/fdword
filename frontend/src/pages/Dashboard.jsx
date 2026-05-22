@@ -7,6 +7,7 @@ import MainHeading from "../ui/MainHeading";
 import SubHeading from "../ui/SubHeading";
 import Button from "../ui/Button";
 import CustomMetadata from "../ui/CustomMetadata";
+import Templates from "../ui/Templates";
 
 function Dashboard() {
   const formRef = useRef(null);
@@ -34,6 +35,7 @@ function Dashboard() {
         <Button onClick={handleClick}>Format document</Button>
       </Heading>
       <Comparator />
+      <Templates />
       <ModifyForm formRef={formRef} />
     </PageLayout>
   );
