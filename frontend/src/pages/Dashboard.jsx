@@ -9,6 +9,7 @@ import Button from "../ui/Button";
 import CustomMetadata from "../ui/CustomMetadata";
 import Templates from "../ui/Templates";
 import { templates } from "../services/templatesData";
+import Presentation from "../ui/Presentation";
 
 function Dashboard() {
   // const [selectedTemplate, setSelectedTemplate] = useState(templates[0]);
@@ -26,17 +27,7 @@ function Dashboard() {
         title="Dashboard"
         description="Format your Word document exactly the way you need - control fonts, spacing, margins, and layout in seconds."
       />
-      <Heading>
-        <MainHeading>
-          Transform your word file into <br /> well-formated document
-        </MainHeading>
-        <SubHeading>
-          Just add your document, choose what <br />
-          to format and get the result
-        </SubHeading>
-        <Button onClick={handleClick}>Format document</Button>
-      </Heading>
-      <Comparator />
+      <Presentation onClick={handleClick} />
       <Templates />
       <ModifyForm formRef={formRef} />
     </PageLayout>
