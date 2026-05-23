@@ -1,15 +1,9 @@
-import { useRef, useState } from "react";
-import Comparator from "../ui/Comparator";
-import ModifyForm from "../ui/ModifyForm";
 import PageLayout from "../ui/PageLayout";
-import Heading from "../ui/Heading";
-import MainHeading from "../ui/MainHeading";
-import SubHeading from "../ui/SubHeading";
-import Button from "../ui/Button";
 import CustomMetadata from "../ui/CustomMetadata";
 import Templates from "../ui/Templates";
-import { templates } from "../services/templatesData";
 import Presentation from "../ui/Presentation";
+import { useRef } from "react";
+import Modifier from "../ui/Modifier";
 
 function Dashboard() {
   // const [selectedTemplate, setSelectedTemplate] = useState(templates[0]);
@@ -29,7 +23,7 @@ function Dashboard() {
       />
       <Presentation onClick={handleClick} />
       <Templates />
-      <ModifyForm formRef={formRef} />
+      <Modifier />
     </PageLayout>
   );
 }

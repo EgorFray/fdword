@@ -1,6 +1,6 @@
 function FormContainer({ children }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-6">
+    <div className="flex w-full flex-col items-center justify-center gap-6">
       {children}
     </div>
   );

@@ -12,15 +12,12 @@ import Form from "../features/modifyForm/Form";
 import FormRow from "../features/modifyForm/FormRow";
 import Dropdown from "./Dropdown";
 import FormInput from "../features/modifyForm/FormInput";
-import Heading from "./Heading";
-import MainHeading from "./MainHeading";
-import SubHeading from "./SubHeading";
 import DropdownsContainer from "./DropdownsContainer";
 import { BsChevronDown } from "react-icons/bs";
 import { preloadTooltip } from "../services/modifyFormData";
 import { preload } from "react-dom";
 
-function ModifyForm({ formRef }) {
+function ModifyForm() {
   const { register, handleSubmit, reset, formState } = useForm({
     shouldUnregister: true,
   });
@@ -99,15 +96,7 @@ function ModifyForm({ formRef }) {
 
   return (
     <FormContainer>
-      <Form onSubmit={handleSubmit(onSubmit, onError)} formRef={formRef}>
-        <Heading>
-          <MainHeading>Choose what to update</MainHeading>
-          <SubHeading>
-            Only fill in the fields you want to change. <br /> Leave the rest
-            empty
-          </SubHeading>
-        </Heading>
-
+      <Form onSubmit={handleSubmit(onSubmit, onError)}>
         <DropdownsContainer>
           <Dropdown title="Font settings">
             <FormRow
