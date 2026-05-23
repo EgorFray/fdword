@@ -3,9 +3,12 @@ import MainHeading from "./MainHeading";
 import SubHeading from "./SubHeading";
 import TemplateCard from "./TemplateCard";
 
-function Templates() {
+function Templates({ templatesRef }) {
   return (
-    <section className="flex flex-col items-center gap-4 md:gap-7">
+    <section
+      className="flex scroll-mt-16 flex-col items-center gap-4 md:gap-7"
+      ref={templatesRef}
+    >
       <div className="flex flex-col items-center gap-3 md:gap-4">
         <MainHeading>
           Step 1 <br /> Choose the template

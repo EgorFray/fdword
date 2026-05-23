@@ -7,10 +7,10 @@ import Modifier from "../ui/Modifier";
 
 function Dashboard() {
   // const [selectedTemplate, setSelectedTemplate] = useState(templates[0]);
-  const formRef = useRef(null);
+  const templatesRef = useRef(null);
 
   function handleClick() {
-    formRef.current?.scrollIntoView({
+    templatesRef.current?.scrollIntoView({
       behavior: "smooth",
     });
   }
@@ -22,7 +22,7 @@ function Dashboard() {
         description="Format your Word document exactly the way you need - control fonts, spacing, margins, and layout in seconds."
       />
       <Presentation onClick={handleClick} />
-      <Templates />
+      <Templates templatesRef={templatesRef} />
       <Modifier />
     </PageLayout>
   );
