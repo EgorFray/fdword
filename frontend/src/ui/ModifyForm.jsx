@@ -17,11 +17,12 @@ import { BsChevronDown } from "react-icons/bs";
 import { preloadTooltip } from "../services/modifyFormData";
 import { preload } from "react-dom";
 
-function ModifyForm() {
+function ModifyForm({ selectedParagraphs }) {
   const { register, handleSubmit, reset, formState } = useForm({
     shouldUnregister: true,
   });
   const { errors } = formState;
+  console.log(selectedParagraphs);
 
   const {
     mutate,

@@ -2,17 +2,22 @@ import PageLayout from "../ui/PageLayout";
 import CustomMetadata from "../ui/CustomMetadata";
 import Templates from "../ui/Templates";
 import Presentation from "../ui/Presentation";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Modifier from "../ui/Modifier";
+import { templates } from "../services/templatesData";
 
 function Dashboard() {
-  // const [selectedTemplate, setSelectedTemplate] = useState(templates[0]);
+  const [selectedParagraphs, setSelectedParagraphs] = useState(templates[0]);
   const templatesRef = useRef(null);
 
   function handleClick() {
     templatesRef.current?.scrollIntoView({
       behavior: "smooth",
     });
+  }
+
+  function handleSelectParagraphs(headingCount) {
+    setSelectedParagraphs(templates.slice(0, headingCount));
   }
 
   return (
@@ -22,8 +27,11 @@ function Dashboard() {
         description="Format your Word document exactly the way you need - control fonts, spacing, margins, and layout in seconds."
       />
       <Presentation onClick={handleClick} />
-      <Templates templatesRef={templatesRef} />
-      <Modifier />
+      <Templates
+        templatesRef={templatesRef}
+        handleSelectParagraphs={handleSelectParagraphs}
+      />
+      <Modifier selectedParagraphs={selectedParagraphs} />
     </PageLayout>
   );
 }
