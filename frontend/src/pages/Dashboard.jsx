@@ -10,6 +10,7 @@ function Dashboard() {
   const [selectedParagraphs, setSelectedParagraphs] = useState(
     templates.slice(0, 1),
   );
+  const [isSelected, setIsSelected] = useState(1);
   const templatesRef = useRef(null);
 
   function handleClick() {
@@ -20,6 +21,7 @@ function Dashboard() {
 
   function handleSelectParagraphs(headingCount) {
     setSelectedParagraphs(templates.slice(0, headingCount));
+    setIsSelected(headingCount);
   }
 
   return (
@@ -32,6 +34,7 @@ function Dashboard() {
       <Templates
         templatesRef={templatesRef}
         handleSelectParagraphs={handleSelectParagraphs}
+        isSelected={isSelected}
       />
       <Modifier selectedParagraphs={selectedParagraphs} />
     </PageLayout>

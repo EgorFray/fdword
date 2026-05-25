@@ -1,8 +1,8 @@
-function TemplateCard({ headingCount, handleSelectParagraphs }) {
+function TemplateCard({ headingCount, handleSelectParagraphs, isSelected }) {
   return (
     <button
       onClick={() => handleSelectParagraphs(headingCount)}
-      className="flex h-55 w-37.5 cursor-pointer flex-col rounded-xl bg-white p-4 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] hover:ring-2 hover:ring-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 md:h-60 md:w-53.5"
+      className={`flex h-55 w-37.5 cursor-pointer flex-col rounded-xl bg-white p-4 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] hover:ring-2 hover:ring-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 md:h-60 md:w-53.5 ${isSelected ? "ring-2 ring-blue-600" : "hover:ring-2 hover:ring-blue-600"}`}
     >
       {Array.from({ length: headingCount }, (_, index) => (
         <p key={index} className="text-xs md:text-sm">

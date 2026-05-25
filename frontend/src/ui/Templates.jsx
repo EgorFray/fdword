@@ -3,7 +3,7 @@ import MainHeading from "./MainHeading";
 import SubHeading from "./SubHeading";
 import TemplateCard from "./TemplateCard";
 
-function Templates({ templatesRef, handleSelectParagraphs }) {
+function Templates({ templatesRef, handleSelectParagraphs, isSelected }) {
   return (
     <section
       className="flex scroll-mt-16 flex-col items-center gap-4 md:gap-7"
@@ -23,6 +23,7 @@ function Templates({ templatesRef, handleSelectParagraphs }) {
           <TemplateCard
             key={template.id}
             headingCount={template.headingCount}
+            isSelected={isSelected === template.headingCount}
             handleSelectParagraphs={handleSelectParagraphs}
           />
         ))}
