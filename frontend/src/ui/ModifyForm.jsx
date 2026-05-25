@@ -355,7 +355,7 @@ function ModifyForm({ selectedParagraphs }) {
                 ratio="490/360"
                 info={true}
                 error={errors?.headingjc?.message}
-                video="/headingJustifyContent.mp4"
+                video="/heading1JustifyContent.mp4"
                 bluredPoster="/headingJustifyContent-poster-blured.jpg"
                 tooltip="Justify first paragraph left, center, right or both"
               >
@@ -382,7 +382,7 @@ function ModifyForm({ selectedParagraphs }) {
                 ratio="490/260"
                 info={true}
                 error={errors?.headingfLind?.message}
-                video="/headingFirstLineIndent.mp4"
+                video="/heading1FirstLineIndent.mp4"
                 bluredPoster="/headingFirstLineIndent-poster-blured.jpg"
                 tooltip="Indent the first line of the first paragraph"
               >
@@ -409,7 +409,7 @@ function ModifyForm({ selectedParagraphs }) {
                 info={true}
                 ratio="490/400"
                 video="/capitalize.mp4"
-                bluredPoster="/capitalize-poster-blured.jpg"
+                bluredPoster="/heading1Capitalize-poster-blured.jpg"
                 tooltip="Set uppercase for the first paragraph"
               >
                 <div className="w-full text-start">
@@ -428,7 +428,7 @@ function ModifyForm({ selectedParagraphs }) {
                 info={true}
                 ratio="490/360"
                 video="/bold.mp4"
-                bluredPoster="/bold-poster-blured.jpg"
+                bluredPoster="/heading1Bold-poster-blured.jpg"
                 tooltip="Set the first paragraph bold"
               >
                 <div className="w-full text-start">

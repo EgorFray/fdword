@@ -8,8 +8,8 @@ export const preloadTooltip = [
   "/marginLeft-poster-blured.jpg",
   "/firstLineIndent-poster-blured.jpg",
   "/justifyContent-poster-blured.jpg",
-  "/headingJustifyContent-poster-blured.jpg",
-  "/headingFirstLineIndent-poster-blured.jpg",
-  "/capitalize-poster-blured.jpg",
-  "/bold-poster-blured.jpg",
+  "/heading1JustifyContent-poster-blured.jpg",
+  "/heading1FirstLineIndent-poster-blured.jpg",
+  "/heading1Capitalize-poster-blured.jpg",
+  "/heading1Bold-poster-blured.jpg",
 ];
