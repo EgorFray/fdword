@@ -348,99 +348,101 @@ function ModifyForm({ selectedParagraphs }) {
             </FormRow>
           </Dropdown>
 
-          <Dropdown title="First paragraph settings">
-            <FormRow
-              label="Justify content"
-              ratio="490/360"
-              info={true}
-              error={errors?.headingjc?.message}
-              video="/headingJustifyContent.mp4"
-              bluredPoster="/headingJustifyContent-poster-blured.jpg"
-              tooltip="Justify first paragraph left, center, right or both"
-            >
-              <div className="relative w-full">
-                <select
-                  id="headingjc"
-                  name="headingjc"
-                  className="w-full cursor-pointer appearance-none rounded-lg bg-white p-1 pl-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
-                  placeholder="Choose an option"
-                  {...register("headingjc")}
-                >
-                  <option value="">Choose an option</option>
-                  <option value="left">Left</option>
-                  <option value="center">Center</option>
-                  <option value="right">Right</option>
-                  <option value="both">Both</option>
-                </select>
-                <BsChevronDown className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2" />
-              </div>
-            </FormRow>
+          {selectedParagraphs.map((paragraph) => (
+            <Dropdown title={paragraph.title} key={paragraph.id}>
+              <FormRow
+                label="Justify content"
+                ratio="490/360"
+                info={true}
+                error={errors?.headingjc?.message}
+                video="/headingJustifyContent.mp4"
+                bluredPoster="/headingJustifyContent-poster-blured.jpg"
+                tooltip="Justify first paragraph left, center, right or both"
+              >
+                <div className="relative w-full">
+                  <select
+                    id="headingjc"
+                    name="headingjc"
+                    className="w-full cursor-pointer appearance-none rounded-lg bg-white p-1 pl-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+                    placeholder="Choose an option"
+                    {...register("headingjc")}
+                  >
+                    <option value="">Choose an option</option>
+                    <option value="left">Left</option>
+                    <option value="center">Center</option>
+                    <option value="right">Right</option>
+                    <option value="both">Both</option>
+                  </select>
+                  <BsChevronDown className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2" />
+                </div>
+              </FormRow>
 
-            <FormRow
-              label="First line indent"
-              ratio="490/260"
-              info={true}
-              error={errors?.headingfLind?.message}
-              video="/headingFirstLineIndent.mp4"
-              bluredPoster="/headingFirstLineIndent-poster-blured.jpg"
-              tooltip="Indent the first line of the first paragraph"
-            >
-              <FormInput
-                id="headingfLind"
-                type="number"
-                step={0.01}
-                placeholder="From 0 to 3"
-                {...register("headingfLind", {
-                  min: {
-                    value: 0,
-                    message: "Indent couldn't be less than 0",
-                  },
-                  max: {
-                    value: 3,
-                    message: "Indent should be less than 3",
-                  },
-                })}
-              />
-            </FormRow>
-
-            <FormRow
-              label="Capitalize"
-              info={true}
-              ratio="490/400"
-              video="/capitalize.mp4"
-              bluredPoster="/capitalize-poster-blured.jpg"
-              tooltip="Set uppercase for the first paragraph"
-            >
-              <div className="w-full text-start">
-                <input
-                  id="headingCaps"
-                  name="headingCaps"
-                  type="checkbox"
-                  value="true"
-                  {...register("headingCaps")}
+              <FormRow
+                label="First line indent"
+                ratio="490/260"
+                info={true}
+                error={errors?.headingfLind?.message}
+                video="/headingFirstLineIndent.mp4"
+                bluredPoster="/headingFirstLineIndent-poster-blured.jpg"
+                tooltip="Indent the first line of the first paragraph"
+              >
+                <FormInput
+                  id="headingfLind"
+                  type="number"
+                  step={0.01}
+                  placeholder="From 0 to 3"
+                  {...register("headingfLind", {
+                    min: {
+                      value: 0,
+                      message: "Indent couldn't be less than 0",
+                    },
+                    max: {
+                      value: 3,
+                      message: "Indent should be less than 3",
+                    },
+                  })}
                 />
-              </div>
-            </FormRow>
+              </FormRow>
 
-            <FormRow
-              label="Bold"
-              info={true}
-              ratio="490/360"
-              video="/bold.mp4"
-              bluredPoster="/bold-poster-blured.jpg"
-              tooltip="Set the first paragraph bold"
-            >
-              <div className="w-full text-start">
-                <input
-                  id="headingBold"
-                  name="headingBold"
-                  type="checkbox"
-                  value="true"
-                  {...register("headingBold")}
-                />
-              </div>
-            </FormRow>
-          </Dropdown>
+              <FormRow
+                label="Capitalize"
+                info={true}
+                ratio="490/400"
+                video="/capitalize.mp4"
+                bluredPoster="/capitalize-poster-blured.jpg"
+                tooltip="Set uppercase for the first paragraph"
+              >
+                <div className="w-full text-start">
+                  <input
+                    id="headingCaps"
+                    name="headingCaps"
+                    type="checkbox"
+                    value="true"
+                    {...register("headingCaps")}
+                  />
+                </div>
+              </FormRow>
+
+              <FormRow
+                label="Bold"
+                info={true}
+                ratio="490/360"
+                video="/bold.mp4"
+                bluredPoster="/bold-poster-blured.jpg"
+                tooltip="Set the first paragraph bold"
+              >
+                <div className="w-full text-start">
+                  <input
+                    id="headingBold"
+                    name="headingBold"
+                    type="checkbox"
+                    value="true"
+                    {...register("headingBold")}
+                  />
+                </div>
+              </FormRow>
+            </Dropdown>
+          ))}
 
           <FormRow error={errors?.file?.message}>
             <input

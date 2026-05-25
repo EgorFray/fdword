@@ -7,7 +7,9 @@ import Modifier from "../ui/Modifier";
 import { templates } from "../services/templatesData";
 
 function Dashboard() {
-  const [selectedParagraphs, setSelectedParagraphs] = useState(templates[0]);
+  const [selectedParagraphs, setSelectedParagraphs] = useState(
+    templates.slice(0, 1),
+  );
   const templatesRef = useRef(null);
 
   function handleClick() {
