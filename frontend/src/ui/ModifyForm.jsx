@@ -354,18 +354,19 @@ function ModifyForm({ selectedParagraphs }) {
                 label={paragraph.jcLabel}
                 ratio={paragraph.jcRatio}
                 info={true}
-                error={errors?.headingjc?.message}
+                error={
+                  errors?.headings?.[paragraph.paragraphIndex]?.jc?.message
+                }
                 video={paragraph.jcVideo}
                 bluredPoster={paragraph.jcPoster}
                 tooltip={paragraph.jcTooltip}
               >
                 <div className="relative w-full">
                   <select
-                    id="headingjc"
-                    name="headingjc"
+                    id={`headings-${paragraph.paragraphIndex}-jc`}
                     className="w-full cursor-pointer appearance-none rounded-lg bg-white p-1 pl-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
                     placeholder="Choose an option"
-                    {...register("headingjc")}
+                    {...register(`headings.${paragraph.paragraphIndex}.jc`)}
                   >
                     <option value="">Choose an option</option>
                     <option value="left">Left</option>
@@ -381,17 +382,19 @@ function ModifyForm({ selectedParagraphs }) {
                 label={paragraph.fLindLabel}
                 ratio={paragraph.fLindRatio}
                 info={true}
-                error={errors?.headingfLind?.message}
+                error={
+                  errors?.headings?.[paragraph.paragraphIndex]?.fLind?.message
+                }
                 video={paragraph.fLindVideo}
                 bluredPoster={paragraph.fLindPoster}
                 tooltip={paragraph.fLindTooltip}
               >
                 <FormInput
-                  id="headingfLind"
+                  id={`headings-${paragraph.paragraphIndex}-fLind`}
                   type="number"
                   step={0.01}
                   placeholder="From 0 to 3"
-                  {...register("headingfLind", {
+                  {...register(`headings.${paragraph.paragraphIndex}.fLind`, {
                     min: {
                       value: 0,
                       message: "Indent couldn't be less than 0",
@@ -414,11 +417,10 @@ function ModifyForm({ selectedParagraphs }) {
               >
                 <div className="w-full text-start">
                   <input
-                    id="headingCaps"
-                    name="headingCaps"
+                    id={`headings-${paragraph.paragraphIndex}-caps`}
                     type="checkbox"
                     value="true"
-                    {...register("headingCaps")}
+                    {...register(`headings.${paragraph.paragraphIndex}.caps`)}
                   />
                 </div>
               </FormRow>
@@ -433,11 +435,10 @@ function ModifyForm({ selectedParagraphs }) {
               >
                 <div className="w-full text-start">
                   <input
-                    id="headingBold"
-                    name="headingBold"
+                    id={`headings-${paragraph.paragraphIndex}-bold`}
                     type="checkbox"
                     value="true"
-                    {...register("headingBold")}
+                    {...register(`headings.${paragraph.paragraphIndex}.bold`)}
                   />
                 </div>
               </FormRow>
