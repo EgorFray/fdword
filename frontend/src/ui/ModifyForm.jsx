@@ -351,13 +351,13 @@ function ModifyForm({ selectedParagraphs }) {
           {selectedParagraphs.map((paragraph) => (
             <Dropdown title={paragraph.title} key={paragraph.id}>
               <FormRow
-                label="Justify content"
-                ratio="490/360"
+                label={paragraph.jcLabel}
+                ratio={paragraph.jcRatio}
                 info={true}
                 error={errors?.headingjc?.message}
-                video="/heading1JustifyContent.mp4"
-                bluredPoster="/headingJustifyContent-poster-blured.jpg"
-                tooltip="Justify first paragraph left, center, right or both"
+                video={paragraph.jcVideo}
+                bluredPoster={paragraph.jcPoster}
+                tooltip={paragraph.jcTooltip}
               >
                 <div className="relative w-full">
                   <select
@@ -378,13 +378,13 @@ function ModifyForm({ selectedParagraphs }) {
               </FormRow>
 
               <FormRow
-                label="First line indent"
-                ratio="490/260"
+                label={paragraph.fLindLabel}
+                ratio={paragraph.fLindRatio}
                 info={true}
                 error={errors?.headingfLind?.message}
-                video="/heading1FirstLineIndent.mp4"
-                bluredPoster="/headingFirstLineIndent-poster-blured.jpg"
-                tooltip="Indent the first line of the first paragraph"
+                video={paragraph.fLindVideo}
+                bluredPoster={paragraph.fLindPoster}
+                tooltip={paragraph.fLindTooltip}
               >
                 <FormInput
                   id="headingfLind"
@@ -405,12 +405,12 @@ function ModifyForm({ selectedParagraphs }) {
               </FormRow>
 
               <FormRow
-                label="Capitalize"
+                label={paragraph.capLabel}
                 info={true}
-                ratio="490/400"
-                video="/capitalize.mp4"
-                bluredPoster="/heading1Capitalize-poster-blured.jpg"
-                tooltip="Set uppercase for the first paragraph"
+                ratio={paragraph.capRatio}
+                video={paragraph.capVideo}
+                bluredPoster={paragraph.capPoster}
+                tooltip={paragraph.capTooltip}
               >
                 <div className="w-full text-start">
                   <input
@@ -424,12 +424,12 @@ function ModifyForm({ selectedParagraphs }) {
               </FormRow>
 
               <FormRow
-                label="Bold"
+                label={paragraph.boldLabel}
                 info={true}
-                ratio="490/360"
-                video="/bold.mp4"
-                bluredPoster="/heading1Bold-poster-blured.jpg"
-                tooltip="Set the first paragraph bold"
+                ratio={paragraph.boldRatio}
+                video={paragraph.boldVideo}
+                bluredPoster={paragraph.boldPoster}
+                tooltip={paragraph.boldTooltip}
               >
                 <div className="w-full text-start">
                   <input
