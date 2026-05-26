@@ -38,12 +38,27 @@ function ModifyForm({ selectedParagraphs }) {
   });
 
   function onSubmit(data) {
-    const heading = {
-      jc: data.headingjc || undefined,
-      fLind: toOptionalFloat(data.headingfLind),
-      caps: toOptionalBool(data.headingCaps),
-      bold: toOptionalBool(data.headingBold),
-    };
+    const headings = selectedParagraphs
+      .map((paragraph) => {
+        const heading = {
+          index: paragraph.paragraphIndex,
+          jc: data.headings?.[paragraph.paragraphIndex].jc || undefined,
+          fLind: toOptionalFloat(
+            data.headings?.[paragraph.paragraphIndex].fLind,
+          ),
+          caps: toOptionalBool(data.headings?.[paragraph.paragraphIndex].caps),
+          bold: toOptionalBool(data.headings?.[paragraph.paragraphIndex].bold),
+        };
+
+        const hasChanges =
+          heading.jc !== undefined ||
+          heading.fLind !== undefined ||
+          heading.caps !== undefined ||
+          heading.bold === undefined;
+
+        return hasChanges ? heading : "null";
+      })
+      .filter(Boolean);
 
     const obj = {
       lineSpacing: toOptionalFloat(data.lineSpacing),
@@ -55,22 +70,17 @@ function ModifyForm({ selectedParagraphs }) {
       mLft: toOptionalFloat(data.mLft),
       fLind: toOptionalFloat(data.fLind),
       jc: data.jc || undefined,
-
-      heading,
     };
 
-    if (
-      heading.jc === undefined &&
-      heading.fLind === undefined &&
-      heading.caps === undefined &&
-      heading.bold === undefined
-    ) {
-      delete obj.heading;
+    if (headings.length > 0) {
+      obj.headings = headings;
     }
 
     const formData = new FormData();
     formData.append("data", JSON.stringify(obj));
     formData.append("file", data.file[0]);
+
+    console.log(Object.fromEntries(formData));
 
     mutate(formData);
   }
