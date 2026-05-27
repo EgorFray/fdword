@@ -2,10 +2,7 @@ import Button from "./Button";
 import ButtonEmpty from "./ButtonEmpty";
 
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import { modifyDoc } from "../services/apiModify";
 import { toOptionalFloat, toOptionalBool } from "../services/helpers";
-import toast from "react-hot-toast";
 import Download from "./Download";
 import FormContainer from "../features/modifyForm/FormContainer";
 import Form from "../features/modifyForm/Form";
@@ -17,25 +14,12 @@ import { BsChevronDown } from "react-icons/bs";
 import { preloadTooltip } from "../services/modifyFormData";
 import { preload } from "react-dom";
 
-function ModifyForm({ selectedParagraphs }) {
+function ModifyForm({ selectedParagraphs, mutate, fileBlob, isModifying }) {
   const { register, handleSubmit, reset, formState } = useForm({
     shouldUnregister: true,
   });
   const { errors } = formState;
   console.log(selectedParagraphs);
-
-  const {
-    mutate,
-    data: fileBlob,
-    isLoading: isModifying,
-  } = useMutation({
-    mutationFn: modifyDoc,
-    onSuccess: () => {
-      toast.success("Formatted document successfully created");
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
 
   function onSubmit(data) {
     const headings = selectedParagraphs
@@ -480,7 +464,7 @@ function ModifyForm({ selectedParagraphs }) {
             <ButtonEmpty type="reset" onClick={() => reset()}>
               Cancel
             </ButtonEmpty>
-            <Button disabled={isModifying}>Submit</Button>
+            <Button isModifying={isModifying}>Submit</Button>
           </div>
         </DropdownsContainer>
       </Form>

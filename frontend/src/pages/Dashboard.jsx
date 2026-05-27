@@ -5,6 +5,9 @@ import Presentation from "../ui/Presentation";
 import { useRef, useState } from "react";
 import Modifier from "../ui/Modifier";
 import { templates } from "../services/templatesData";
+import { useMutation } from "@tanstack/react-query";
+import { modifyDoc } from "../services/apiModify";
+import toast from "react-hot-toast";
 
 function Dashboard() {
   const [selectedParagraphs, setSelectedParagraphs] = useState(
@@ -12,6 +15,18 @@ function Dashboard() {
   );
   const [isSelected, setIsSelected] = useState(1);
   const templatesRef = useRef(null);
+
+  const {
+    mutate,
+    data: fileBlob,
+    isLoading: isModifying,
+  } = useMutation({
+    mutationFn: modifyDoc,
+    onSuccess: () => {
+      toast.success("Formatted document successfully created");
+    },
+    onError: (err) => toast.error(err.message),
+  });
 
   function handleClick() {
     templatesRef.current?.scrollIntoView({
@@ -36,7 +51,12 @@ function Dashboard() {
         handleSelectParagraphs={handleSelectParagraphs}
         isSelected={isSelected}
       />
-      <Modifier selectedParagraphs={selectedParagraphs} />
+      <Modifier
+        selectedParagraphs={selectedParagraphs}
+        mutate={mutate}
+        fileBlob={fileBlob}
+        isModifying={isModifying}
+      />
     </PageLayout>
   );
 }
