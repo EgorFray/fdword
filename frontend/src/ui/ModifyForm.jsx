@@ -37,9 +37,9 @@ function ModifyForm({ selectedParagraphs, mutate, isModifying }) {
           heading.jc !== undefined ||
           heading.fLind !== undefined ||
           heading.caps !== undefined ||
-          heading.bold === undefined;
+          heading.bold !== undefined;
 
-        return hasChanges ? heading : "null";
+        return hasChanges ? heading : null;
       })
       .filter(Boolean);
 
@@ -65,7 +65,11 @@ function ModifyForm({ selectedParagraphs, mutate, isModifying }) {
 
     console.log(Object.fromEntries(formData));
 
-    mutate(formData);
+    mutate(formData, {
+      onSuccess: () => {
+        reset();
+      },
+    });
   }
 
   function onError(errors) {
