@@ -3,7 +3,6 @@ import ButtonEmpty from "./ButtonEmpty";
 
 import { useForm } from "react-hook-form";
 import { toOptionalFloat, toOptionalBool } from "../services/helpers";
-import Download from "./Download";
 import FormContainer from "../features/modifyForm/FormContainer";
 import Form from "../features/modifyForm/Form";
 import FormRow from "../features/modifyForm/FormRow";
@@ -14,7 +13,7 @@ import { BsChevronDown } from "react-icons/bs";
 import { preloadTooltip } from "../services/modifyFormData";
 import { preload } from "react-dom";
 
-function ModifyForm({ selectedParagraphs, mutate, fileBlob, isModifying }) {
+function ModifyForm({ selectedParagraphs, mutate, isModifying }) {
   const { register, handleSubmit, reset, formState } = useForm({
     shouldUnregister: true,
   });
@@ -71,20 +70,6 @@ function ModifyForm({ selectedParagraphs, mutate, fileBlob, isModifying }) {
 
   function onError(errors) {
     console.log(errors);
-  }
-
-  function handleCreateLink() {
-    const url = URL.createObjectURL(fileBlob);
-    const link = document.createElement("a");
-
-    link.href = url;
-    link.download = "formatted.docx";
-
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-
-    URL.revokeObjectURL(url);
   }
 
   preloadTooltip.forEach((poster) => preload(poster, { as: "image" }));
@@ -468,8 +453,6 @@ function ModifyForm({ selectedParagraphs, mutate, fileBlob, isModifying }) {
           </div>
         </DropdownsContainer>
       </Form>
-
-      {fileBlob && <Download onClick={handleCreateLink} />}
     </FormContainer>
   );
 }

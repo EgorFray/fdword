@@ -8,6 +8,7 @@ import { templates } from "../services/templatesData";
 import { useMutation } from "@tanstack/react-query";
 import { modifyDoc } from "../services/apiModify";
 import toast from "react-hot-toast";
+import Download from "../ui/Download";
 
 function Dashboard() {
   const [selectedParagraphs, setSelectedParagraphs] = useState(
@@ -54,9 +55,9 @@ function Dashboard() {
       <Modifier
         selectedParagraphs={selectedParagraphs}
         mutate={mutate}
-        fileBlob={fileBlob}
         isModifying={isModifying}
       />
+      {fileBlob && <Download fileBlob={fileBlob} />}
     </PageLayout>
   );
 }

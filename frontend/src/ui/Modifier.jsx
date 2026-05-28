@@ -3,7 +3,7 @@ import MainHeading from "./MainHeading";
 import ModifyForm from "./ModifyForm";
 import SubHeading from "./SubHeading";
 
-function Modifier({ selectedParagraphs, mutate, fileBlob, isModifying }) {
+function Modifier({ selectedParagraphs, mutate, isModifying }) {
   return (
     <section className="flex flex-col items-center gap-4 md:gap-7">
       <div className="flex flex-col items-center gap-3 md:gap-4">
@@ -22,7 +22,6 @@ function Modifier({ selectedParagraphs, mutate, fileBlob, isModifying }) {
       <ModifyForm
         selectedParagraphs={selectedParagraphs}
         mutate={mutate}
-        fileBlob={fileBlob}
         isModifying={isModifying}
       />
     </section>
