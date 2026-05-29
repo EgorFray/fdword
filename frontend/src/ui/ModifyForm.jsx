@@ -402,7 +402,6 @@ function ModifyForm({ selectedParagraphs, mutate, isModifying }) {
                   <input
                     id={`headings-${paragraph.paragraphIndex}-caps`}
                     type="checkbox"
-                    value="true"
                     {...register(`headings.${paragraph.paragraphIndex}.caps`)}
                   />
                 </div>
@@ -420,7 +419,6 @@ function ModifyForm({ selectedParagraphs, mutate, isModifying }) {
                   <input
                     id={`headings-${paragraph.paragraphIndex}-bold`}
                     type="checkbox"
-                    value="true"
                     {...register(`headings.${paragraph.paragraphIndex}.bold`)}
                   />
                 </div>
