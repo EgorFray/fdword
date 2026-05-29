@@ -453,7 +453,9 @@ function ModifyForm({ selectedParagraphs, mutate, isModifying }) {
             <ButtonEmpty type="reset" onClick={() => reset()}>
               Cancel
             </ButtonEmpty>
-            <Button isModifying={isModifying}>Submit</Button>
+            <Button type="submit" isModifying={isModifying}>
+              Submit
+            </Button>
           </div>
         </DropdownsContainer>
       </Form>

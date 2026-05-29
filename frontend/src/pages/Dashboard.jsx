@@ -20,7 +20,7 @@ function Dashboard() {
   const {
     mutate,
     data: fileBlob,
-    isLoading: isModifying,
+    isPending: isModifying,
   } = useMutation({
     mutationFn: modifyDoc,
     onSuccess: () => {
