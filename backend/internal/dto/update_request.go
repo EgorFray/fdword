@@ -16,11 +16,12 @@ type UpdateRequest struct {
 	// Justify content - left, center, right or both
 	JC *string `json:"jc" validate:"omitempty,oneof=left center right both"`
 	// Separate dto for styling heading
-	Headings []HeadingDTO `json:"heading" validate:"omitempty"`
+	Headings []HeadingDTO `json:"headings" validate:"omitempty"`
 }
 
 // DTO for styling heading (1st paragraph)
 type HeadingDTO struct {
+	Index *int `json:"index" validate:"required"`
 	// Justify heading - left, center, right or both
 	JC *string `json:"jc" validate:"omitempty,oneof=left center right both"`
 	// First line indent

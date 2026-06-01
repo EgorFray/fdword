@@ -2,50 +2,45 @@ import Button from "./Button";
 import ButtonEmpty from "./ButtonEmpty";
 
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import { modifyDoc } from "../services/apiModify";
 import { toOptionalFloat, toOptionalBool } from "../services/helpers";
-import toast from "react-hot-toast";
-import Download from "./Download";
 import FormContainer from "../features/modifyForm/FormContainer";
 import Form from "../features/modifyForm/Form";
 import FormRow from "../features/modifyForm/FormRow";
 import Dropdown from "./Dropdown";
 import FormInput from "../features/modifyForm/FormInput";
-import Heading from "./Heading";
-import MainHeading from "./MainHeading";
-import SubHeading from "./SubHeading";
 import DropdownsContainer from "./DropdownsContainer";
 import { BsChevronDown } from "react-icons/bs";
 import { preloadTooltip } from "../services/modifyFormData";
 import { preload } from "react-dom";
 
-function ModifyForm({ formRef }) {
+function ModifyForm({ selectedParagraphs, mutate, isModifying }) {
   const { register, handleSubmit, reset, formState } = useForm({
     shouldUnregister: true,
   });
   const { errors } = formState;
 
-  const {
-    mutate,
-    data: fileBlob,
-    isLoading: isModifying,
-  } = useMutation({
-    mutationFn: modifyDoc,
-    onSuccess: () => {
-      toast.success("Formatted document successfully created");
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
-
   function onSubmit(data) {
-    const heading = {
-      jc: data.headingjc || undefined,
-      fLind: toOptionalFloat(data.headingfLind),
-      caps: toOptionalBool(data.headingCaps),
-      bold: toOptionalBool(data.headingBold),
-    };
+    const headings = selectedParagraphs
+      .map((paragraph) => {
+        const heading = {
+          index: paragraph.paragraphIndex,
+          jc: data.headings?.[paragraph.paragraphIndex].jc || undefined,
+          fLind: toOptionalFloat(
+            data.headings?.[paragraph.paragraphIndex].fLind,
+          ),
+          caps: toOptionalBool(data.headings?.[paragraph.paragraphIndex].caps),
+          bold: toOptionalBool(data.headings?.[paragraph.paragraphIndex].bold),
+        };
+
+        const hasChanges =
+          heading.jc !== undefined ||
+          heading.fLind !== undefined ||
+          heading.caps !== undefined ||
+          heading.bold !== undefined;
+
+        return hasChanges ? heading : null;
+      })
+      .filter(Boolean);
 
     const obj = {
       lineSpacing: toOptionalFloat(data.lineSpacing),
@@ -57,57 +52,28 @@ function ModifyForm({ formRef }) {
       mLft: toOptionalFloat(data.mLft),
       fLind: toOptionalFloat(data.fLind),
       jc: data.jc || undefined,
-
-      heading,
     };
 
-    if (
-      heading.jc === undefined &&
-      heading.fLind === undefined &&
-      heading.caps === undefined &&
-      heading.bold === undefined
-    ) {
-      delete obj.heading;
+    if (headings.length > 0) {
+      obj.headings = headings;
     }
 
     const formData = new FormData();
     formData.append("data", JSON.stringify(obj));
     formData.append("file", data.file[0]);
 
-    mutate(formData);
-  }
-
-  function onError(errors) {
-    console.log(errors);
-  }
-
-  function handleCreateLink() {
-    const url = URL.createObjectURL(fileBlob);
-    const link = document.createElement("a");
-
-    link.href = url;
-    link.download = "formatted.docx";
-
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-
-    URL.revokeObjectURL(url);
+    mutate(formData, {
+      onSuccess: () => {
+        reset();
+      },
+    });
   }
 
   preloadTooltip.forEach((poster) => preload(poster, { as: "image" }));
 
   return (
     <FormContainer>
-      <Form onSubmit={handleSubmit(onSubmit, onError)} formRef={formRef}>
-        <Heading>
-          <MainHeading>Choose what to update</MainHeading>
-          <SubHeading>
-            Only fill in the fields you want to change. <br /> Leave the rest
-            empty
-          </SubHeading>
-        </Heading>
-
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <DropdownsContainer>
           <Dropdown title="Font settings">
             <FormRow
@@ -358,99 +324,100 @@ function ModifyForm({ formRef }) {
             </FormRow>
           </Dropdown>
 
-          <Dropdown title="First paragraph settings">
-            <FormRow
-              label="Justify content"
-              ratio="490/360"
-              info={true}
-              error={errors?.headingjc?.message}
-              video="/headingJustifyContent.mp4"
-              bluredPoster="/headingJustifyContent-poster-blured.jpg"
-              tooltip="Justify first paragraph left, center, right or both"
-            >
-              <div className="relative w-full">
-                <select
-                  id="headingjc"
-                  name="headingjc"
-                  className="w-full cursor-pointer appearance-none rounded-lg bg-white p-1 pl-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
-                  placeholder="Choose an option"
-                  {...register("headingjc")}
-                >
-                  <option value="">Choose an option</option>
-                  <option value="left">Left</option>
-                  <option value="center">Center</option>
-                  <option value="right">Right</option>
-                  <option value="both">Both</option>
-                </select>
-                <BsChevronDown className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2" />
-              </div>
-            </FormRow>
+          {selectedParagraphs.map((paragraph) => (
+            <Dropdown title={paragraph.title} key={paragraph.id}>
+              <FormRow
+                label={paragraph.jcLabel}
+                ratio={paragraph.jcRatio}
+                info={true}
+                error={
+                  errors?.headings?.[paragraph.paragraphIndex]?.jc?.message
+                }
+                video={paragraph.jcVideo}
+                bluredPoster={paragraph.jcPoster}
+                tooltip={paragraph.jcTooltip}
+              >
+                <div className="relative w-full">
+                  <select
+                    id={`headings-${paragraph.paragraphIndex}-jc`}
+                    className="w-full cursor-pointer appearance-none rounded-lg bg-white p-1 pl-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+                    placeholder="Choose an option"
+                    {...register(`headings.${paragraph.paragraphIndex}.jc`)}
+                  >
+                    <option value="">Choose an option</option>
+                    <option value="left">Left</option>
+                    <option value="center">Center</option>
+                    <option value="right">Right</option>
+                    <option value="both">Both</option>
+                  </select>
+                  <BsChevronDown className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2" />
+                </div>
+              </FormRow>
 
-            <FormRow
-              label="First line indent"
-              ratio="490/260"
-              info={true}
-              error={errors?.headingfLind?.message}
-              video="/headingFirstLineIndent.mp4"
-              bluredPoster="/headingFirstLineIndent-poster-blured.jpg"
-              tooltip="Indent the first line of the first paragraph"
-            >
-              <FormInput
-                id="headingfLind"
-                type="number"
-                step={0.01}
-                placeholder="From 0 to 3"
-                {...register("headingfLind", {
-                  min: {
-                    value: 0,
-                    message: "Indent couldn't be less than 0",
-                  },
-                  max: {
-                    value: 3,
-                    message: "Indent should be less than 3",
-                  },
-                })}
-              />
-            </FormRow>
-
-            <FormRow
-              label="Capitalize"
-              info={true}
-              ratio="490/400"
-              video="/capitalize.mp4"
-              bluredPoster="/capitalize-poster-blured.jpg"
-              tooltip="Set uppercase for the first paragraph"
-            >
-              <div className="w-full text-start">
-                <input
-                  id="headingCaps"
-                  name="headingCaps"
-                  type="checkbox"
-                  value="true"
-                  {...register("headingCaps")}
+              <FormRow
+                label={paragraph.fLindLabel}
+                ratio={paragraph.fLindRatio}
+                info={true}
+                error={
+                  errors?.headings?.[paragraph.paragraphIndex]?.fLind?.message
+                }
+                video={paragraph.fLindVideo}
+                bluredPoster={paragraph.fLindPoster}
+                tooltip={paragraph.fLindTooltip}
+              >
+                <FormInput
+                  id={`headings-${paragraph.paragraphIndex}-fLind`}
+                  type="number"
+                  step={0.01}
+                  placeholder="From 0 to 3"
+                  {...register(`headings.${paragraph.paragraphIndex}.fLind`, {
+                    min: {
+                      value: 0,
+                      message: "Indent couldn't be less than 0",
+                    },
+                    max: {
+                      value: 3,
+                      message: "Indent should be less than 3",
+                    },
+                  })}
                 />
-              </div>
-            </FormRow>
+              </FormRow>
 
-            <FormRow
-              label="Bold"
-              info={true}
-              ratio="490/360"
-              video="/bold.mp4"
-              bluredPoster="/bold-poster-blured.jpg"
-              tooltip="Set the first paragraph bold"
-            >
-              <div className="w-full text-start">
-                <input
-                  id="headingBold"
-                  name="headingBold"
-                  type="checkbox"
-                  value="true"
-                  {...register("headingBold")}
-                />
-              </div>
-            </FormRow>
-          </Dropdown>
+              <FormRow
+                label={paragraph.capLabel}
+                info={true}
+                ratio={paragraph.capRatio}
+                video={paragraph.capVideo}
+                bluredPoster={paragraph.capPoster}
+                tooltip={paragraph.capTooltip}
+              >
+                <div className="w-full text-start">
+                  <input
+                    id={`headings-${paragraph.paragraphIndex}-caps`}
+                    type="checkbox"
+                    {...register(`headings.${paragraph.paragraphIndex}.caps`)}
+                  />
+                </div>
+              </FormRow>
+
+              <FormRow
+                label={paragraph.boldLabel}
+                info={true}
+                ratio={paragraph.boldRatio}
+                video={paragraph.boldVideo}
+                bluredPoster={paragraph.boldPoster}
+                tooltip={paragraph.boldTooltip}
+              >
+                <div className="w-full text-start">
+                  <input
+                    id={`headings-${paragraph.paragraphIndex}-bold`}
+                    type="checkbox"
+                    {...register(`headings.${paragraph.paragraphIndex}.bold`)}
+                  />
+                </div>
+              </FormRow>
+            </Dropdown>
+          ))}
 
           <FormRow error={errors?.file?.message}>
             <input
@@ -477,12 +444,12 @@ function ModifyForm({ formRef }) {
             <ButtonEmpty type="reset" onClick={() => reset()}>
               Cancel
             </ButtonEmpty>
-            <Button disabled={isModifying}>Submit</Button>
+            <Button type="submit" isModifying={isModifying}>
+              Submit
+            </Button>
           </div>
         </DropdownsContainer>
       </Form>
-
-      {fileBlob && <Download onClick={handleCreateLink} />}
     </FormContainer>
   );
 }

@@ -9,7 +9,7 @@ export const manualSectionData = [
         lazyImg: "/fontSize-lazy.jpg",
         ratio: "680 / 340",
         description:
-          "Specifies the font size in points. Allowed values range from 5 to 72.",
+          "Sets the document font size, just like in Microsoft Word. Allowed values range from 5 to 72.",
       },
       {
         title: "Font type",
@@ -41,7 +41,7 @@ export const manualSectionData = [
         lazyImg: "/margins-lazy.jpg",
         ratio: "1050 / 460",
         description:
-          "Margins in Word are the blank spaces around the edges of a document (top, bottom, left, and right) that separate text from the paper`s edge.",
+          "Margins in Word are the blank spaces around the edges of a document (top, bottom, left, and right) that separate text from the paper`s edge. Values are measured in centimeters",
       },
       {
         title: "First line indent",
@@ -84,7 +84,7 @@ export const manualSectionData = [
         description: "Sets the first-line indent for the first paragraph only.",
       },
       {
-        title: "Capitalize",
+        title: "Uppercase",
         argName: "heading capitalize",
         image: "/headingCapitalize.png",
         lazyImg: "/headingCapitalize-lazy.png",

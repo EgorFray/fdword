@@ -103,29 +103,36 @@ func (f *FormatService) FormatDoc(fileBytes []byte, req dto.UpdateRequest) ([]by
 func(f *FormatService) FormatHeadings(headings []dto.HeadingDTO, modifier *doc.DocModifier) error {
 	// In loop we get every separate heading and change it with index
 	// hReq -> heading request
-	for i, hReq := range headings {
-		// Check if we have justify content in heading dto
-		if hReq.JC != nil {
-			if err := modifier.SetHeadingJC(i, *hReq.JC); err != nil {
-				return err
+	if len(headings) > 0 {
+		for _, hReq := range headings {
+			if hReq.Index == nil {
+				continue
 			}
-		}
-		// Check if we have first line indent in heading dto
-		if hReq.FLInd != nil {
-			if err := modifier.SetHeadingFLI(i, *hReq.FLInd); err != nil {
-				return err
+
+			index := *hReq.Index
+			// Check if we have justify content in heading dto
+			if hReq.JC != nil {
+				if err := modifier.SetHeadingJC(index, *hReq.JC); err != nil {
+					return err
+				}
 			}
-		}
-		// Check if we have capitalize=true in heading dto
-		if hReq.Caps != nil {
-			if err := modifier.SetHeadingCaps(i); err != nil {
-				return err
+			// Check if we have first line indent in heading dto
+			if hReq.FLInd != nil {
+				if err := modifier.SetHeadingFLI(index, *hReq.FLInd); err != nil {
+					return err
+				}
 			}
-		}
-		// Check if we have bold=true in heading dto
-		if hReq.Bold != nil {
-			if err := modifier.SetHeadingBold(i); err != nil {
-				return err
+			// Check if we have capitalize=true in heading dto
+			if hReq.Caps != nil {
+				if err := modifier.SetHeadingCaps(index); err != nil {
+					return err
+				}
+			}
+			// Check if we have bold=true in heading dto
+			if hReq.Bold != nil {
+				if err := modifier.SetHeadingBold(index); err != nil {
+					return err
+				}
 			}
 		}
 	}

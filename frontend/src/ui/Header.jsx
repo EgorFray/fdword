@@ -3,7 +3,7 @@ import Logo from "./Logo";
 
 function Header() {
   return (
-    <header className="mt-4 flex items-center justify-between px-4">
+    <header className="mt-4 flex items-center justify-between px-6">
       <Logo />
       <NavLink
         to="/manual"

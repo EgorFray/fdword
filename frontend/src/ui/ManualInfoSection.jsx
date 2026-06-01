@@ -4,7 +4,6 @@ import ManualSection from "./ManualSection";
 import ManualSectionHeading from "./ManualSectionHeading";
 import { manualSectionData } from "../services/manualSectionData";
 import { preload } from "react-dom";
-import { Fragment } from "react";
 
 function ManualInfoSection() {
   manualSectionData.forEach((section) =>
@@ -12,7 +11,7 @@ function ManualInfoSection() {
   );
 
   return manualSectionData.map((section) => (
-    <Fragment key={section.groupTitle}>
+    <section className="flex flex-col gap-4 md:gap-7" key={section.groupTitle}>
       <ManualSectionHeading>{section.groupTitle}</ManualSectionHeading>
       <DropdownsLayout>
         {section.items.map((data) => (
@@ -28,7 +27,7 @@ function ManualInfoSection() {
           </Dropdown>
         ))}
       </DropdownsLayout>
-    </Fragment>
+    </section>
   ));
 }
 

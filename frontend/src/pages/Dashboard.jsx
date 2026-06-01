@@ -1,20 +1,43 @@
-import { useRef } from "react";
-import Comparator from "../ui/Comparator";
-import ModifyForm from "../ui/ModifyForm";
 import PageLayout from "../ui/PageLayout";
-import Heading from "../ui/Heading";
-import MainHeading from "../ui/MainHeading";
-import SubHeading from "../ui/SubHeading";
-import Button from "../ui/Button";
 import CustomMetadata from "../ui/CustomMetadata";
+import Templates from "../ui/Templates";
+import Presentation from "../ui/Presentation";
+import { useRef, useState } from "react";
+import Modifier from "../ui/Modifier";
+import { templates } from "../services/templatesData";
+import { useMutation } from "@tanstack/react-query";
+import { modifyDoc } from "../services/apiModify";
+import toast from "react-hot-toast";
+import Download from "../ui/Download";
 
 function Dashboard() {
-  const formRef = useRef(null);
+  const [selectedParagraphs, setSelectedParagraphs] = useState(
+    templates.slice(0, 1),
+  );
+  const [isSelected, setIsSelected] = useState(1);
+  const templatesRef = useRef(null);
+
+  const {
+    mutate,
+    data: fileBlob,
+    isPending: isModifying,
+  } = useMutation({
+    mutationFn: modifyDoc,
+    onSuccess: () => {
+      toast.success("Formatted document successfully created");
+    },
+    onError: (err) => toast.error(err.message),
+  });
 
   function handleClick() {
-    formRef.current?.scrollIntoView({
+    templatesRef.current?.scrollIntoView({
       behavior: "smooth",
     });
+  }
+
+  function handleSelectParagraphs(headingCount) {
+    setSelectedParagraphs(templates.slice(0, headingCount));
+    setIsSelected(headingCount);
   }
 
   return (
@@ -23,18 +46,18 @@ function Dashboard() {
         title="Dashboard"
         description="Format your Word document exactly the way you need - control fonts, spacing, margins, and layout in seconds."
       />
-      <Heading>
-        <MainHeading>
-          Transform your word file into <br /> well-formated document
-        </MainHeading>
-        <SubHeading>
-          Just add your document, choose what <br />
-          to format and get the result
-        </SubHeading>
-        <Button onClick={handleClick}>Format document</Button>
-      </Heading>
-      <Comparator />
-      <ModifyForm formRef={formRef} />
+      <Presentation onClick={handleClick} />
+      <Templates
+        templatesRef={templatesRef}
+        handleSelectParagraphs={handleSelectParagraphs}
+        isSelected={isSelected}
+      />
+      <Modifier
+        selectedParagraphs={selectedParagraphs}
+        mutate={mutate}
+        isModifying={isModifying}
+      />
+      {fileBlob && <Download fileBlob={fileBlob} />}
     </PageLayout>
   );
 }
