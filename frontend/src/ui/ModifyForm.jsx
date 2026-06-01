@@ -18,7 +18,6 @@ function ModifyForm({ selectedParagraphs, mutate, isModifying }) {
     shouldUnregister: true,
   });
   const { errors } = formState;
-  console.log(selectedParagraphs);
 
   function onSubmit(data) {
     const headings = selectedParagraphs
@@ -63,8 +62,6 @@ function ModifyForm({ selectedParagraphs, mutate, isModifying }) {
     formData.append("data", JSON.stringify(obj));
     formData.append("file", data.file[0]);
 
-    console.log(Object.fromEntries(formData));
-
     mutate(formData, {
       onSuccess: () => {
         reset();
@@ -72,15 +69,11 @@ function ModifyForm({ selectedParagraphs, mutate, isModifying }) {
     });
   }
 
-  function onError(errors) {
-    console.log(errors);
-  }
-
   preloadTooltip.forEach((poster) => preload(poster, { as: "image" }));
 
   return (
     <FormContainer>
-      <Form onSubmit={handleSubmit(onSubmit, onError)}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <DropdownsContainer>
           <Dropdown title="Font settings">
             <FormRow
