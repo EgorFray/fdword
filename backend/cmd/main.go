@@ -7,6 +7,7 @@ import (
 	"github.com/EgorFray/fdword/internal/db"
 	"github.com/EgorFray/fdword/internal/handlers"
 	"github.com/EgorFray/fdword/internal/service"
+	"github.com/EgorFray/fdword/internal/user"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -23,11 +24,18 @@ func main() {
 
 	defer psqlDb.Close()
 
+	// Formating
 	formatService := service.NewFormatService()
 	handler := handlers.NewHandler(formatService)
+
+	// User
+	userRepo := user.NewUserRepository(psqlDb)
+	userService := user.NewUserService(userRepo)
+	userHandler := user.NewUserHandler(userService)
 
 	r := gin.Default()
 	r.Use(cors.New(cfg.CorsConfig()))
 	r.POST("/format", handler.FormatDoc)
+	r.GET("/test/create-user", userHandler.TestCreateUser)
 	r.Run(":8080")
 }

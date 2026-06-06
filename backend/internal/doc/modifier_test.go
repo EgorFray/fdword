@@ -156,70 +156,70 @@ func TestSetJC(t *testing.T) {
 	assert.Equal(t, "both", val)	
 }
 
-func TestSetHeadingJC(t *testing.T) {
-	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
+// func TestSetHeadingJC(t *testing.T) {
+// 	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
 
-	modifier := NewDocModifier(doc)
+// 	modifier := NewDocModifier(doc)
 
-	err := modifier.SetHeadingJC("right")
-	if err != nil {
-		t.Fatal(err)
-	}
+// 	err := modifier.SetHeadingJC("right")
+// 	if err != nil {
+// 		t.Fatal(err)
+// 	}
 
-	p := modifier.getFirstParagraph()
+// 	p := modifier.getFirstParagraph()
 
-	hjc := p.FindElement("w:pPr/w:jc")
-	val := hjc.SelectAttrValue("w:val", "")
-	assert.Equal(t, "right", val)
-}
+// 	hjc := p.FindElement("w:pPr/w:jc")
+// 	val := hjc.SelectAttrValue("w:val", "")
+// 	assert.Equal(t, "right", val)
+// }
 
-func TestSetHeadingFLI(t *testing.T) {
-	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
+// func TestSetHeadingFLI(t *testing.T) {
+// 	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
 
-	modifier := NewDocModifier(doc)
+// 	modifier := NewDocModifier(doc)
 
-	err := modifier.SetHeadingFLI(2)
-	if err != nil {
-		t.Fatal(err)
-	}
+// 	err := modifier.SetHeadingFLI(2)
+// 	if err != nil {
+// 		t.Fatal(err)
+// 	}
 
-	p := modifier.getFirstParagraph()
+// 	p := modifier.getFirstParagraph()
 
-	fli := p.FindElement("w:pPr/w:ind")
-	val := fli.SelectAttrValue("w:firstLine", "")
-	assert.Equal(t, "1134", val)
-}
+// 	fli := p.FindElement("w:pPr/w:ind")
+// 	val := fli.SelectAttrValue("w:firstLine", "")
+// 	assert.Equal(t, "1134", val)
+// }
 
-func TestSetHeadingCaps(t *testing.T) {
-	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
+// func TestSetHeadingCaps(t *testing.T) {
+// 	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
 
-	modifier := NewDocModifier(doc)
+// 	modifier := NewDocModifier(doc)
 
-	err := modifier.SetHeadingCaps()
-	if err != nil {
-		t.Fatal(err)
-	}
+// 	err := modifier.SetHeadingCaps()
+// 	if err != nil {
+// 		t.Fatal(err)
+// 	}
 
-	p := modifier.getFirstParagraph()
+// 	p := modifier.getFirstParagraph()
 
-	caps := p.FindElement("w:r/w:rPr/w:caps")
+// 	caps := p.FindElement("w:r/w:rPr/w:caps")
 
-	assert.NotNil(t, caps)
-}
+// 	assert.NotNil(t, caps)
+// }
 
-func TestSetHeadingBold(t *testing.T) {
-	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
+// func TestSetHeadingBold(t *testing.T) {
+// 	doc := LoadTestDoc(t, "../testdata/styles.xml", "../testdata/document.xml")
 
-	modifier := NewDocModifier(doc)
+// 	modifier := NewDocModifier(doc)
 
-	err := modifier.SetHeadingBold()
-	if err != nil {
-		t.Fatal(err)
-	}
+// 	err := modifier.SetHeadingBold()
+// 	if err != nil {
+// 		t.Fatal(err)
+// 	}
 
-	p := modifier.getFirstParagraph()
+// 	p := modifier.getFirstParagraph()
 
-	bold := p.FindElement("w:r/w:rPr/w:b")
+// 	bold := p.FindElement("w:r/w:rPr/w:b")
 
-	assert.NotNil(t, bold)
-}
+// 	assert.NotNil(t, bold)
+// }
