@@ -4,6 +4,7 @@ import (
 	"log"
 
 	cfg "github.com/EgorFray/fdword/config"
+	"github.com/EgorFray/fdword/internal/auth"
 	"github.com/EgorFray/fdword/internal/db"
 	"github.com/EgorFray/fdword/internal/handlers"
 	"github.com/EgorFray/fdword/internal/service"
@@ -33,9 +34,13 @@ func main() {
 	userService := user.NewUserService(userRepo)
 	userHandler := user.NewUserHandler(userService)
 
+	// Auth
+	authHandler := auth.NewAuthHandler(config)
+
 	r := gin.Default()
 	r.Use(cors.New(cfg.CorsConfig()))
 	r.POST("/format", handler.FormatDoc)
+	r.GET("/auth/google/login", authHandler.GoogleLogin)
 	r.GET("/test/create-user", userHandler.TestCreateUser)
 	r.Run(":8080")
 }
