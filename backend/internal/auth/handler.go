@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/EgorFray/fdword/config"
+	"github.com/EgorFray/fdword/internal/user"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -11,9 +12,10 @@ import (
 
 type AuthHandler struct {
 	googleOAuthConfig *oauth2.Config
+	userService *user.UserService
 }
 
-func NewAuthHandler(cfg *config.Config) *AuthHandler {
+func NewAuthHandler(cfg *config.Config, userService *user.UserService) *AuthHandler {
 	googleOAuthConfig := &oauth2.Config{
 		ClientID: cfg.GoogleClientID,
 		ClientSecret: cfg.GoogleClientSecret,
@@ -28,6 +30,7 @@ func NewAuthHandler(cfg *config.Config) *AuthHandler {
 
 	return &AuthHandler{
 		googleOAuthConfig: googleOAuthConfig,
+		userService: userService,
 	}
 }
 

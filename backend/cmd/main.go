@@ -35,7 +35,7 @@ func main() {
 	userHandler := user.NewUserHandler(userService)
 
 	// Auth
-	authHandler := auth.NewAuthHandler(config)
+	authHandler := auth.NewAuthHandler(config, userService)
 
 	r := gin.Default()
 	r.Use(cors.New(cfg.CorsConfig()))
