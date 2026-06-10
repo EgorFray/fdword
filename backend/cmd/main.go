@@ -41,6 +41,7 @@ func main() {
 	r.Use(cors.New(cfg.CorsConfig()))
 	r.POST("/format", handler.FormatDoc)
 	r.GET("/auth/google/login", authHandler.GoogleLogin)
+	r.GET("/auth/google/callback", authHandler.GoogleCallback)
 	r.GET("/test/create-user", userHandler.TestCreateUser)
 	r.Run(":8080")
 }
