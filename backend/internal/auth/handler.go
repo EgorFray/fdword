@@ -14,6 +14,7 @@ import (
 type AuthHandler struct {
 	googleOAuthConfig *oauth2.Config
 	userService *user.UserService
+	cfg *config.Config
 }
 
 func NewAuthHandler(cfg *config.Config, userService *user.UserService) *AuthHandler {
@@ -32,6 +33,7 @@ func NewAuthHandler(cfg *config.Config, userService *user.UserService) *AuthHand
 	return &AuthHandler{
 		googleOAuthConfig: googleOAuthConfig,
 		userService: userService,
+		cfg: cfg,
 	}
 }
 
@@ -97,5 +99,12 @@ func (h *AuthHandler) GoogleCallback(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, appUser)
+	jwt, err := GenerateJWT(appUser.ID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to generate jwt token"})
+		return
+	}
+
+	c.SetCookie("access_token", jwt, 60*60*24, "/", "localhost", false, true)
+	c.Redirect(http.StatusTemporaryRedirect, h.cfg.FrontendURL)
 }

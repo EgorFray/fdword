@@ -12,6 +12,7 @@ type Config struct {
 	GoogleClientID    string
 	GoogleClientSecret string
 	GoogleRedirectURL string
+	JWTSecret string
 	FrontendURL       string
 }
 
@@ -41,6 +42,12 @@ func InitConfig() *Config {
 		log.Fatal("Google redirect URL is empty")
 	}
 
+	// jwt secret key
+	jwtSecret := os.Getenv("JWT_SECRET")
+	if jwtSecret == "" {
+		log.Fatal("Jwt secret key is empty")
+	}
+
 	// frontend url
 	frontendUrl := os.Getenv("FRONTEND_URL")
 	if frontendUrl == "" {
@@ -52,6 +59,7 @@ func InitConfig() *Config {
 		GoogleClientID: googleId,
 		GoogleClientSecret: googleSecret,
 		GoogleRedirectURL: googleRedirect,
+		JWTSecret: jwtSecret,
 		FrontendURL: frontendUrl,
 	}
 }
