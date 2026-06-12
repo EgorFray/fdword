@@ -42,6 +42,7 @@ func main() {
 	r.POST("/format", handler.FormatDoc)
 	r.GET("/auth/google/login", authHandler.GoogleLogin)
 	r.GET("/auth/google/callback", authHandler.GoogleCallback)
+	r.GET("/me", authHandler.Me)
 	r.GET("/test/create-user", userHandler.TestCreateUser)
 	r.Run(":8080")
 }

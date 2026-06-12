@@ -108,3 +108,37 @@ func (h *AuthHandler) GoogleCallback(c *gin.Context) {
 	c.SetCookie("access_token", jwt, 60*60*24, "/", "localhost", false, true)
 	c.Redirect(http.StatusTemporaryRedirect, h.cfg.FrontendURL)
 }
+
+func (h *AuthHandler) Me (c *gin.Context) {
+	ctx := c.Request.Context()
+
+	tokenString, err := c.Cookie("access_token")
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "unauthorized"})
+		return
+	}
+
+	claims, err := ParseJWT(tokenString, h.cfg.JWTSecret)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid"})
+		return
+	}
+
+	appUser, err := h.userService.GetUserById(ctx, claims.UserID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to get user"})
+		return
+	}
+
+	if appUser == nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "user not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"id":         appUser.ID,
+		"email":      appUser.Email,
+		"name":       appUser.Name,
+		"avatar_url": appUser.AvatarURL,
+	})
+}

@@ -34,3 +34,8 @@ func (s *UserService) GetOrCreateUser(ctx context.Context, googleUser GoogleUser
 
 	return s.userRepo.CreateUser(ctx, newUser)
 }
+
+// Get user data by user id
+func (s *UserService) GetUserById(ctx context.Context, id int64) (*User, error) {
+	return s.userRepo.GetUserById(ctx, id)
+}
