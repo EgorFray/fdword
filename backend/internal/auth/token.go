@@ -12,6 +12,7 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
+// Generate jwt. Takes userId as input and puts it into claims.
 func GenerateJWT(userId int64) (string, error) {
 	claims := Claims{
 		UserID: userId,
@@ -26,6 +27,7 @@ func GenerateJWT(userId int64) (string, error) {
 	return token.SignedString([]byte(os.Getenv("JWT_SECRET")))
 }
 
+// Parse jwt from frontend. Gets jwt and secret key as input.
 func ParseJWT(tokenString string, secret string) (*Claims, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &Claims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(secret), nil

@@ -109,6 +109,7 @@ func (h *AuthHandler) GoogleCallback(c *gin.Context) {
 	c.Redirect(http.StatusTemporaryRedirect, h.cfg.FrontendURL)
 }
 
+// Gets authorized user information.
 func (h *AuthHandler) Me (c *gin.Context) {
 	ctx := c.Request.Context()
 
