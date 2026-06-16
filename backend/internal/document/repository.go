@@ -23,9 +23,9 @@ func (r *DocumentRepository) GetDocumentById(ctx context.Context, docId string) 
 		&document.ID, 
 		&document.UserID,
 		&document.OriginalFileName,
-		&document.FormatedFileName,
+		&document.FormattedFileName,
 		&document.OriginalFilePath,
-		&document.FormatedFilePath,
+		&document.FormattedFilePath,
 		&document.OptionsJSON,
 		&document.CreatedAt,
 	)
@@ -42,7 +42,7 @@ func (r *DocumentRepository) GetDocumentById(ctx context.Context, docId string) 
 }
 
 // Gets authorized user documents.
-func (r *DocumentRepository) GetDocumentsByUserId(ctx context.Context, userId string) ([]Document, error) {
+func (r *DocumentRepository) GetDocumentsByUserId(ctx context.Context, userId int64) ([]Document, error) {
 	query := `SELECT id, user_id, original_file_name, formated_file_name, original_file_path, formated_file_path, options_json, created_at FROM documents WHERE user_id = $1`
 
 	var documents []Document
@@ -61,9 +61,9 @@ func (r *DocumentRepository) GetDocumentsByUserId(ctx context.Context, userId st
 			&document.ID, 
 			&document.UserID,
 			&document.OriginalFileName,
-			&document.FormatedFileName,
+			&document.FormattedFileName,
 			&document.OriginalFilePath,
-			&document.FormatedFilePath,
+			&document.FormattedFilePath,
 			&document.OptionsJSON,
 			&document.CreatedAt,
 		)
@@ -74,6 +74,10 @@ func (r *DocumentRepository) GetDocumentsByUserId(ctx context.Context, userId st
 
 		documents = append(documents, document)
 	}
-	
+
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+
 	return documents, nil
 }

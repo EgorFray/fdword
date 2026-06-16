@@ -10,9 +10,9 @@ type Document struct {
 	ID int64
 	UserID int64
 	OriginalFileName string
-	FormatedFileName string
+	FormattedFileName string
 	OriginalFilePath string
-	FormatedFilePath string
+	FormattedFilePath string
 	OptionsJSON json.RawMessage
 	CreatedAt time.Time
 }
