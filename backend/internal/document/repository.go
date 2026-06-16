@@ -81,3 +81,54 @@ func (r *DocumentRepository) GetDocumentsByUserId(ctx context.Context, userId in
 
 	return documents, nil
 }
+
+// Save authorized user document in the db
+func (r *DocumentRepository) CreateDocument(ctx context.Context, doc Document) (*Document, error) {
+	query := `INSERT INTO documents (
+		user_id,
+		original_file_name,
+		formatted_file_name,
+		original_file_path,
+		formatted_file_path,
+		options_json
+	)
+	VALUES ($1, $2, $3, $4, $5, $6)
+	RETURNING 
+		id, 
+		user_id, 
+		original_file_name,
+		formatted_file_name,
+		original_file_path,
+		formatted_file_path,
+		options_json,
+		created_at
+	`
+
+	var created Document
+
+	err := r.db.QueryRowContext(
+		ctx, 
+		query, 
+		doc.UserID, 
+		doc.OriginalFileName,
+		doc.FormattedFilePath,
+		doc.OriginalFilePath,
+		doc.FormattedFilePath,
+		doc.OptionsJSON,
+	).Scan(
+		&created.ID,
+		&created.UserID,
+		&created.OriginalFileName,
+		&created.FormattedFileName,
+		&created.OriginalFilePath,
+		&created.FormattedFilePath,
+		&created.OptionsJSON,
+		&created.CreatedAt,
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &created, nil
+}
