@@ -40,3 +40,40 @@ func (r *DocumentRepository) GetDocumentById(ctx context.Context, docId string) 
 
 	return &document, nil
 }
+
+// Gets authorized user documents.
+func (r *DocumentRepository) GetDocumentsByUserId(ctx context.Context, userId string) ([]Document, error) {
+	query := `SELECT id, user_id, original_file_name, formated_file_name, original_file_path, formated_file_path, options_json, created_at FROM documents WHERE user_id = $1`
+
+	var documents []Document
+	
+	rows, err := r.db.QueryContext(ctx, query, userId)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var document Document
+
+		err := rows.Scan(
+			&document.ID, 
+			&document.UserID,
+			&document.OriginalFileName,
+			&document.FormatedFileName,
+			&document.OriginalFilePath,
+			&document.FormatedFilePath,
+			&document.OptionsJSON,
+			&document.CreatedAt,
+		)
+
+		if err != nil {
+			return nil, err
+		}
+
+		documents = append(documents, document)
+	}
+	
+	return documents, nil
+}
