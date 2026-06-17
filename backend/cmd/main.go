@@ -6,6 +6,7 @@ import (
 	cfg "github.com/EgorFray/fdword/config"
 	"github.com/EgorFray/fdword/internal/auth"
 	"github.com/EgorFray/fdword/internal/db"
+	"github.com/EgorFray/fdword/internal/document"
 	"github.com/EgorFray/fdword/internal/handlers"
 	"github.com/EgorFray/fdword/internal/service"
 	"github.com/EgorFray/fdword/internal/user"
@@ -29,6 +30,10 @@ func main() {
 	formatService := service.NewFormatService()
 	handler := handlers.NewHandler(formatService)
 
+	// Document
+	documentRepo := document.NewDocumentRepository(psqlDb)
+	documentService := document.NewDocumentService(documentRepo)
+	
 	// User
 	userRepo := user.NewUserRepository(psqlDb)
 	userService := user.NewUserService(userRepo)
