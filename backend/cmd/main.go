@@ -33,6 +33,7 @@ func main() {
 	// Document
 	documentRepo := document.NewDocumentRepository(psqlDb)
 	documentService := document.NewDocumentService(documentRepo)
+	documentHandler := document.NewDocumentHandler(documentService)
 	
 	// User
 	userRepo := user.NewUserRepository(psqlDb)
@@ -49,5 +50,9 @@ func main() {
 	r.GET("/auth/google/callback", authHandler.GoogleCallback)
 	r.GET("/me", authHandler.Me)
 	r.GET("/test/create-user", userHandler.TestCreateUser)
+
+	authorized := r.Group("/")
+	authorized.Use(auth.AuthMiddleware(config.JWTSecret))
+	authorized.GET("/me/documents", documentHandler.GetMyDocuments)
 	r.Run(":8080")
 }
