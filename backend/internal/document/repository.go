@@ -15,7 +15,7 @@ func NewDocumentRepository(db *sql.DB) *DocumentRepository {
 
 // Return specific document by docId for downloading it.
 func (r *DocumentRepository) GetDocumentById(ctx context.Context, docId string) (*Document, error) {
-	query := `SELECT id, user_id, original_file_name, formated_file_name, original_file_path, formated_file_path, options_json, created_at FROM documents WHERE id = $1` 
+	query := `SELECT id, user_id, original_file_name, formatted_file_name, original_file_path, formatted_file_path, options_json, created_at FROM documents WHERE id = $1` 
 
 	var document Document
 
@@ -43,9 +43,7 @@ func (r *DocumentRepository) GetDocumentById(ctx context.Context, docId string) 
 
 // Gets authorized user documents.
 func (r *DocumentRepository) GetDocumentsByUserId(ctx context.Context, userId int64) ([]Document, error) {
-	query := `SELECT id, user_id, original_file_name, formated_file_name, original_file_path, formated_file_path, options_json, created_at FROM documents WHERE user_id = $1`
-
-	var documents []Document
+	query := `SELECT id, user_id, original_file_name, formatted_file_name, original_file_path, formatted_file_path, options_json, created_at FROM documents WHERE user_id = $1`
 	
 	rows, err := r.db.QueryContext(ctx, query, userId)
 	if err != nil {
@@ -53,6 +51,8 @@ func (r *DocumentRepository) GetDocumentsByUserId(ctx context.Context, userId in
 	}
 
 	defer rows.Close()
+
+	documents := make([]Document, 0)
 
 	for rows.Next() {
 		var document Document

@@ -31,7 +31,7 @@ func (h *DocumentHandler) GetMyDocuments(c *gin.Context) {
 
 	documents, err := h.docService.GetDocumentsByUserId(ctx, userId)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to get documents"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
 	}
 
