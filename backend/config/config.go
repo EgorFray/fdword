@@ -14,6 +14,7 @@ type Config struct {
 	GoogleRedirectURL string
 	JWTSecret string
 	FrontendURL       string
+	StoragePath string
 }
 
 func InitConfig() *Config {
@@ -54,6 +55,12 @@ func InitConfig() *Config {
 		log.Fatal("Frontend URL is empty")
 	}
 
+	// storage path for user files
+	storagePath := os.Getenv("STORAGE_PATH")
+	if storagePath == "" {
+		log.Fatal("Storage path is empty")
+	}
+
 	return &Config{
 		PsqlConnUri: databaseURL,
 		GoogleClientID: googleId,
@@ -61,6 +68,7 @@ func InitConfig() *Config {
 		GoogleRedirectURL: googleRedirect,
 		JWTSecret: jwtSecret,
 		FrontendURL: frontendUrl,
+		StoragePath: storagePath,
 	}
 }
 
