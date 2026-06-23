@@ -9,6 +9,7 @@ import (
 	"github.com/EgorFray/fdword/internal/document"
 	"github.com/EgorFray/fdword/internal/handlers"
 	"github.com/EgorFray/fdword/internal/service"
+	"github.com/EgorFray/fdword/internal/storage"
 	"github.com/EgorFray/fdword/internal/user"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -26,10 +27,6 @@ func main() {
 
 	defer psqlDb.Close()
 
-	// Formating
-	formatService := service.NewFormatService()
-	handler := handlers.NewHandler(formatService)
-
 	// Document
 	documentRepo := document.NewDocumentRepository(psqlDb)
 	documentService := document.NewDocumentService(documentRepo)
@@ -43,9 +40,16 @@ func main() {
 	// Auth
 	authHandler := auth.NewAuthHandler(config, userService)
 
+	// Storage
+	localStorage := storage.NewLocalStorage(config.StoragePath)
+
+	// Formating
+	formatService := service.NewFormatService()
+	handler := handlers.NewHandler(formatService, documentService, localStorage)
+
 	r := gin.Default()
 	r.Use(cors.New(cfg.CorsConfig()))
-	r.POST("/format", handler.FormatDoc)
+	r.POST("/format", auth.OptionalAuthMiddleware(config.JWTSecret), handler.FormatDoc)
 	r.GET("/auth/google/login", authHandler.GoogleLogin)
 	r.GET("/auth/google/callback", authHandler.GoogleCallback)
 	r.GET("/me", authHandler.Me)

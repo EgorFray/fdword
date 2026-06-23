@@ -5,7 +5,9 @@ import (
 	"io"
 	"net/http"
 
+	"github.com/EgorFray/fdword/internal/document"
 	"github.com/EgorFray/fdword/internal/dto"
+	"github.com/EgorFray/fdword/internal/storage"
 	"github.com/EgorFray/fdword/internal/validation"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -16,12 +18,19 @@ type FormatServiceInterface interface {
 }
 
 type Handler struct {
-	Service FormatServiceInterface
+	formatService FormatServiceInterface
+	documentService *document.DocumentService
+	localStorage *storage.LocalStorage
 	Validator *validator.Validate
 }
 
-func NewHandler(s FormatServiceInterface) *Handler {
-	return &Handler{Service: s, Validator: validation.New()}
+func NewHandler(s FormatServiceInterface, docService *document.DocumentService, locStorage *storage.LocalStorage) *Handler {
+	return &Handler{
+		formatService: s, 
+		documentService: docService,
+		localStorage: locStorage,
+		Validator: validation.New(),
+	}
 }
 
 func (h *Handler) FormatDoc(c *gin.Context) {
@@ -62,7 +71,7 @@ func (h *Handler) FormatDoc(c *gin.Context) {
 	}
 
 	// Call the service
-	result, err := h.Service.FormatDoc(fileBytes, req)
+	result, err := h.formatService.FormatDoc(fileBytes, req)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
