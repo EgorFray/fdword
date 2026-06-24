@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 
@@ -11,6 +12,7 @@ import (
 	"github.com/EgorFray/fdword/internal/validation"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"github.com/google/uuid"
 )
 
 type FormatServiceInterface interface {
@@ -75,6 +77,46 @@ func (h *Handler) FormatDoc(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
+	}
+
+	// Check if there is userId
+	// If user is authorized - save original and formatted document to history.
+	userIdValue, exists := c.Get("userId")
+	if exists {
+		userId, ok := userIdValue.(int64)
+		if !ok {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "invalid user id"})
+			return
+		}
+
+		storageId := uuid.NewString()
+		originalPath := fmt.Sprintf("user_%d/%s/original.docx", userId, storageId)
+		formattedPath := fmt.Sprintf("user_%d/%s/formatted.docx", userId, storageId)
+
+		// Save original file
+		if err := h.localStorage.Save(originalPath, fileBytes); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to save original file"})
+			return
+		}
+
+		// Sav formatted file
+		if err := h.localStorage.Save(formattedPath, result); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to save formatted file"})
+			return
+		}
+
+		// This is for options - what params change in the app
+		optionsJson, err := json.Marshal(req)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to marshal options"})
+			return
+		}
+
+		_, err = h.documentService.CreateDocument(c, document.Document{
+			UserID: userId,
+			OriginalFileName: fileHeader.Filename,
+		})
+
 	}
 
 	c.Header("Content-Type", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
