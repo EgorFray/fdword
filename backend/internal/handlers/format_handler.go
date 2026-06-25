@@ -114,7 +114,8 @@ func (h *Handler) FormatDoc(c *gin.Context) {
 
 		_, err = h.documentService.CreateDocument(c, document.Document{
 			UserID: userId,
-			OriginalFileName: fileHeader.Filename,
+			OriginalFileName: file.Filename,
+			FormattedFileName: ,
 		})
 
 	}
