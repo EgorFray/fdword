@@ -8,6 +8,7 @@ import (
 
 	"github.com/EgorFray/fdword/internal/document"
 	"github.com/EgorFray/fdword/internal/dto"
+	"github.com/EgorFray/fdword/internal/helpers"
 	"github.com/EgorFray/fdword/internal/storage"
 	"github.com/EgorFray/fdword/internal/validation"
 	"github.com/gin-gonic/gin"
@@ -115,13 +116,19 @@ func (h *Handler) FormatDoc(c *gin.Context) {
 		_, err = h.documentService.CreateDocument(c, document.Document{
 			UserID: userId,
 			OriginalFileName: file.Filename,
-			FormattedFileName: ,
+			FormattedFileName: helpers.MakeFormattedFileName(file.Filename),
+			OriginalFilePath: originalPath,
+			FormattedFilePath: formattedPath,
+			OptionsJSON: optionsJson,
 		})
 
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create document history"})
+		}
 	}
 
 	c.Header("Content-Type", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-  c.Header("Content-Disposition", "attachment; filename=formatted.docx")
+	c.Header("Content-Disposition", `attachment; filename="`+helpers.MakeFormattedFileName(file.Filename)+`"`)
 
 	c.Data(http.StatusOK, 
 			"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
