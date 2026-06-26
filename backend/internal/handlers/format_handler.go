@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"path/filepath"
+	"strings"
 
 	"github.com/EgorFray/fdword/internal/document"
 	"github.com/EgorFray/fdword/internal/dto"
@@ -91,8 +93,22 @@ func (h *Handler) FormatDoc(c *gin.Context) {
 		}
 
 		storageId := uuid.NewString()
-		originalPath := fmt.Sprintf("user_%d/%s/original.docx", userId, storageId)
-		formattedPath := fmt.Sprintf("user_%d/%s/formatted.docx", userId, storageId)
+
+		// This is for user-friendly file name in the storage
+		originalFileName := filepath.Base(file.Filename)
+		if originalFileName == "." || originalFileName == "/" || originalFileName == "" {
+			originalFileName = "document.docx"
+		}
+
+		if strings.ToLower(filepath.Ext(originalFileName)) != ".docx" {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "only .docx files are allowed"})
+			return
+		}
+		// User-friendly formatted file name in the storage
+		formattedFileName := helpers.MakeFormattedFileName(originalFileName)
+		// Path to the storage
+		originalPath := fmt.Sprintf("user_%d/%s/%s", userId, storageId, originalFileName)
+		formattedPath := fmt.Sprintf("user_%d/%s/%s", userId, storageId, formattedFileName)
 
 		// Save original file
 		if err := h.localStorage.Save(originalPath, fileBytes); err != nil {
@@ -100,7 +116,7 @@ func (h *Handler) FormatDoc(c *gin.Context) {
 			return
 		}
 
-		// Sav formatted file
+		// Save formatted file
 		if err := h.localStorage.Save(formattedPath, result); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to save formatted file"})
 			return
