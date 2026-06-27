@@ -37,3 +37,9 @@ func (h *DocumentHandler) GetMyDocuments(c *gin.Context) {
 
 	c.JSON(http.StatusOK, documents)
 }
+
+// This is for downloading original document file
+func (h *DocumentHandler) DownloadOriginal(c *gin.Context) {}
+
+// This is for downloading formatted documnt file
+func (h *DocumentHandler) DownloadFormatted(c *gin.Context) {}
