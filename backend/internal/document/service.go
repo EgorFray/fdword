@@ -10,7 +10,7 @@ func NewDocumentService(docRepo *DocumentRepository) *DocumentService {
 	return &DocumentService{documentRepository: docRepo}
 }
 
-func (s *DocumentService) GetDocumentById(ctx context.Context, docId string) (*Document, error) {
+func (s *DocumentService) GetDocumentById(ctx context.Context, docId int64) (*Document, error) {
 	return s.documentRepository.GetDocumentById(ctx, docId)
 }
 

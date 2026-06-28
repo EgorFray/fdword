@@ -14,7 +14,7 @@ func NewDocumentRepository(db *sql.DB) *DocumentRepository {
 }
 
 // Return specific document by docId for downloading it.
-func (r *DocumentRepository) GetDocumentById(ctx context.Context, docId string) (*Document, error) {
+func (r *DocumentRepository) GetDocumentById(ctx context.Context, docId int64) (*Document, error) {
 	query := `SELECT id, user_id, original_file_name, formatted_file_name, original_file_path, formatted_file_path, options_json, created_at FROM documents WHERE id = $1` 
 
 	var document Document
