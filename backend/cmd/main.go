@@ -27,11 +27,6 @@ func main() {
 
 	defer psqlDb.Close()
 
-	// Document
-	documentRepo := document.NewDocumentRepository(psqlDb)
-	documentService := document.NewDocumentService(documentRepo)
-	documentHandler := document.NewDocumentHandler(documentService)
-	
 	// User
 	userRepo := user.NewUserRepository(psqlDb)
 	userService := user.NewUserService(userRepo)
@@ -42,6 +37,11 @@ func main() {
 
 	// Storage
 	localStorage := storage.NewLocalStorage(config.StoragePath)
+
+		// Document
+	documentRepo := document.NewDocumentRepository(psqlDb)
+	documentService := document.NewDocumentService(documentRepo)
+	documentHandler := document.NewDocumentHandler(documentService, localStorage)
 
 	// Formating
 	formatService := service.NewFormatService()
@@ -58,5 +58,8 @@ func main() {
 	authorized := r.Group("/")
 	authorized.Use(auth.AuthMiddleware(config.JWTSecret))
 	authorized.GET("/me/documents", documentHandler.GetMyDocuments)
+	authorized.GET("/documents/:id/original", documentHandler.DownloadOriginal)
+	authorized.GET("/documents/:id/formatted", documentHandler.DownloadFormatted)
+
 	r.Run(":8080")
 }

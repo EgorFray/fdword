@@ -13,8 +13,8 @@ type DocumentHandler struct {
 	storage *storage.LocalStorage
 }
 
-func NewDocumentHandler(documentService *DocumentService) *DocumentHandler {
-	return &DocumentHandler{docService: documentService}
+func NewDocumentHandler(documentService *DocumentService, storage *storage.LocalStorage) *DocumentHandler {
+	return &DocumentHandler{docService: documentService, storage: storage}
 }
 
 func (h *DocumentHandler) GetMyDocuments(c *gin.Context) {
