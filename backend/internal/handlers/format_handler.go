@@ -2,13 +2,20 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
+	"path/filepath"
+	"strings"
 
+	"github.com/EgorFray/fdword/internal/document"
 	"github.com/EgorFray/fdword/internal/dto"
+	"github.com/EgorFray/fdword/internal/helpers"
+	"github.com/EgorFray/fdword/internal/storage"
 	"github.com/EgorFray/fdword/internal/validation"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"github.com/google/uuid"
 )
 
 type FormatServiceInterface interface {
@@ -16,12 +23,19 @@ type FormatServiceInterface interface {
 }
 
 type Handler struct {
-	Service FormatServiceInterface
+	formatService FormatServiceInterface
+	documentService *document.DocumentService
+	localStorage *storage.LocalStorage
 	Validator *validator.Validate
 }
 
-func NewHandler(s FormatServiceInterface) *Handler {
-	return &Handler{Service: s, Validator: validation.New()}
+func NewHandler(s FormatServiceInterface, docService *document.DocumentService, locStorage *storage.LocalStorage) *Handler {
+	return &Handler{
+		formatService: s, 
+		documentService: docService,
+		localStorage: locStorage,
+		Validator: validation.New(),
+	}
 }
 
 func (h *Handler) FormatDoc(c *gin.Context) {
@@ -62,14 +76,75 @@ func (h *Handler) FormatDoc(c *gin.Context) {
 	}
 
 	// Call the service
-	result, err := h.Service.FormatDoc(fileBytes, req)
+	result, err := h.formatService.FormatDoc(fileBytes, req)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
+	// Check if there is userId
+	// If user is authorized - save original and formatted document to history.
+	userIdValue, exists := c.Get("userId")
+	if exists {
+		userId, ok := userIdValue.(int64)
+		if !ok {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "invalid user id"})
+			return
+		}
+
+		storageId := uuid.NewString()
+
+		// This is for user-friendly file name in the storage
+		originalFileName := filepath.Base(file.Filename)
+		if originalFileName == "." || originalFileName == "/" || originalFileName == "" {
+			originalFileName = "document.docx"
+		}
+
+		if strings.ToLower(filepath.Ext(originalFileName)) != ".docx" {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "only .docx files are allowed"})
+			return
+		}
+		// User-friendly formatted file name in the storage
+		formattedFileName := helpers.MakeFormattedFileName(originalFileName)
+		// Path to the storage
+		originalPath := fmt.Sprintf("user_%d/%s/%s", userId, storageId, originalFileName)
+		formattedPath := fmt.Sprintf("user_%d/%s/%s", userId, storageId, formattedFileName)
+
+		// Save original file
+		if err := h.localStorage.Save(originalPath, fileBytes); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to save original file"})
+			return
+		}
+
+		// Save formatted file
+		if err := h.localStorage.Save(formattedPath, result); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to save formatted file"})
+			return
+		}
+
+		// This is for options - what params change in the app
+		optionsJson, err := json.Marshal(req)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to marshal options"})
+			return
+		}
+
+		_, err = h.documentService.CreateDocument(c, document.Document{
+			UserID: userId,
+			OriginalFileName: file.Filename,
+			FormattedFileName: helpers.MakeFormattedFileName(file.Filename),
+			OriginalFilePath: originalPath,
+			FormattedFilePath: formattedPath,
+			OptionsJSON: optionsJson,
+		})
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create document history"})
+		}
+	}
+
 	c.Header("Content-Type", "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-  c.Header("Content-Disposition", "attachment; filename=formatted.docx")
+	c.Header("Content-Disposition", `attachment; filename="`+helpers.MakeFormattedFileName(file.Filename)+`"`)
 
 	c.Data(http.StatusOK, 
 			"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
